@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 
-ArrayList arlist = new ArrayList(); 
-
 // Tokens t = new Tokens("b", "a", 1);
 
 // // Example #1
@@ -15,15 +13,43 @@ ArrayList arlist = new ArrayList();
 // Example #2
 // Read each line of the file into a string array. Each element
 // of the array is one line of the file.
-string[] lines = System.IO.File.ReadAllLines(@".\res\SOURCE_CODE.txt");
+string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
 
 // // Display the file contents by using a foreach loop.
 // System.Console.WriteLine("Contents of WriteLines2.txt = ");
+ArrayList arlist = new ArrayList();
+char[] breakers = { '(',')','[',']','{','}',                      // punctuators
+                    ' ',';',':','"','~','\'',                    // punctuators
+                    '+','-','*','/','%','<','>','=','!'};       // operators
+
+string word = "";
 foreach (string line in lines)
 {
-    // LOGIC FOR CODE CHECKING
-
+    foreach (char ch in line+" ")
+    {
+        if (breakers.Contains(ch))
+        {
+            if (word!="") 
+            {
+               arlist.Add(word);
+               word="";
+            }
+            if (ch==' ')
+            {
+                continue;
+            }
+            arlist.Add(ch);            
+            continue;
+        }
+        word = word + ch;
+    }
 }
+
+foreach (string item in arlist)
+{
+    System.Console.WriteLine(item);
+}
+
 
 // // Keep the console window open in debug mode.
 // Console.WriteLine("Press any key to exit.");
