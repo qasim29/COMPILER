@@ -17,8 +17,8 @@
 
 ## LANGUAGE KEYWORDS
 
-![LANGUAGE KEYWORDS](res\keywords.jpeg)
-![LANGUAGE KEYWORDS](res\keywords2.jpeg)
-![LANGUAGE KEYWORDS](res\keywords3.jpeg)
+![LANGUAGE KEYWORDS](https://github.com/qasim29/Language_Compiler/blob/master/res/keywords.jpeg)
+![LANGUAGE KEYWORDS](https://github.com/qasim29/Language_Compiler/blob/master/res/keywords2.jpeg)
+![LANGUAGE KEYWORDS](https://github.com/qasim29/Language_Compiler/blob/master/res/keywords3.jpeg)
 
 
