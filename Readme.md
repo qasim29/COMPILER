@@ -3,13 +3,13 @@
 
 ## LANGUAGE DETAILS
 
-- Implements OOP Concept
+- Implements OOP Concepts
 
-- All Data Types are reference type 
+- All Data Types are Reference type 
 
-- Multiple class inheritance supported
+- Multiple class Inheritance supported
 
-- Dynamic + static Structure (Both)
+- Dynamic + Static Structure (Both)
 
 - Main method as program entry point
 
