@@ -25,14 +25,14 @@ string word = "";
 foreach (string line in lines)
 {
     string l = line + " ";
-    for (int i = 0; i < l.Length - 1; i++)
+    for (int i = 0; i <= l.Length - 1; i++)
     {
         //this condition is for the comment 
         if (l[i] == '$') break;
 
         if (breakers.Contains(l[i]))
         {
-            if (line[i] == '"')
+            if (l[i] == '"')
             {
                 int istart = i;
                 if (word != "")
@@ -67,6 +67,7 @@ foreach (string line in lines)
                 }
                 arlist.Add(word);
                 word = "";
+                i--;
                 continue;
             }
             if (word != "")
@@ -78,7 +79,6 @@ foreach (string line in lines)
             {
                 continue;
             }
-
             arlist.Add(l[i].ToString());
             continue;
         }
