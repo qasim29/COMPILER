@@ -1,4 +1,5 @@
-﻿using System;
+﻿// 1:30  started earphnes
+using System;
 using System.Collections;
 
 // Tokens t = new Tokens("b", "a", 1);
@@ -10,38 +11,78 @@ using System.Collections;
 // // Display the file contents to the console. Variable text is a string.
 // System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
 
-// Example #2
-// Read each line of the file into a string array. Each element
-// of the array is one line of the file.
 string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
 
 // // Display the file contents by using a foreach loop.
 // System.Console.WriteLine("Contents of WriteLines2.txt = ");
 ArrayList arlist = new ArrayList();
 char[] breakers = { '(',')','[',']','{','}',                      // punctuators
-                    ' ',';',':','"','~','\'',                    // punctuators
+                    ' ',';',':','"','~','\'',',',                // punctuators
                     '+','-','*','/','%','<','>','=','!'};       // operators
 
 string word = "";
+
 foreach (string line in lines)
 {
-    foreach (char ch in line+" ")
+    string l = line + " ";
+    for (int i = 0; i < l.Length - 1; i++)
     {
-        if (breakers.Contains(ch))
+        //this condition is for the comment 
+        if (l[i] == '$') break;
+
+        if (breakers.Contains(l[i]))
         {
-            if (word!="") 
+            if (line[i] == '"')
             {
-               arlist.Add(word);
-               word="";
+                int istart = i;
+                if (word != "")
+                {
+                    arlist.Add(word);
+                    word = "" + line[i];
+                    i++;
+                }
+                else{
+                    word = "" + line[i];
+                    i++;
+                }
+                char ch = ' ';
+                while (ch != '"' && i < l.Length - 1)
+                {
+                    if (line[i] == '\\')
+                    {
+                        ch = line[i];
+                        word += ch;
+                        i++;
+                    }
+                    ch = line[i];
+                    word += ch;
+                    i++;
+                }
+                if (i == l.Length)
+                {
+                    word = word.Substring(istart, i - 1);
+                    arlist.Add(word);
+                    word = "";
+                    break;
+                }
+                arlist.Add(word);
+                word = "";
+                continue;
             }
-            if (ch==' ')
+            if (word != "")
+            {
+                arlist.Add(word);
+                word = "";
+            }
+            if (l[i] == ' ')
             {
                 continue;
             }
-            arlist.Add(ch);            
+
+            arlist.Add(l[i].ToString());
             continue;
         }
-        word = word + ch;
+        word = word + l[i];
     }
 }
 
@@ -57,3 +98,28 @@ foreach (string item in arlist)
 
 
 
+
+
+
+// BREAKER DIFFERENT APPROACH
+
+// //this condition is for the comment 
+// if (l[i] == '$') break;
+
+// if (breakers.Contains(l[i]))
+// {
+//     if (l[i] == ' ')
+//     {
+//         if (word == "") continue;
+//         arlist.Add(word);
+//         word = "";
+
+//     }
+//     else
+//     {
+//         if (word != "") arlist.Add(word);
+//         word ="";
+//         arlist.Add(l[i].ToString());
+
+//     }
+//     continue;
