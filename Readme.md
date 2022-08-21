@@ -18,6 +18,7 @@
 ## LANGUAGE KEYWORDS
 
 ![LANGUAGE KEYWORDS](res\keywords.jpeg)
-![LANGUAGE KEYWORDS](image.png)
+![LANGUAGE KEYWORDS](res\keywords2.jpeg)
+![LANGUAGE KEYWORDS](res\keywords3.jpeg)
 
 
