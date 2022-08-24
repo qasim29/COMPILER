@@ -1,4 +1,14 @@
+# DOT(.) Test Cases 
+$
+23.23.ab;
+23.23.23;
+.23;
+23.243;
+92.ab;
+math.pi();
+$
 
+# MULTI LINE comment
 $ 
 this 
 is 
@@ -7,20 +17,40 @@ line
 comment 
 $
 
-'abcs
-'\a
-'\'a
-'\''a
-'a'
-
-
+# CHARACTER TEST CASES
 $
-string word = "";
+'abcs;
+'\a;
+'\'a;
+'\''a;
+'a';
+$
 
+
+# STRING TEST CASES 
+$
+"";
+"ABDS";
+"ABDS
+"\"a
+"A\"";
+"\  Q";"A";
+$
+
+
+# RELATONAL OPERATORS TEST CASES
+$
+if(word<="");
+""!= ;
+== "";
+9>=9;
+$
+
+# RANDOM Test Cases
+$
+string word = '\'';
 if(word<=""){
-
 }
-
 char ch;
 int i;
 bool flag=false;

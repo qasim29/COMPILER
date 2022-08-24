@@ -31,6 +31,47 @@ foreach (string line in lines)
 
         if (l[i] == '#') break;                            // This condition is for the SINGLE LINE comment
 
+        if (l[i] == '.')
+        {
+            bool isNumeric;
+            if(word!="") isNumeric = int.TryParse(word, out _);
+            else isNumeric=true;
+            
+            if (isNumeric)
+            {
+                AddCharacter(l[i]);
+                isNumeric = int.TryParse(l[i].ToString(), out _);
+                if (isNumeric)
+                {
+                    while (!breakers.Contains(l[i]) && l[i]!='.')
+                    {
+                        AddCharacter(l[i]);
+                    }
+                    createWord(word);
+                    i--;
+                    continue;
+                }
+                else{
+                    createWord(word);
+                    AddCharacter(l[i]);
+                    i--;
+                    continue;
+                }
+            }
+            else
+            {
+                createWord(word);
+                isNumeric = int.TryParse(l[i + 1].ToString(), out _);
+                if (isNumeric)
+                {
+                    AddCharacter(l[i]);
+                    AddCharacter(l[i + 1]);
+                    continue;
+                }
+                createWord(l[i].ToString());
+                continue;
+            }
+        }
         if (breakers.Contains(l[i]))
         {
             if (l[i] == '"')
