@@ -5,21 +5,32 @@ string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\S
 ArrayList words = new ArrayList();
 
 char[] breakers = { '(',')','[',']','{','}',                      // punctuators
-                    ' ',';',':','"','~','\'',',',                // punctuators
+                    ' ',';',':',',','\'','"',                // punctuators
                     '+','-','*','/','%','<','>','=','!'};       // operators
 
 string word = "";
 char ch;
 int i;
-
+bool flag=false;
 foreach (string line in lines)
 {
     string l = line + " ";
     for (i = 0; i <= l.Length - 1; i++)
     {
         //this condition is for the comment 
-        if (l[i] == '$') break;
+        if (l[i] == '$' || flag==true){
+            int index;
+            if(flag==true) index=l.IndexOf('$',i);  
+            else index=l.IndexOf('$',i+1);
+            
+            if (index ==-1){ flag=true; break; }
+            
+            i=index+1;
+            flag=false;
+        }
 
+        if (l[i] == '#') break;
+        
         if (breakers.Contains(l[i]))
         {
             if (l[i] == '"')
@@ -124,7 +135,6 @@ void createWord(string w)
 
 //     return i;
 // }
-
 
 
         // BREAKER DIFFERENT APPROACH

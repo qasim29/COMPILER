@@ -1,10 +1,16 @@
-pass 
-"\" 
-"\
-word
-a""a not pass
-\waos
-"\""
-"\"""
+
+$ 
+this 
+is 
+multi 
+line 
+comment 
+$
+
+string word = "";
+char ch;
+int i;
+bool flag=false;
+
 
 
