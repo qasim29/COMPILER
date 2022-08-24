@@ -1,31 +1,21 @@
-﻿// 1:30  started earphnes
-using System;
-using System.Collections;
-
-// Tokens t = new Tokens("b", "a", 1);
-
-// // Example #1
-// // Read the file as one string.
-// string text = System.IO.File.ReadAllText(@"C:\Users\Public\TestFolder\WriteText.txt");
-
-// // Display the file contents to the console. Variable text is a string.
-// System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+﻿using System.Collections;
 
 string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
 
-// // Display the file contents by using a foreach loop.
-// System.Console.WriteLine("Contents of WriteLines2.txt = ");
-ArrayList arlist = new ArrayList();
+ArrayList words = new ArrayList();
+
 char[] breakers = { '(',')','[',']','{','}',                      // punctuators
                     ' ',';',':','"','~','\'',',',                // punctuators
                     '+','-','*','/','%','<','>','=','!'};       // operators
 
 string word = "";
+char ch;
+int i;
 
 foreach (string line in lines)
 {
     string l = line + " ";
-    for (int i = 0; i <= l.Length - 1; i++)
+    for (i = 0; i <= l.Length - 1; i++)
     {
         //this condition is for the comment 
         if (l[i] == '$') break;
@@ -34,92 +24,191 @@ foreach (string line in lines)
         {
             if (l[i] == '"')
             {
-                int istart = i;
-                if (word != "")
-                {
-                    arlist.Add(word);
-                    word = "" + line[i];
-                    i++;
-                }
-                else{
-                    word = "" + line[i];
-                    i++;
-                }
-                char ch = ' ';
+                if (word != "") {createWord(word); AddCharacter(l[i]);}
+
+                else {word = "" + l[i]; i++;}
+
+                ch = ' ';
+
                 while (ch != '"' && i < l.Length - 1)
                 {
-                    if (line[i] == '\\')
+                    if (l[i] == '\\')
                     {
-                        ch = line[i];
-                        word += ch;
-                        i++;
+                        AddCharacter(l[i]);
+                        if (i == l.Length - 1) break;          //Case: {"\ }
+
+                        AddCharacter(l[i]);
+                        ch = ' ';
+                        continue; //Added continue for this case { "\" }
                     }
-                    ch = line[i];
-                    word += ch;
-                    i++;
+                    AddCharacter(l[i]);
                 }
-                if (i == l.Length)
-                {
-                    word = word.Substring(istart, i - 1);
-                    arlist.Add(word);
-                    word = "";
-                    break;
-                }
-                arlist.Add(word);
-                word = "";
+                createWord(word);
                 i--;
                 continue;
             }
-            if (word != "")
-            {
-                arlist.Add(word);
-                word = "";
-            }
-            if (l[i] == ' ')
-            {
-                continue;
-            }
-            arlist.Add(l[i].ToString());
+            if (word != "") createWord(word);
+
+            if (l[i] == ' ') continue;
+
+            words.Add(l[i].ToString());
             continue;
         }
         word = word + l[i];
     }
 }
 
-foreach (string item in arlist)
+foreach (string item in words)
 {
     System.Console.WriteLine(item);
 }
 
+void AddCharacter(char character)
+{
+    ch = character;
+    word += character;
+    i++;
+}
 
-// // Keep the console window open in debug mode.
-// Console.WriteLine("Press any key to exit.");
-// System.Console.ReadKey();
+void createWord(string w)
+{
+    words.Add(w);
+    word= "";
+}
 
 
 
 
 
 
-// BREAKER DIFFERENT APPROACH
 
+
+// int validateString(int i, string l)
+// {
+
+//     int istart = i;
+//     if (word != "")
+//     {
+//         arlist.Add(word);
+//         word = "" + l[i];
+//         i++;
+//     }
+//     else
+//     {
+//         word = "" + l[i];
+//         i++;
+//     }
+//     char ch = ' ';
+//     while (ch != '"' && i < l.Length - 1)
+//     {
+//         if (l[i] == '\\')
+//         {
+//             ch = l[i];
+//             word += ch;
+//             i++;
+//         }
+//         ch = l[i];
+//         word += ch;
+//         i++;
+//     }
+//     if (i == l.Length)
+//     {
+//         word = word.Substring(istart, i - 1);
+//         arlist.Add(word);
+//         word = "";
+//         break;
+//     }
+//     arlist.Add(word);
+//     i--;
+
+
+//     return i;
+// }
+
+
+
+        // BREAKER DIFFERENT APPROACH
 // //this condition is for the comment 
 // if (l[i] == '$') break;
 
 // if (breakers.Contains(l[i]))
 // {
-//     if (l[i] == ' ')
-//     {
-//         if (word == "") continue;
-//         arlist.Add(word);
-//         word = "";
+// if (l[i] == ' ')
+// {
+//     if (word == "") continue;
+//     arlist.Add(word);
+//     word = "";
 
-//     }
-//     else
-//     {
-//         if (word != "") arlist.Add(word);
-//         word ="";
-//         arlist.Add(l[i].ToString());
+// }
+// else
+// {
+//     if (word != "") arlist.Add(word);
+//     word ="";
+//     arlist.Add(l[i].ToString());
 
+// }
+// continue;
+
+
+
+        //  THIS IS WORKING CODE
+// char ch = ' ';
+
+// if (word != "") word = createWord(word)+l[i];
+
+// else word = "" + l[i];
+
+// i++;
+
+// while (ch != '"' && i < l.Length - 1)
+// {
+//     if (l[i] == '\\')
+//     {
+//         ch = l[i];
+//         word += ch;
+//         i++;  
+//         if(i==l.Length-1) break;          //Case: {"\ }
+
+//         ch = l[i];
+//         word += ch;
+//         i++;
+//         ch=' ';
+//         continue; //Added continue for this case { "\" }
 //     }
-//     continue;
+//     ch = l[i];
+//     word += ch;
+//     i++;
+// }
+// word = createWord(word);
+// i--;
+// continue;
+
+
+
+        //  LEFT IN BETWEEN  left cases "" 
+// // char ch = ' ';
+
+// if (word != "") word = createWord(word)+l[i];
+
+// else word = "" + l[i];
+
+// i++;
+
+// while (l[i] != '"' && i < l.Length - 1)
+// {
+//     if (l[i] == '\\')
+//     {
+//         word += l[i];
+//         i++;  
+//         if(i==l.Length-1) break;          //Case: {"\ }
+
+//         word += l[i];
+//         i++;
+//         continue; //Added continue for this case { "\" }
+//     }
+//     word += l[i];
+//     i++;
+// }
+// word = createWord(word);
+// i--;
+// continue;

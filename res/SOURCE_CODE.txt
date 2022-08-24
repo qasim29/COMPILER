@@ -1,6 +1,10 @@
-hello my name is computer
-
-
-
+pass 
+"\" 
+"\
+word
+a""a not pass
+\waos
+"\""
+"\"""
 
 
