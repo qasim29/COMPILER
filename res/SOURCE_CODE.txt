@@ -7,13 +7,20 @@ line
 comment 
 $
 
+'abcs
+'\a
+'\'a
+'\''a
+'a'
+
+
+$
 string word = "";
 
 if(word<=""){
 
 }
 
-$
 char ch;
 int i;
 bool flag=false;
