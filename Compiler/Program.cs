@@ -4,40 +4,40 @@ string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\S
 
 ArrayList words = new ArrayList();
 
-char[] breakers = { '(',')','[',']','{','}',                      // punctuators
-                    ' ',';',':',',','\'','"',                // punctuators
-                    '+','-','*','/','%','<','>','=','!'};       // operators
+char[] breakers = { '(',')','[',']','{','}',';',':',',',                 // punctuators  
+                    '+','-','*','/','%','<','>','=','!',                // operators
+                    ' ','\'','"' };
 
 string word = "";
 char ch;
 int i;
-bool flag=false;
+bool flag = false;
 foreach (string line in lines)
 {
     string l = line + " ";
     for (i = 0; i <= l.Length - 1; i++)
     {
-        //this condition is for the comment 
-        if (l[i] == '$' || flag==true){
+        if (l[i] == '$' || flag == true)                    // This condition is for the MULTI LINE comment
+        {
             int index;
-            if(flag==true) index=l.IndexOf('$',i);  
-            else index=l.IndexOf('$',i+1);
-            
-            if (index ==-1){ flag=true; break; }
-            
-            i=index+1;
-            flag=false;
+            if (flag == true) index = l.IndexOf('$', i);
+            else index = l.IndexOf('$', i + 1);
+
+            if (index == -1) { flag = true; break; }
+
+            i = index + 1;
+            flag = false;
         }
 
-        if (l[i] == '#') break;
-        
+        if (l[i] == '#') break;                          // This condition is for the SINGLE LINE comment
+
         if (breakers.Contains(l[i]))
         {
             if (l[i] == '"')
             {
-                if (word != "") {createWord(word); AddCharacter(l[i]);}
+                if (word != "") { createWord(word); AddCharacter(l[i]); }
 
-                else {word = "" + l[i]; i++;}
+                else { word = "" + l[i]; i++; }
 
                 ch = ' ';
 
@@ -62,6 +62,12 @@ foreach (string line in lines)
 
             if (l[i] == ' ') continue;
 
+            if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
+            {
+                createWord(l[i].ToString()+l[i+1].ToString());
+                i++;
+                continue;
+            }
             words.Add(l[i].ToString());
             continue;
         }
@@ -84,7 +90,7 @@ void AddCharacter(char character)
 void createWord(string w)
 {
     words.Add(w);
-    word= "";
+    word = "";
 }
 
 
@@ -137,7 +143,7 @@ void createWord(string w)
 // }
 
 
-        // BREAKER DIFFERENT APPROACH
+// BREAKER DIFFERENT APPROACH
 // //this condition is for the comment 
 // if (l[i] == '$') break;
 
@@ -161,7 +167,7 @@ void createWord(string w)
 
 
 
-        //  THIS IS WORKING CODE
+//  THIS IS WORKING CODE
 // char ch = ' ';
 
 // if (word != "") word = createWord(word)+l[i];
@@ -195,7 +201,7 @@ void createWord(string w)
 
 
 
-        //  LEFT IN BETWEEN  left cases "" 
+//  LEFT IN BETWEEN  left cases "" 
 // // char ch = ' ';
 
 // if (word != "") word = createWord(word)+l[i];

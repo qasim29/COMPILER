@@ -8,9 +8,15 @@ comment
 $
 
 string word = "";
+
+if(word<=""){
+
+}
+
+$
 char ch;
 int i;
 bool flag=false;
-
+$
 
 
