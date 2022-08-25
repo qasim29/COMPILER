@@ -1,165 +1,182 @@
 ﻿using System.Collections;
 
-string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
+// string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
 
-ArrayList words = new ArrayList();
+// ArrayList words = new ArrayList();
 
-char[] breakers = { '(',')','[',']','{','}',';',':',',',        // punctuators  
-                    '+','-','*','/','%','<','>','=','!',       // operators
-                    ' ','\'','"' };
+// char[] breakers = { '(',')','[',']','{','}',';',':',',',        // punctuators  
+//                     '+','-','*','/','%','<','>','=','!',       // operators
+//                     ' ','\'','"' };
 
-string word = "";
-char ch;
-int i;
-bool flag = false;
-foreach (string line in lines)
-{
-    string l = line + " ";
-    for (i = 0; i <= l.Length - 1; i++)
-    {
-        if (l[i] == '$' || flag == true)                    // This condition is for the MULTI LINE comment
-        {
-            int index;
-            if (flag == true) index = l.IndexOf('$', i);
-            else index = l.IndexOf('$', i + 1);
+// string word = "";
+// char ch;
+// int i;
+// bool flag = false;
+// foreach (string line in lines)
+// {
+//     string l = line + " ";
+//     for (i = 0; i <= l.Length - 1; i++)
+//     {
+//         if (l[i] == '$' || flag == true)                    // This condition is for the MULTI LINE comment
+//         {
+//             int index;
+//             if (flag == true) index = l.IndexOf('$', i);
+//             else index = l.IndexOf('$', i + 1);
 
-            if (index == -1) { flag = true; break; }
+//             if (index == -1) { flag = true; break; }
 
-            i = index + 1;
-            flag = false;
-        }
+//             i = index + 1;
+//             flag = false;
+//         }
 
-        if (l[i] == '#') break;                            // This condition is for the SINGLE LINE comment
+//         if (l[i] == '#') break;                            // This condition is for the SINGLE LINE comment
 
-        if (l[i] == '.')
-        {
-            bool isNumeric;
-            if(word!="") isNumeric = int.TryParse(word, out _);
-            else isNumeric=true;
-            
-            if (isNumeric)
-            {
-                AddCharacter(l[i]);
-                isNumeric = int.TryParse(l[i].ToString(), out _);
-                if (isNumeric)
-                {
-                    while (!breakers.Contains(l[i]) && l[i]!='.')
-                    {
-                        AddCharacter(l[i]);
-                    }
-                    createWord(word);
-                    i--;
-                    continue;
-                }
-                else{
-                    createWord(word);
-                    AddCharacter(l[i]);
-                    i--;
-                    continue;
-                }
-            }
-            else
-            {
-                createWord(word);
-                isNumeric = int.TryParse(l[i + 1].ToString(), out _);
-                if (isNumeric)
-                {
-                    AddCharacter(l[i]);
-                    AddCharacter(l[i + 1]);
-                    continue;
-                }
-                createWord(l[i].ToString());
-                continue;
-            }
-        }
-        if (breakers.Contains(l[i]))
-        {
-            if (l[i] == '"')
-            {
-                if (word != "") { createWord(word); AddCharacter(l[i]); }
+//         if (l[i] == '.')
+//         {
+//             bool isNumeric;
+//             if(word!="") isNumeric = int.TryParse(word, out _);
+//             else isNumeric=true;
 
-                else { AddCharacter(l[i]); }
+//             if (isNumeric)
+//             {
+//                 AddCharacter(l[i]);
+//                 isNumeric = int.TryParse(l[i].ToString(), out _);
+//                 if (isNumeric)
+//                 {
+//                     while (!breakers.Contains(l[i]) && l[i]!='.')
+//                     {
+//                         AddCharacter(l[i]);
+//                     }
+//                     createWord(word);
+//                     i--;
+//                     continue;
+//                 }
+//                 else{
+//                     createWord(word);
+//                     AddCharacter(l[i]);
+//                     i--;
+//                     continue;
+//                 }
+//             }
+//             else
+//             {
+//                 createWord(word);
+//                 isNumeric = int.TryParse(l[i + 1].ToString(), out _);
+//                 if (isNumeric)
+//                 {
+//                     AddCharacter(l[i]);
+//                     AddCharacter(l[i + 1]);
+//                     continue;
+//                 }
+//                 createWord(l[i].ToString());
+//                 continue;
+//             }
+//         }
+//         if (breakers.Contains(l[i]))
+//         {
+//             if (l[i] == '"')
+//             {
+//                 if (word != "") { createWord(word); AddCharacter(l[i]); }
 
-                ch = ' ';
+//                 else { AddCharacter(l[i]); }
 
-                while (ch != '"' && i < l.Length - 1)
-                {
-                    if (l[i] == '\\')
-                    {
-                        AddCharacter(l[i]);
-                        if (i == l.Length - 1) break;     //Case: {"\ }
+//                 ch = ' ';
 
-                        AddCharacter(l[i]);
-                        ch = ' ';
-                        continue;                        //Added continue for this case { "\" }
-                    }
-                    AddCharacter(l[i]);
-                }
-                createWord(word);
-                i--;
-                continue;
-            }
-            if (l[i] == '\'')
-            {
-                int count = 0;
-                if (word != "") { createWord(word); AddCharacter(l[i]); }
+//                 while (ch != '"' && i < l.Length - 1)
+//                 {
+//                     if (l[i] == '\\')
+//                     {
+//                         AddCharacter(l[i]);
+//                         if (i == l.Length - 1) break;     //Case: {"\ }
 
-                else { AddCharacter(l[i]); }
-                count += 1;
-                ch = ' ';
-                while (ch != '\'' && i < l.Length - 1 && count != 3)
-                {
-                    if (l[i] == '\\')
-                    {
-                        AddCharacter(l[i]);
-                        count += 1;
-                        if (i == l.Length - 1) break;     //Case: {"\ }
+//                         AddCharacter(l[i]);
+//                         ch = ' ';
+//                         continue;                        //Added continue for this case { "\" }
+//                     }
+//                     AddCharacter(l[i]);
+//                 }
+//                 createWord(word);
+//                 i--;
+//                 continue;
+//             }
+//             if (l[i] == '\'')
+//             {
+//                 int count = 0;
+//                 if (word != "") { createWord(word); AddCharacter(l[i]); }
 
-                        AddCharacter(l[i]);
-                        ch = ' ';
-                        continue;                        //Added continue for this case { "\" }
-                    }
-                    AddCharacter(l[i]);
-                    count += 1;
-                }
-                createWord(word);
-                i--;
-                continue;
-            }
-            if (word != "") createWord(word);
+//                 else { AddCharacter(l[i]); }
+//                 count += 1;
+//                 ch = ' ';
+//                 while (ch != '\'' && i < l.Length - 1 && count != 3)
+//                 {
+//                     if (l[i] == '\\')
+//                     {
+//                         AddCharacter(l[i]);
+//                         count += 1;
+//                         if (i == l.Length - 1) break;     //Case: {"\ }
 
-            if (l[i] == ' ') continue;
+//                         AddCharacter(l[i]);
+//                         ch = ' ';
+//                         continue;                        //Added continue for this case { "\" }
+//                     }
+//                     AddCharacter(l[i]);
+//                     count += 1;
+//                 }
+//                 createWord(word);
+//                 i--;
+//                 continue;
+//             }
+//             if (word != "") createWord(word);
 
-            if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
-            {
-                createWord(l[i].ToString() + l[i + 1].ToString());
-                i++;
-                continue;
-            }
-            words.Add(l[i].ToString());
-            continue;
-        }
-        word = word + l[i];
-    }
-}
+//             if (l[i] == ' ') continue;
 
-foreach (string item in words)
+//             if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
+//             {
+//                 createWord(l[i].ToString() + l[i + 1].ToString());
+//                 i++;
+//                 continue;
+//             }
+//             words.Add(l[i].ToString());
+//             continue;
+//         }
+//         word = word + l[i];
+//     }
+// }
+
+// foreach (string item in words)
+// {
+//     System.Console.WriteLine(item);
+// }
+
+// void AddCharacter(char character)
+// {
+//     ch = character;
+//     word += character;
+//     i++;
+// }
+
+// void createWord(string w)
+// {
+//     words.Add(w);
+//     word = "";
+// }
+
+
+Word_Breaker words = new Word_Breaker();
+ArrayList word=words.GetWords();
+foreach (string item in word)
 {
     System.Console.WriteLine(item);
 }
 
-void AddCharacter(char character)
-{
-    ch = character;
-    word += character;
-    i++;
-}
 
-void createWord(string w)
-{
-    words.Add(w);
-    word = "";
-}
+
+
+
+
+
+
+
 
 
 
