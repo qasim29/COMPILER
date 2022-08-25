@@ -172,7 +172,7 @@ class Word_Breaker
     }
     private void createWord(string w)
     {
-        words.Add(new ArrayList(){w,lineNo});
+        words.Add(new string[]{w,lineNo.ToString()});
         word = "";
     }
     private bool WordIsEmpty()

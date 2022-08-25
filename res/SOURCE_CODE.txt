@@ -1,12 +1,12 @@
 # DOT(.) Test Cases 
-
+$
 23.23.ab;
 23.23.23;
 .23;
 23.243;
 92.ab;
 math.pi();
-
+$
 
 # MULTI LINE comment
 $ 
@@ -24,18 +24,19 @@ $
 '\'a;
 '\''a;
 'a';
+'\''\'
 $
 
 
 # STRING TEST CASES 
-$
+
 "";
 "ABDS";
 "ABDS
 "\"a
 "A\"";
 "\  Q";"A";
-$
+
 
 
 # RELATONAL OPERATORS TEST CASES

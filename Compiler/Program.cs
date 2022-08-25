@@ -162,23 +162,49 @@
 // }
 
 
-Word_Breaker words = new Word_Breaker();
-ArrayList word=words.GetWords();
-System.Console.Write("\nKEY-WORDS");
-System.Console.Write("\t\t     LINE-NO\n");
-foreach (ArrayList item in word)
+// Word_Breaker words = new Word_Breaker();
+// ArrayList word=words.GetWords();
+// System.Console.Write("\nKEY-WORDS");
+// System.Console.Write("\t\t     LINE-NO\n");
+// foreach (ArrayList item in word)
+// {
+//     foreach (var i in item)
+//     {
+//     System.Console.Write(" ");
+//     System.Console.Write(i);
+//     System.Console.Write("\t\t\t\t");
+//     }
+//     System.Console.WriteLine();
+// }
+
+// Word_Breaker words = new Word_Breaker();
+// ArrayList word = words.GetWords();
+// System.Console.Write("\nKEY-WORDS");
+// System.Console.Write("\t\t     LINE-NO\n");
+
+// foreach (string[] item in word)
+// {
+//     string text= item[0]+"\t"+item[1]+"\n"; 
+//     System.Console.WriteLine(item.ToString());
+//     await ExampleAsync(text);
+// }
+Word_Breaker breaker = new Word_Breaker();
+ArrayList word = breaker.GetWords();
+
+static async Task ExampleAsync(ArrayList word)
 {
-    foreach (var i in item)
+
+    using StreamWriter file = new(@"E:\GITHUB\Language_Compiler\res\words.txt");
+
+    foreach (string[] item in word)
     {
-    System.Console.Write(" ");
-    System.Console.Write(i);
-    System.Console.Write("\t\t\t\t");
+        string txt=item[0] + "\t" + item[1];
+        System.Console.WriteLine(item[0] + "\t" + item[1] );
+        await file.WriteLineAsync(txt );
     }
-    System.Console.WriteLine();
 }
 
-
-
+await ExampleAsync(word);
 
 
 

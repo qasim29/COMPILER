@@ -23,6 +23,19 @@ public class Tokens
         this.lineNo = lineNo;
     }
 
+    public Tokens(int lineNo, TokenType class_Part, string? word)
+    {
+        this.lineNo = lineNo;
+        this.class_Part = class_Part;
+        this.word = word;
+    }
+
+    override
+    public string ToString(){
+        if(word==null) return "\t , "+class_Part.ToString()+", "+lineNo.ToString();
+
+        return word.ToString()+", "+class_Part.ToString()+", "+lineNo.ToString();
+    }
 }
 
 
