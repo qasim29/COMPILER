@@ -164,9 +164,17 @@
 
 Word_Breaker words = new Word_Breaker();
 ArrayList word=words.GetWords();
-foreach (string item in word)
+System.Console.Write("\nKEY-WORDS");
+System.Console.Write("\t\t     LINE-NO\n");
+foreach (ArrayList item in word)
 {
-    System.Console.WriteLine(item);
+    foreach (var i in item)
+    {
+    System.Console.Write(" ");
+    System.Console.Write(i);
+    System.Console.Write("\t\t\t\t");
+    }
+    System.Console.WriteLine();
 }
 
 

@@ -1,12 +1,12 @@
 # DOT(.) Test Cases 
-$
+
 23.23.ab;
 23.23.23;
 .23;
 23.243;
 92.ab;
 math.pi();
-$
+
 
 # MULTI LINE comment
 $ 
@@ -54,5 +54,5 @@ if(word<=""){
 char ch;
 int i;
 bool flag=false;
+22.23.1b
 $
-

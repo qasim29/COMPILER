@@ -10,7 +10,7 @@ class Word_Breaker
     private string[] lines;
     private char ch;
     private int i;
-
+    private int lineNo;
     // COUNSTRUCTOR
     public Word_Breaker()
     {
@@ -33,36 +33,27 @@ class Word_Breaker
     }
 
 
-
     private void BreakIntoWords()
     {
         bool flag = false;
         foreach (string line in lines)
         {
+            lineNo+=1;
             string l = line + " ";
             for (i = 0; i <= l.Length - 1; i++)
-            {                                                        // This condition is for the MULTI LINE comment
-                if (l[i] == '$' || flag == true)                    // flag maintains the status for Multi-line comment
-                {
-                    // int index;
-                    // if (flag == true) index = l.IndexOf('$', i);    // cases that avoids skipping of '$' 
-                    // else index = l.IndexOf('$', i + 1);           
-
-                    // if (index == -1) { flag = true; break; }        // flag is true if current line dosen't conatin '$'
-                    //                                                 // Break to get to the next line
-                    // i = index + 1;
-                    // flag = false;
-                    flag=Comment_Status(l,flag);
-                    if(flag) break;
-
+            {                                                        
+                if (l[i] == '#') break;                              // This condition is for the SINGLE LINE comment
+                                                                   
+                if (l[i] == '$' || flag == true)                     // This condition is for the MULTI LINE comment
+                {                                                                       
+                    flag = Check_Comment_Status(l, flag);           // flag maintains the status for Multi-line comment
+                    if (flag) break;
                 }
-
-                if (l[i] == '#') break;                            // This condition is for the SINGLE LINE comment
 
                 if (l[i] == '.')
                 {
                     bool isNumeric;
-                    if (word != "") isNumeric = int.TryParse(word, out _);
+                    if (!WordIsEmpty()) isNumeric = int.TryParse(word, out _);
                     else isNumeric = true;
 
                     if (isNumeric)
@@ -101,11 +92,12 @@ class Word_Breaker
                         continue;
                     }
                 }
+
                 if (breakers.Contains(l[i]))
                 {
                     if (l[i] == '"')
                     {
-                        if (word != "") { createWord(word); AddCharacter(l[i]); }
+                        if (!WordIsEmpty()) { createWord(word); AddCharacter(l[i]); }
 
                         else { AddCharacter(l[i]); }
 
@@ -128,10 +120,11 @@ class Word_Breaker
                         i--;
                         continue;
                     }
+                    
                     if (l[i] == '\'')
                     {
                         int count = 0;
-                        if (word != "") { createWord(word); AddCharacter(l[i]); }
+                        if (!WordIsEmpty()) { createWord(word); AddCharacter(l[i]); }
 
                         else { AddCharacter(l[i]); }
                         count += 1;
@@ -155,25 +148,39 @@ class Word_Breaker
                         i--;
                         continue;
                     }
-                    if (word != "") createWord(word);
+
+                    if (!WordIsEmpty()) createWord(word);
 
                     if (l[i] == ' ') continue;
 
-                    if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
-                    {
-                        createWord(l[i].ToString() + l[i + 1].ToString());
-                        i++;
-                        continue;
-                    }
-                    words.Add(l[i].ToString());
+                    if (Check_RO(l)) continue;
+
+                    createWord(l[i].ToString());
                     continue;
                 }
+ 
                 word = word + l[i];
             }
         }
 
     }
-    private bool Comment_Status(string l, bool flag)
+    private void AddCharacter(char character)
+    {
+        ch = character;
+        word += character;
+        i++;
+    }
+    private void createWord(string w)
+    {
+        words.Add(new ArrayList(){w,lineNo});
+        word = "";
+    }
+    private bool WordIsEmpty()
+    {
+        if (word == "") return true;
+        return false;
+    }
+    private bool Check_Comment_Status(string l, bool flag)
     {
         int index;
         if (flag == true) index = l.IndexOf('$', i);    // cases that avoids skipping of '$' 
@@ -184,16 +191,14 @@ class Word_Breaker
         i = index + 1;
         return false;
     }
-    private void AddCharacter(char character)
+    private bool Check_RO(string l)
     {
-        ch = character;
-        word += character;
-        i++;
-    }
-
-    private void createWord(string w)
-    {
-        words.Add(w);
-        word = "";
+        if ((l[i] == '>' || l[i] == '<' || l[i] == '=' || l[i] == '!') && l[i + 1] == '=')
+        {
+            createWord(l[i].ToString() + l[i + 1].ToString());
+            i++;
+            return true;
+        }
+        else return false;
     }
 }
