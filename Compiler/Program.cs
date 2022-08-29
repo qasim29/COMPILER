@@ -188,23 +188,93 @@
 //     System.Console.WriteLine(item.ToString());
 //     await ExampleAsync(text);
 // }
-Word_Breaker breaker = new Word_Breaker();
-ArrayList word = breaker.GetWords();
 
-static async Task ExampleAsync(ArrayList word)
+
+
+
+
+
+
+
+
+
+
+
+char[] breakers = { '(',')','[',']','{','}',';',':',','};        // punctuators  
+Word_Breaker breaker = new Word_Breaker();
+ArrayList words = breaker.GetWords();
+createTokens(words);
+
+
+
+
+
+
+
+
+
+
+
+void createTokens(ArrayList words)
 {
 
-    using StreamWriter file = new(@"E:\GITHUB\Language_Compiler\res\words.txt");
-
-    foreach (string[] item in word)
+    foreach (ArrayList list1 in words)
     {
-        string txt=item[0] + "\t" + item[1];
-        System.Console.WriteLine(item[0] + "\t" + item[1] );
-        await file.WriteLineAsync(txt );
+        string? word = (string?)list1[0];
+        TokenType t = checkType(word);
+
     }
+
+
 }
 
-await ExampleAsync(word);
+TokenType checkType(string? word)
+{
+    char? ch = word?[0];
+    if
+
+
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// static async Task ExampleAsync(ArrayList word)
+// {
+
+//     using StreamWriter file = new(@"E:\GITHUB\Language_Compiler\res\words.txt");
+
+//     foreach (string[] item in word)
+//     {
+//         string txt=item[0] + "\t" + item[1];
+//         System.Console.WriteLine(item[0] + "\t" + item[1] );
+//         await file.WriteLineAsync(txt );
+//     }
+// }
+
+// await ExampleAsync(word);
 
 
 

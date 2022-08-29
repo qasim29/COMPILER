@@ -31,8 +31,6 @@ class Word_Breaker
 
         return words;
     }
-
-
     private void BreakIntoWords()
     {
         bool flag = false;
@@ -174,6 +172,10 @@ class Word_Breaker
     {
         words.Add(new string[]{w,lineNo.ToString()});
         word = "";
+    }
+    private void createWord(char ch)
+    {
+        
     }
     private bool WordIsEmpty()
     {

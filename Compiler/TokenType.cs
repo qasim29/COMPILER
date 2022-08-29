@@ -33,5 +33,5 @@ public enum TokenType
     SELF,       // THIS- KEYWORD
     SUPER,
     CONST,      //FINAL
-    NULL
+    INVALID_LEXEM
 }
