@@ -199,43 +199,25 @@
 
 
 
+using System.Text.RegularExpressions;  
 
-char[] breakers = { '(',')','[',']','{','}',';',':',','};        // punctuators  
+// char[] breakers = { '(',')','[',']','{','}',';',':',','};        // punctuators  
+
 Word_Breaker breaker = new Word_Breaker();
 ArrayList words = breaker.GetWords();
-createTokens(words);
+Lexical_Analyzer tokens=new Lexical_Analyzer();
+
+foreach (Tokens t in tokens.GetTokens(words)) System.Console.WriteLine(t.ToString());
+
+// string w=".23";
+// Regex regex = new Regex(@"^[0-9]*[.][0-9]+$");
+// if (regex.IsMatch(w)) System.Console.WriteLine("ok");
+
+    
 
 
 
 
-
-
-
-
-
-
-
-void createTokens(ArrayList words)
-{
-
-    foreach (ArrayList list1 in words)
-    {
-        string? word = (string?)list1[0];
-        TokenType t = checkType(word);
-
-    }
-
-
-}
-
-TokenType checkType(string? word)
-{
-    char? ch = word?[0];
-    if
-
-
-    return;
-}
 
 
 

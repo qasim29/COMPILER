@@ -1,37 +1,48 @@
 public enum TokenType
 {
-    DATA_TYPE,
+    ID,
+    DT,             // DATA_TYPE,
     IF,
     ELSE,
     WHILE,
-    LOOP_KEYWORDS,
-    PM, //PLUS-MINUS
-    MDM, // MULTIPLY,DIVIDE,MODULOUS
-    COMP, //COMPARISION OPERATORS
+    LK,              // LOOP_KEYWORDS
+    PM,              // PLUS-MINUS
+    MDM,             // MULTIPLY,DIVIDE,MODULOUS
+    COMP,            // COMPARISION OPERATORS
+    ASI,            // = ASSIGNMENT OPERATOR
     NOT,
+    AND,
+    OR,
     FUNC,
-    RETURN,
-    SEMI_COLON,
-    COLON,
-    COMMA,
-    OPEN_ROUND_BRACKET,
-    CLOSE_ROUND_BRACKET,
-    OPEN_SQUARE_BRACKET,
-    CLOSE_SQUARE_BRACKET,
-    OPEN_CURLY_BRACKET,
-    CLOSE_CURLY_BRACKET,
-    
-    /*   
+    RET,             // RETURN
+    SEC,             // SEMI_COLON ;
+    COL,             // COLON    :
+    COM,             // COMMA ,
+    DOT,
+    ORB,             // OPEN_ROUND_BRACKET
+    CRB,             // ROUND BRACKET ClOSE
+    OSB,             // OPEN SQUARE BRACKETS
+    CSB,             // SQUARE BRACKET CLOSE
+    OCB,             // OPEN CURRLY BRACKET
+    CCB,             // CLOSE CURRLY BRACKET
+    FC,              // fLOAT CONSTANT
+    IC,              // INT CONSTANT
+    SC,              // STRING CONSTANT
+    CC,              // CHAR CONSTANT
+
+    /*  
         // OOP
     */    
-    ACCESS_MODIFIER,
-    CHILD_OF,   //EXTENDS
-    ABSTRACT,
-    STATIC,
-    CREATE,     //NEW
-    CLASS,
-    SELF,       // THIS- KEYWORD
-    SUPER,
-    CONST,      //FINAL
-    INVALID_LEXEM
+    AM,             // ACCESS MODIFIERS
+    C_OF,           // CHILD_OF EXTENDS
+    ABS,            // ABSRACT
+    STA,            // STATIC
+    CRE,            // CREATE -->NEW
+    CLA,            // CLASS
+    SELF,           // THIS- KEYWORD
+    SUP,            // SUPER
+    CONST,          // FINAL
+    NULL,
+    IL,             // INVALID LEXEME
+    RETURN
 }

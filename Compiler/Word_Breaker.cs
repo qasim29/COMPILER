@@ -173,10 +173,6 @@ class Word_Breaker
         words.Add(new string[]{w,lineNo.ToString()});
         word = "";
     }
-    private void createWord(char ch)
-    {
-        
-    }
     private bool WordIsEmpty()
     {
         if (word == "") return true;

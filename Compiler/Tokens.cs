@@ -7,29 +7,20 @@ public class Tokens
         or it may contain no value at all, that is, NULL. 
         You can use the bool? type in that scenario.
     */
-    private int lineNo { get; set; }
-    private TokenType class_Part { get; set; }
-    private string? word { get; set; }
+    private string lineNo { get; set; }
+    private TokenType? class_Part { get; set; }
+    private string word { get; set; }
 
-    public Tokens(int lineNo, TokenType class_Part)
-    {
-        this.class_Part = class_Part;
-        this.lineNo = lineNo;
-    }
-    public Tokens(int lineNo, TokenType class_Part, string word)
+    public Tokens(string lineNo, TokenType? class_Part, string word)
     {
         this.lineNo = lineNo;
         this.class_Part = class_Part;
         this.word = word;
     }
 
-
-
     public override string ToString()
     {
-        if (word == null) return "\t , " + class_Part.ToString() + ", " + lineNo.ToString();
-
-        return word.ToString() + ", " + class_Part.ToString() + ", " + lineNo.ToString();
+        return word.ToString() + " \t" + class_Part.ToString() + "\t" + lineNo;
     }
 }
 

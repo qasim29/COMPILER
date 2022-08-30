@@ -84,7 +84,7 @@ func main(){
 
 class Solution {
     global int arithmeticTriplets(int[] arr, int diff) {
-        Map<Integer ,Integer> map = new HashMap<>();
+        Map<Integer ,Integer> map = create HashMap<>();
         int n = arr.length ; 
         for(int i = 0 ; i < n ;i=i+1){
             map.put(arr[i],i);
@@ -93,8 +93,8 @@ class Solution {
         for(int i = 0 ; i < n ;i=i+1){
             int num = arr[i];
             int ind = map.get(num);
-            if(map.get(num-diff) != null && map.get(num+diff) != null){
-                ans++;
+            if(map.get(num-diff) != null and map.get(num+diff) != null){
+                ans=ans=ans;
             }
         }
         return ans;
