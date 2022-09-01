@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 
 // string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
 
@@ -199,33 +200,20 @@
 
 
 
-using System.Text.RegularExpressions;  
 
 // char[] breakers = { '(',')','[',']','{','}',';',':',','};        // punctuators  
 
 Word_Breaker breaker = new Word_Breaker();
-ArrayList words = breaker.GetWords();
-Lexical_Analyzer tokens=new Lexical_Analyzer();
+ArrayList words_list = breaker.GetWords();
+Lexical_Analyzer la=new Lexical_Analyzer();
 
-foreach (Tokens t in tokens.GetTokens(words)) System.Console.WriteLine(t.ToString());
-
+foreach (Tokens t in la.GetTokens(words_list)) 
+{
+    Console.WriteLine(t.ToString());
+}
 // string w=".23";
 // Regex regex = new Regex(@"^[0-9]*[.][0-9]+$");
 // if (regex.IsMatch(w)) System.Console.WriteLine("ok");
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
