@@ -20,7 +20,7 @@ public class Tokens
 
     public override string ToString()
     {
-        return word.ToString() + " \t" + class_Part.ToString() + "\t" + lineNo;
+        return "[ " + class_Part.ToString() + ", " + word.ToString() + ", " + lineNo + " ]";
     }
 }
 

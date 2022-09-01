@@ -37,7 +37,7 @@ public enum TokenType
     C_OF,           // CHILD_OF EXTENDS
     ABS,            // ABSRACT
     STA,            // STATIC
-    CRE,            // CREATE -->NEW
+    NEW,            // CREATE -->NEW
     CLA,            // CLASS
     SELF,           // THIS- KEYWORD
     SUP,            // SUPER
