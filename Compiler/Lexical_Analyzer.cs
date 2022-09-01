@@ -38,7 +38,7 @@ class Lexical_Analyzer
             {",",TokenType.COM}, 
             // OOP
             {"null",TokenType.NULL},    {"abstract",TokenType.ABS},  
-            {"static",TokenType.STA},   {"create",TokenType.CRE},
+            {"static",TokenType.STA},   {"create",TokenType.NEW},
             {"class",TokenType.CLA},    {"self",TokenType.SELF},
             {"super",TokenType.SUP},    {"const",TokenType.CONST},
             {"child_of",TokenType.C_OF},
