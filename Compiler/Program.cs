@@ -1,5 +1,15 @@
 ﻿using System.Collections;
-using System;
+
+
+Word_Breaker breaker = new Word_Breaker();
+ArrayList words_list = breaker.GetWords();
+Lexical_Analyzer la=new Lexical_Analyzer();
+
+foreach (Tokens t in la.GetTokens(words_list)) 
+{
+    Console.WriteLine(t.ToString());
+}
+
 
 // string[] lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
 
@@ -189,31 +199,6 @@ using System;
 //     System.Console.WriteLine(item.ToString());
 //     await ExampleAsync(text);
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-// char[] breakers = { '(',')','[',']','{','}',';',':',','};        // punctuators  
-
-Word_Breaker breaker = new Word_Breaker();
-ArrayList words_list = breaker.GetWords();
-Lexical_Analyzer la=new Lexical_Analyzer();
-
-foreach (Tokens t in la.GetTokens(words_list)) 
-{
-    Console.WriteLine(t.ToString());
-}
-// string w=".23";
-// Regex regex = new Regex(@"^[0-9]*[.][0-9]+$");
-// if (regex.IsMatch(w)) System.Console.WriteLine("ok");
 
 
 
