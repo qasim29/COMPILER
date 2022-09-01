@@ -61,8 +61,7 @@ int i;
 bool flag=false;
 $
 
-# RANDOM GANDA test case
-
+# RANDOM test case
 $
 Child_Of A_B_C;; a+b-55{
     while(a<==b+++5&&))
@@ -75,10 +74,10 @@ char'a' = '\a\'+;
 $
 
 # proper program
-
+$
 func main(){
     Solution var = create Solution();
-    int ans = var.arithmeticTriplets({1,2,4,5},-2);
+    int ans = var.at({1,2,4,5},-2);
     print(ans);
 }
 
@@ -101,3 +100,15 @@ class Solution {
         
     }
 }
+
+hello
+#uni test cases
+
+class A_B_C::a<<<b--6
+if_else(a!!!b&&c!==d
+while(((a&&c!==56.76
+cahr ch="abc+=56\\"abc\"+=65\"+=b
+str='c'++'\\'+='ch'\\r'c
+a+77.88bc.69bc.b69b.55
+$
+98.bs
