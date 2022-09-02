@@ -36,14 +36,14 @@ class Word_Breaker
         bool flag = false;
         foreach (string line in lines)
         {
-            lineNo+=1;
+            lineNo += 1;
             string l = line + " ";
             for (i = 0; i <= l.Length - 1; i++)
-            {                                                        
+            {
                 if (l[i] == '#') break;                              // This condition is for the SINGLE LINE comment
-                                                                   
+
                 if (l[i] == '$' || flag == true)                     // This condition is for the MULTI LINE comment
-                {                                                                       
+                {
                     flag = Check_Comment_Status(l, flag);           // flag maintains the status for Multi-line comment
                     if (flag) break;
                 }
@@ -56,10 +56,11 @@ class Word_Breaker
 
                     if (isNumeric)
                     {
-                        AddCharacter(l[i]);
-                        isNumeric = int.TryParse(l[i].ToString(), out _);
+
+                        isNumeric = int.TryParse(l[i + 1].ToString(), out _);
                         if (isNumeric)
                         {
+                            AddCharacter(l[i]);
                             while (!breakers.Contains(l[i]) && l[i] != '.')
                             {
                                 AddCharacter(l[i]);
@@ -70,8 +71,17 @@ class Word_Breaker
                         }
                         else
                         {
-                            createWord(word);
-                            AddCharacter(l[i]);
+                            if (WordIsEmpty())
+                            {
+                                AddCharacter(l[i]);
+                                createWord(word);
+                            }
+                            else{
+                                createWord(word);
+                                AddCharacter(l[i]);
+                                createWord(word);
+                            }
+
                             i--;
                             continue;
                         }
@@ -84,6 +94,7 @@ class Word_Breaker
                         {
                             AddCharacter(l[i]);
                             AddCharacter(l[i + 1]);
+                            i--;
                             continue;
                         }
                         createWord(l[i].ToString());
@@ -118,7 +129,7 @@ class Word_Breaker
                         i--;
                         continue;
                     }
-                    
+
                     if (l[i] == '\'')
                     {
                         int count = 0;
@@ -156,7 +167,7 @@ class Word_Breaker
                     createWord(l[i].ToString());
                     continue;
                 }
- 
+
                 word = word + l[i];
             }
         }
@@ -170,7 +181,7 @@ class Word_Breaker
     }
     private void createWord(string w)
     {
-        words.Add(new string[]{w,lineNo.ToString()});
+        words.Add(new string[] { w, lineNo.ToString() });
         word = "";
     }
     private bool WordIsEmpty()
