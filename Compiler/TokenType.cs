@@ -10,9 +10,9 @@ public enum TokenType
     MDM,             // MULTIPLY,DIVIDE,MODULOUS
     COMP,            // COMPARISION OPERATORS
     ASI,            // = ASSIGNMENT OPERATOR
-    NOT,
-    AND,
-    OR,
+    // NOT,
+    // AND,
+    // OR,
     FUNC,
     RET,             // RETURN
     SEC,             // SEMI_COLON ;
@@ -29,6 +29,7 @@ public enum TokenType
     IC,              // INT CONSTANT
     SC,              // STRING CONSTANT
     CC,              // CHAR CONSTANT
+    VOID,
 
     /*  
         // OOP
