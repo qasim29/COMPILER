@@ -60,7 +60,7 @@
 <init1’> -> <const_val> <H1’> <G1’> <exp1’>
 <init1’> -> ( <exp1> ) <H1’> <G1’> <exp1’>
 <init1’> -> <obj-dec-1> <O1’> <H1’> <G1’> <exp1’>
-<init1’’> -> <O1> <H1'> <G1'> <exp1'>
+<init1’’> -> <O1> <H1’> <G1’> <exp1’>
 <init1’’> -> <init1>
 <M1> -> [ ] <M1’>
 <M1> -> <arr-init1> <arr-list1>
