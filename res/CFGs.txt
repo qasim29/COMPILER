@@ -141,7 +141,7 @@
 <T> -> . ID <f-n>
 <T> -> ;
 <RID> -> . ID <f-n>
-<RID> -> = <exp>;
+<RID> -> = <exp> ;
 <argu> -> <exp> <argus>
 <argu> -> E
 <argus> -> , <exp> <argus>
