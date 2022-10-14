@@ -1,15 +1,15 @@
-<Start> -> <defs> func execute ( ) : void { <MST1> }
-<defs> ->  <class-st> <defs>
-<defs> -> <func-only> <defs>
-<defs> -> <DT> ID <dec1> <defs> 
+<START> -> <DEFS> func execute ( ) : void { <MST_F> }
+<DEFS> ->  <CLASS-ST_OOP> <DEFS>
+<DEFS> -> <FUNC-ONLY> <DEFS>
+<DEFS> -> <DT> ID <DEC_F> <DEFS> 
 <DT> -> ID
 <DT> -> DT
-<defs> -> E
-<func-only> -> func ID ( <para> ) : <RDT> { <MST1> }
-<para> -> <DT’> ID <paras> 
-<para> -> E
-<paras> -> , <DT’> ID <paras>
-<paras> -> E
+<DEFS> -> E
+<FUNC-ONLY> -> func ID ( <PARA> ) : <RDT> { <MST_F> }
+<PARA> -> <DT’> ID <PARAS> 
+<PARA> -> E
+<PARAS> -> , <DT’> ID <PARAS>
+<PARAS> -> E
 <RDT> -> <DT’>
 #void ka kya keyword(i.e. tokentype) banain 
 <RDT> -> void
@@ -19,198 +19,253 @@
 <DT’’> -> E
 <DT’’’> -> [ ]
 <DT’’’> -> E
-<MST1> -> <SST1> <MST1>
-<MST1> -> E
-<SST1> -> <while-st-1>
-<SST1> -> <if-else-1>
-#<SST1> -> <break-st>;
-#<SST1> -> <continue-st> ;
-<SST1> -> LK ;
-<SST1> -> <return-st-1> ;
-<SST1> -> <D-I-Fc-1>
-<D-I-Fc-1> -> DT ID <dec1>
-<D-I-Fc-1> -> ID <D-S-A-FC-1>
-<D-S-A-FC-1> -> ID <dec1>
-<D-S-A-FC-1> -> <assign-fncall-1>
-<assign-fncall-1> -> <f-n-1>
-<assign-fncall-1> -> = <exp1>
-<f-n-1> -> . ID <A1> 
-<f-n-1> -> <arr-call-1> <RID1>
-<f-n-1> -> ( <argu1> ) <T1>
-<A1> -> = <exp1>
-<A1> -> <f-n-1>
-<T1> -> . ID <f-n-1>
-<T1> -> ;
-<RID1> -> . ID <f-n-1>
-<RID1> -> = <exp1>;
-<argu1> -> <exp1> <argus1>
-<argu1> -> E
-<argus1> -> , <exp1> <argus1>
-<argus1> -> E
-<arr-call-1> -> [ <exp1> ] [ <S1> ]
-<S1> -> [ <exp1> ]
-<S1> -> E
-<dec1> -> [ ] <M1>
-<dec1> -> <init1> <list1>
-<list1> -> ;
-<list1> -> , ID <init1> <list1>
-<init1> -> = <init1’>
-<init1> -> E
-<init1’> -> ID <init1’’>
-<init1’> -> <const_val> <H1’> <G1’> <exp1’>
-<init1’> -> ( <exp1> ) <H1’> <G1’> <exp1’>
-<init1’> -> <obj-dec-1> <O1’> <H1’> <G1’> <exp1’>
-<init1’’> -> <O1> <H1’> <G1’> <exp1’>
-<init1’’> -> <init1>
-<M1> -> [ ] <M1’>
-<M1> -> <arr-init1> <arr-list1>
-<M1’> -> <arr-init2f> <arr-list1>
-<arr-list1> -> ;
-<arr-list1> -> , ID [ ] <M1>
-<arr-init1> -> = <arr-init1’>
-<arr-init1> -> E
-<arr-init1’> -> { <element1> }
-<arr-init1’> -> <DT> [ <exp1> ]
-<element1> -> <const_val> <elements1>
-<element1> -> E
-<const_val> -> IC
-<const_val> -> FC
-<const_val> -> SC
-<const_val> -> CC
-<elements1> -> , <const_val> <elements1>
-<elements1> -> E
-<arr-init2f> -> = <arr-init2f’>
-<arr-init2f> -> E
-<arr-init2f’> -> { <element2f> }
-<arr-init2f’> -> <DT> [ <exp1> ] [ <exp1> ]
-<element2f> -> { <element1> } <2df>
-<element2f> -> E
-<2df> -> , { <element1> } <2df>
-<2df> -> E
-<exp1> -> <G1> <exp1’>
-<exp1’> -> ROP <G1> <exp1’>
-<exp1’> -> E
-<G1> -> <H1> <G1’>
-<G1’> -> PM <H1> <G1’>
-<G1’> -> E
-<H1> -> <F1> <H1’>
-<H1’> -> MDM <F1> <H1’>
-<H1’> -> E
-<F1> -> ID <O1>
-<F1> -> <const_val>
-<F1> -> ( <exp1> )
-<F1> -> <obj-dec-1> <O1’>
-<O1> -> <arr-call-1> <O1’>
-<O1> -> ( <argu1> ) <O1’>
-<O1> -> <O1’>
-<O1’> -> . ID <O1>
-<O1’> -> E
-<while-st-1> -> while ( <exp1> ) <body1>
-<body1> -> ;
-<body1> -> <SST1>
-<body1> -> { <MST1> }
-<if-else-1> -> if ( <exp1> ) <body1> <else1>
-<else1> -> else <body1>
-<else1> -> E
-<return-st-1> -> return <case1>
-<case1> -> <exp1>
-<case1> -> null
-<obj-dec-1> -> create ID ( <arug1> )
-<SST> -> <while-st>
-<SST> -> <if-else-st>
-#<SST> -> <break-st>
-#<SST> -> <continue-st>
-<SST> -> LK ;
-<SST> -> <return-st>
-<SST> -> super . ID <assign-fn-call>
-<SST> -> self . ID <assign-fn-call>
-<SST> -> <D-I-Fc>
-<MST> -> <SST> <MST>
-<MST> -> E
-<D-I-Fc> -> DT ID <dec>
-<D-I-Fc> -> ID <D-S-A-Fc>
-<D-S-A-Fc> -> ID <dec>
-<D-S-A-Fc> -> <assign-fn-call>
-<assign-fncall> -> <f-n>
-<assign-fncall> -> = <exp>
-<f-n> -> . ID <A> 
-<f-n> -> <arr-call> <RID>
-<f-n> -> ( <argu> ) <T>
-<A> -> = <exp>
-<A> -> <f-n>
-<T> -> . ID <f-n>
-<T> -> ;
-<RID> -> . ID <f-n>
-<RID> -> = <exp> ;
-<argu> -> <exp> <argus>
-<argu> -> E
-<argus> -> , <exp> <argus>
-<argus> -> E
-<arr-call-> -> [ <exp> ] [ <S> ]
-<S> -> [ <exp> ]
-<S> -> E
 
-<exp> -> <G> <exp’>
-<exp’> -> ROP <G> <exp’>
-<exp’> -> E
-<G> -> <H> <G’>
-<G’> -> PM <H> <G’>
-<G’> -> E
-<H> -> <F> <H’>
-<H’> -> MDM <F> <H’>
-<H’> -> E
-<F> -> <TS> ID <O>
-<F> -> <const_val>
-<F> -> ( <exp> )
-<F> -> <obj-dec> <O’>
-<O> -> <arr-call> <O’>
-<O> -> ( <argu> ) <O’>
-<O> -> <O’>
-#<O1’> -> . ID <O1> / E
-<O’> -> . ID <O1>
-<O’> -> E
-<TS> super .
-<TS> self .
-<TS> E
+<MST_F> -> <SST_F> <MST_F>
+<MST_F> -> E
+<SST_F> -> <WHILE-ST-_F>
+<SST_F> -> <IF-ELSE-_F>
+#<SST_F> -> <BREAK-ST>;
+#<SST_F> -> <CONTINUE-ST> ;
+<SST_F> -> LK ;
+<SST_F> -> <RETURN-ST-_F> ;
+<SST_F> -> <D-I-FC-_F>
+<D-I-FC-_F> -> DT ID <DEC_F>
+<D-I-FC-_F> -> ID <D-S-A-FC-_F>
+<D-S-A-FC-_F> -> ID <DEC_F>
+<D-S-A-FC-_F> -> <ASSIGN-FNCALL-_F>
+<ASSIGN-FNCALL-_F> -> <F-N-_F>
+<ASSIGN-FNCALL-_F> -> = <EXP_F>
+<F-N-_F> -> . ID <A_F> 
+<F-N-_F> -> <ARR-CALL-_F> <RID_F>
+<F-N-_F> -> ( <ARGU_F> ) <T_F>
+<A_F> -> = <EXP_F>
+<A_F> -> <F-N-_F>
+<T_F> -> . ID <F-N-_F>
+<T_F> -> ;
+<RID_F> -> . ID <F-N-_F>
+<RID_F> -> = <EXP_F> ;
+<ARGU_F> -> <EXP_F> <ARGUS_F>
+<ARGU_F> -> E
+<ARGUS_F> -> , <EXP_F> <ARGUS_F>
+<ARGUS_F> -> E
+<ARR-CALL-_F> -> [ <EXP_F> ] [ <S_F> ]
+<S_F> -> [ <EXP_F> ]
+<S_F> -> E
+<DEC_F> -> [ ] <M_F>
+<DEC_F> -> <INIT_F> <LIST_F>
+<LIST_F> -> ;
+<LIST_F> -> , ID <INIT_F> <LIST_F>
+<INIT_F> -> = <INIT_S’>
+<INIT_F> -> E
+<INIT_S’> -> ID <INIT_S’’>
+<INIT_S’> -> <CONST_VAL> <H_S’> <G_S’> <EXP_S’>
+<INIT_S’> -> ( <EXP_F> ) <H_S’> <G_S’> <EXP_S’>
+<INIT_S’> -> <OBJ-DEC-_F> <O_S’> <H_S’> <G_S’> <EXP_S’>
+<INIT_S’’> -> <O_F> <H_S’> <G_S’> <EXP_S’>
+<INIT_S’’> -> <INIT_F>
+<M_F> -> [ ] <M_S’>
+<M_F> -> <ARR-INIT_F> <ARR-LIST_F>
+<M_S’> -> <ARR-INIT2F> <ARR-LIST_F>
+<ARR-LIST_F> -> ;
+<ARR-LIST_F> -> , ID [ ] <M_F>
+<ARR-INIT_F> -> = <ARR-INIT_S’>
+<ARR-INIT_F> -> E
+<ARR-INIT_S’> -> { <ELEMENT_F> }
+<ARR-INIT_S’> -> <DT> [ <EXP_F> ]
+<ELEMENT_F> -> <CONST_VAL> <ELEMENTS_F>
+<ELEMENT_F> -> E
+<CONST_VAL> -> IC
+<CONST_VAL> -> FC
+<CONST_VAL> -> SC
+<CONST_VAL> -> CC
+<ELEMENTS_F> -> , <CONST_VAL> <ELEMENTS_F>
+<ELEMENTS_F> -> E
+<ARR-INIT2F> -> = <ARR-INIT2F’>
+<ARR-INIT2F> -> E
+<ARR-INIT2F’> -> { <ELEMENT2F> }
+<ARR-INIT2F’> -> <DT> [ <EXP_F> ] [ <EXP_F> ]
+<ELEMENT2F> -> { <ELEMENT_F> } <2DF>
+<ELEMENT2F> -> E
+<2DF> -> , { <ELEMENT_F> } <2DF>
+<2DF> -> E
+<EXP_F> -> <G_F> <EXP_S’>
+<EXP_S’> -> ROP <G_F> <EXP_S’>
+<EXP_S’> -> E
+<G_F> -> <H_F> <G_S’>
+<G_S’> -> PM <H_F> <G_S’>
+<G_S’> -> E
+<H_F> -> <F_F> <H_S’>
+<H_S’> -> MDM <F_F> <H_S’>
+<H_S’> -> E
+<F_F> -> ID <O_F>
+<F_F> -> <CONST_VAL>
+<F_F> -> ( <EXP_F> )
+<F_F> -> <OBJ-DEC-_F> <O_S’>
+<O_F> -> <ARR-CALL-_F> <O_S’>
+<O_F> -> ( <ARGU_F> ) <O_S’>
+<O_F> -> <O_S’>
+<O_S’> -> . ID <O_F>
+<O_S’> -> E
 
-<fn-st> ->  func AM <R>
-<R> -> <s-fn-st> 
-<R> -> abstract <D> ;
-<s-fn-st> -> static <C> <D> <E>
-<s-fn-st> -> const <D> <E>
-<s-fn-st> -> <D> <D’> 
-<C> -> const
-<c> -> E
-<D> -> ID ( <para> )
-<D’> -> <E> 
-<D’> -> { <const-body> }
-<E> -> : <RDT> { <MST> }
-<const-body> -> <super> <MST>
-<super> -> super ( <argu> ) ;
-<class-st> -> AM <P>
-<P> -> abstract <S> { <A-body> } 
-<P> -> const <S> { <s-body> }
-<P> -> <S> { <s-body> } 
-<S> -> class ID <K> 
-<K> -> childOf  ID <K’>
-<K> -> E
-<K’> -> , ID <K’>
-<K’> -> E
-<s-body> -> AM <B> <C> <DT’> ID <dec> <s-body>
-<s-body> -> func AM <s-fn-st> <s-body>
-<s-body> -> E
-<A-body> -> AM <B> <C> <DT’> ID <dec> <A-body>
-<A-body> -> func AM <A-body’> <A-body>
-<A-body> -> E
-<A-body’> -> abstract <D>;
-<A-body’> -> static <C> <D> <E>
-<A-body’> -> const <D> <E>
-<A-body’> -> <D> <E>
-<B> -> static
-<B> -> E
-<argu> -> <exp> <argus>
-<argu> -> E
-<argus> -> , <exp> <argus> 
-<argus> -> E 
+<WHILE-ST-_F> -> while ( <EXP_F> ) <BODY_F>
+<BODY_F> -> ;
+<BODY_F> -> <SST_F>
+<BODY_F> -> { <MST_F> }
+<IF-ELSE-_F> -> if ( <EXP_F> ) <BODY_F> <ELSE_F>
+<ELSE_F> -> else <BODY_F>
+<ELSE_F> -> E
+<RETURN-ST-_F> -> return <CASE_F> ;
+<CASE_F> -> <EXP_F>
+<CASE_F> -> null
+<OBJ-DEC-_F> -> create ID ( <ARGU_F> )
 
+
+# OOP
+
+<SST_OOP> ->  <WHILE-ST_OOP>
+<SST_OOP> ->  <IF-ELSE_OOP>
+#<SST_OOP> ->  <BREAK-ST_OOP>
+#<SST_OOP> ->  <CONTINUE-ST_OOP> 
+#LK LOOPKEYWORDS 
+<SST_OOP> ->  LK ;
+<SST_OOP> ->  <RETURN-ST_OOP>
+<SST_OOP> ->  super . ID <ASSIGN-FNCALL_OOP>
+<SST_OOP> ->  self . ID <ASSIGN-FNCALL_OOP>
+<SST_OOP> ->  <D-I-FC_OOP>
+<MST_OOP> ->  <SST_OOP> <MST_OOP>
+<MST_OOP> ->  E
+<D-I-FC_OOP> ->  DT ID <DEC_OOP>
+<D-I-FC_OOP> ->  ID <D-S-A-FC_OOP>
+<D-S-A-FC_OOP> ->  ID <DEC_OOP>
+<D-S-A-FC_OOP> ->  <ASSIGN-FNCALL_OOP>
+<ASSIGN-FNCALL_OOP> ->  <F-N_OOP>
+<ASSIGN-FNCALL_OOP> ->  = <EXP_OOP>
+<F-N_OOP> ->  . ID <A_OOP> 
+<F-N_OOP> ->  <ARR-CALL_OOP> <RID_OOP>
+<F-N_OOP> ->  ( <ARGU_OOP> ) <T_OOP>
+<A_OOP> ->  = <EXP_OOP>
+<A_OOP> ->  <F-N_OOP>
+<T_OOP> ->  . ID <F-N_OOP>
+<T_OOP> ->  ;
+<RID_OOP> ->  . ID <F-N_OOP>
+<RID_OOP> ->  = <EXP_OOP> ;
+<ARGU_OOP> ->  <EXP_OOP> <ARGUS_OOP>
+<ARGU_OOP> ->  E
+<ARGUS_OOP> ->  , <EXP_OOP> <ARGUS_OOP>
+<ARGUS_OOP> ->  E
+<ARR-CALL_OOP> ->  [ <EXP_OOP> ] <S_OOP> 
+<S_OOP> ->  [ <EXP_OOP> ]
+<S_OOP> ->  E
+
+<EXP_OOP> ->  <G_OOP> <EXP’_OOP>
+<EXP’_OOP> ->  ROP <G_OOP> <EXP’_OOP>
+<EXP’_OOP> ->  E
+<G_OOP> ->  <H_OOP> <G’_OOP>
+<G’_OOP> ->  PM <H_OOP> <G’_OOP>
+<G’_OOP> ->  E
+<H_OOP> ->  <F_OOP> <H’_OOP>
+<H’_OOP> ->  MDM <F_OOP> <H’_OOP>
+<H’_OOP> ->  E
+<F_OOP> ->  <TS_OOP> ID <O_OOP>
+<F_OOP> ->  <CONST_VAL>
+<F_OOP> ->  ( <EXP_OOP> )
+<F_OOP> ->  <OBJ-DEC_OOP> <O’_OOP>
+<O_OOP> ->  <ARR-CALL_OOP> <O’_OOP>
+<O_OOP> ->  ( <ARGU_OOP> ) <O’_OOP>
+<O_OOP> ->  <O’_OOP>
+<O’_OOP> ->  . ID <O_OOP>
+<O’_OOP> ->  E
+<TS_OOP> super .
+<TS_OOP> self .
+<TS_OOP> E
+
+<FN-ST_OOP> ->   func AM <R_OOP>
+<R_OOP> ->  <S-FN-ST_OOP> 
+<R_OOP> ->  abstract <D_OOP> ;
+<S-FN-ST_OOP> ->  static <C_OOP> <D_OOP> <E_OOP>
+<S-FN-ST_OOP> ->  const <D_OOP> <E_OOP>
+<S-FN-ST_OOP> ->  <D_OOP> <D’_OOP> 
+<C_OOP> ->  const
+<C_OOP> ->  E
+<D_OOP> ->  ID ( <PARA> )
+<D’_OOP> ->  <E_OOP> 
+<D’_OOP> ->  { <CONST-BODY_OOP> }
+<E_OOP> ->  : <RDT> { <MST_OOP> }
+<CONST-BODY_OOP> ->  <SUPER_OOP> <MST_OOP>
+<SUPER_OOP> ->  super ( <ARGU_OOP> ) ;
+<CLASS-ST_OOP> ->  AM <P_OOP>
+<P_OOP> ->  abstract <S_OOP> { <A-BODY_OOP> } 
+<P_OOP> ->  const <S_OOP> { <S-BODY_OOP> }
+<P_OOP> ->  <S_OOP> { <S-BODY_OOP> } 
+<S_OOP> ->  class ID <K_OOP> 
+<K_OOP> ->  childOf  ID <K’_OOP>
+<K_OOP> ->  E
+<K’_OOP> ->  , ID <K’_OOP>
+<K’_OOP> ->  E
+<S-BODY_OOP> ->  AM <B_OOP> <C_OOP> <DT’> ID <DEC_OOP> <S-BODY_OOP>
+<S-BODY_OOP> ->  func AM <S-FN-ST_OOP> <S-BODY_OOP>
+<S-BODY_OOP> ->  E
+<A-BODY_OOP> ->  AM <B_OOP> <C_OOP> <DT’> ID <DEC_OOP> <A-BODY_OOP>
+<A-BODY_OOP> ->  func AM <A-BODY’_OOP> <A-BODY_OOP>
+<A-BODY_OOP> ->  E
+<A-BODY’_OOP> ->  abstract <D_OOP>;
+<A-BODY’_OOP> ->  static <C_OOP> <D_OOP> <E_OOP>
+<A-BODY’_OOP> ->  const <D_OOP> <E_OOP>
+<A-BODY’_OOP> ->  <D_OOP> <E_OOP>
+<B_OOP> ->  static
+<B_OOP> ->  E
+<ARGU_OOP> ->  <EXP_OOP> <ARGUS_OOP>
+<ARGU_OOP> ->  E
+<ARGUS_OOP> ->  , <EXP_OOP> <ARGUS_OOP> 
+<ARGUS_OOP> ->  E 
+
+<DEC_OOP> ->  [ ] <M_OOP>
+<DEC_OOP> ->  <INIT_OOP> <LIST_OOP>
+<LIST_OOP> ->  ;
+<LIST_OOP> ->  , ID <INIT_OOP> <LIST_OOP>
+<INIT_OOP> ->  = <INIT’_OOP>
+<INIT_OOP> ->  E
+<INIT’_OOP> ->  ID <INIT’’_OOP>
+<INIT’_OOP> ->  <CONST_VAL> <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’_OOP> ->  ( <EXP_OOP> ) <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’_OOP> ->  <OBJ-DEC_OOP>  <O’_OOP> <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’’_OOP> ->  <O_OOP> <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’’_OOP> ->  <INIT_OOP>
+<M_OOP> ->  [ ] <M’_OOP>
+<M_OOP> ->  <ARR-INIT_OOP> <ARR-LIST_OOP>
+<M’_OOP> ->  <ARR-INIT2F_OOP> <ARR-LIST_OOP>
+<ARR-LIST_OOP> ->  ;
+<ARR-LIST_OOP> ->  , ID [ ] <M_OOP>
+<ARR-INIT_OOP> ->  = <ARR-INIT’_OOP>
+<ARR-INIT_OOP> ->  E
+<ARR-INIT’_OOP> ->  { <ELEMENT_OOP> }
+<ARR-INIT’_OOP> ->  <DT> [ <EXP_OOP> ]
+<ELEMENT_OOP> ->  <CONST_VAL> <ELEMENTS_OOP>
+<ELEMENT_OOP> ->  E
+<ELEMENTS_OOP> ->  , <CONST_VAL> <ELEMENTS_OOP>
+<ELEMENTS_OOP> ->  E
+<ARR-INIT2F_OOP> ->  = <ARR-INIT2F’_OOP>
+<ARR-INIT2F_OOP> ->  E
+<ARR-INIT2F’_OOP> ->  { <ELEMENT2F_OOP> }
+<ARR-INIT2F’_OOP> ->  <DT> [ <EXP_OOP> ] [ <EXP_OOP> ]
+<ELEMENT2F_OOP> ->  { <ELEMENT_OOP> } <2DF_OOP>
+<ELEMENT2F_OOP> ->  E
+<2DF_OOP> ->  , { <ELEMENT_OOP> } <2DF_OOP>
+<2DF_OOP> ->  E
+
+<WHILE-ST_OOP> ->  while ( <EXP_OOP> ) <BODY_OOP>
+
+<BODY_OOP> ->  ;
+<BODY_OOP> ->  <SST_OOP>
+<BODY_OOP> ->  { <MST_OOP> }
+
+<IF-ELSE_OOP> ->  if ( <EXP_OOP> ) <BODY_OOP> <ELSE_OOP>
+<ELSE_OOP> ->  else <BODY_OOP>
+<ELSE_OOP> ->  E
+
+<RETURN-ST_OOP> ->  return <CASE_OOP> ;
+<CASE_OOP> ->  <EXP_OOP>
+<CASE_OOP> ->  null
+
+<OBJ-DEC_OOP> ->  create ID ( <ARGU_OOP> )
 
