@@ -81,14 +81,14 @@ class Lexical_Analyzer
             else if (w[0][0] == '"')
             {
                 regex = new Regex("^[\"]([\\\\][abfnrtv0\"\'\\\\]|[^(\"\'\\\\)]|[()])*[\"]$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.SC, w[0])); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.SC, w[0].Trim('"'))); continue; }
 
                 else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
             }
             else if (w[0][0] == '\'')
             {
                 regex = new Regex("^[\']([\\\\][abfnrtv0\"\'\\\\]|[^(\"\'\\\\)]|[()])[\']$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.CC, w[0])); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.CC, w[0].Trim('\''))); continue; }
 
                 else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
 
