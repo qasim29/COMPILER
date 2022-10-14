@@ -1,0 +1,198 @@
+<Start> -> <defs> func execute(){<MST1>}
+<defs> ->  <class-st> <defs>
+<defs> -> <func-only> <defs>
+<defs> -> <DT> ID <dec1> <defs>
+<defs> -> E
+<func-only> -> func ID (<para>) : <RDT> {<MST1>}
+<para> -> <DT’> ID <paras> 
+<para> -> E
+<paras> -> ,<DT’> ID <paras>
+<paras> -> E
+<RDT> -> <DT’>
+<RDT> -> void
+<DT’> -> DT <DT’’>
+<DT’> -> ID <DT’’>
+<DT’’> -> [] <DT’’’>
+<DT’’> -> E
+<DT’’’> -> []
+<DT’’’> -> E
+<MST1> -> <SST1> <MST1>
+<MST1> -> E
+<SST1> -> <while-st-1>
+<SST1> -> <if-else-1>
+<SST1> -> <break-st>;
+<SST1> -> <continue-st>;
+<SST1> -> <return-st-1>;
+<SST1> -> <D-I-Fc-1>
+<D-I-Fc-1> -> DT ID <dec1>
+<D-I-Fc-1> -> ID <D-S-A-FC-1>
+<D-S-A-FC-1> -> ID <dec1>
+<D-S-A-FC-1> -> <assign-fncall-1>
+<assign-fncall-1> -> <f-n-1>
+<assign-fncall-1> -> =<exp1>
+<f-n-1> -> . ID <A1> 
+<f-n-1> -> <arr-call-1><RID1>
+<f-n-1> -> (<argu1>)<T1>
+<A1> -> = <exp1>
+<A1> -> <f-n-1>
+<T1> -> . ID <f-n-1>
+<T1> -> ;
+<RID1> -> .ID <f-n-1>
+<RID1> -> = <exp1>;
+<argu1> -> <exp1><argus1>
+<argu1> -> E
+<argus1> -> , <exp1><argus1>
+<argus1> -> E
+<arr-call-1> -> [<exp1>][S1]
+<S1> -> [<exp1>]
+<S1> -> E
+<dec1> -> [ ]<M1>
+<dec1> -> <init1><list1>
+<list1> -> ;
+<list1> -> ,ID<init1><list1>
+<init1> -> = <init1’>
+<init1> -> E
+<init1’> -> ID <init1’’>
+<init1’> -> <const><H1’><G1’><exp1’>
+<init1’> -> (<exp1>)<H1’><G1’><exp1’>
+<init1’> -> <obj-dec-1> <O1’><H1’><G1’><exp1’>
+<init1’’> -> <O1> <H1'><G1'><exp1'>
+<init1’’> -> <init1>
+<M1> -> [] <M1’>
+<M1> -> <arr-init1><arr-list1>
+<M1’> -> <arr-init2f><arr-list1>
+<arr-list1> -> ;
+<arr-list1> -> , ID [ ] <M1>
+<arr-init1> -> = <arr-init1’>
+<arr-init1> -> E
+<arr-init1’> -> {<element1>}
+<arr-init1’> -> <DT> [<exp1>]
+<element1> -> <const><elements1>
+<element1> -> E
+<elements1> -> , <const><elements1>
+<elements1> -> E
+<arr-init2f> -> = <arr-init2f’>
+<arr-init2f> -> E
+<arr-init2f’> -> {<element2f>}
+<arr-init2f’> -> <DT>[<exp1>] [<exp1>]
+<element2f> -> {<element1>}<2df>
+<element2f> -> E
+<2df> -> , {<element1>}<2df>
+<2df> -> E
+<exp1> -> <G1> <exp1’>
+<exp1’> -> ROP <G1><exp1’>
+<exp1’> -> E
+<G1> -> <H1> <G1’>
+<G1’> -> PM <H1><G1’>
+<G1’> -> E
+<H1> -> <F1><H1’>
+<H1’> -> MDM <F1><H1’>
+<H1’> -> E
+<F1> -> ID <O1>
+<F1> -> <const>
+<F1> -> (<exp1>)
+<F1> -> <obj-dec-1><O1’>
+<O1> -> <arr-call-1><O1’>
+<O1> -> (<argu1>)<O1’>
+<O1> -> <O1’>
+<O1’> -> .ID<O1> / E
+<while-st-1> -> while (<exp1>) <body1>
+<body1> -> ;
+<body1> -> <SST1>
+<body1> -> {<MST1>}
+<if-else-1> -> if (<exp1>)<body1><else1>
+<else1> -> else <body1>
+<else1> -> E
+<return-st-1> -> ret <case1>
+<case1> -> <exp1>
+<case1> -> null
+<obj-dec-1> -> create ID (<arug1>)
+<SST> -> <while-st>
+<SST> -> <if-else-st>
+<SST> -> <break-st>
+<SST> -> <continue-st>
+<SST> -> <return-st>
+<SST> -> super.ID<assign-fn-call>
+<SST> -> self.ID<assign-fn-call>
+<SST> ->  <D-I-Fc>
+<MST> -> <SST> <MST>
+<MST> -> E
+<D-I-Fc> -> DT ID <dec>
+<D-I-Fc> -> ID <D-S-A-Fc>
+<D-S-A-Fc> -> ID <dec>
+<D-S-A-Fc> -> <assign-fn-call>
+<assign-fncall> -> <f-n>
+<assign-fncall> -> =<exp>
+<f-n> -> . ID <A> 
+<f-n> -> <arr-call> <RID>
+<f-n> -> (<argu>)<T>
+<A> -> = <exp>
+<A> -> <f-n>
+<T> -> . ID <f-n>
+<T> -> ;
+<RID> -> .ID <f-n>
+<RID> -> = <exp>;
+<argu> -> <exp><argus>
+<argu> -> E
+<argus> -> , <exp><argus>
+<argus> -> E
+<arr-call-> -> [<exp>][S]
+<S> -> [<exp>]
+<S> -> E
+<exp> -> <G> <exp’>
+<exp’> -> ROP <G><exp’>
+<exp’> -> E
+<G> -> <H> <G’>
+<G’> -> PM <H><G’>
+<G’> -> E
+<H> -> <F><H’>
+<H’> -> MDM <F><H’>
+<H’> -> E
+<F> -> <TS> ID <O>
+<F> -> <const>
+<F> -> (<exp>)
+<F> -> <obj-dec><O’>
+<O> -> <arr-call><O’>
+<O> -> (<argu>)<O’>
+<O> -> <O’>
+<O1’> -> .ID<O1> / E
+<TS> super.
+<TS> self.
+<TS> E
+<fn-st> ->  func AM <R>
+<R> -> <s-fn-st> 
+<R> -> abstract <D> ;
+<s-fn-st> -> static <C> <D> <E>
+<s-fn-st> -> const <D> <E>
+<s-fn-st> -> <D> <D’> 
+<C> -> const / E
+<D> -> ID (<para>)
+<D’> -> <E> 
+<D’> -> {<const-body>}
+<E> -> : <RDT> {<MST>}
+<const-body> -> <super> <MST>
+<super> -> super(<argu>);
+<class-st> -> AM <P>
+<P> -> abstract<S>{<A-body>}
+<P> -> const <S>{<s-body>}
+<P> -> <S>{<s-body>}
+<S> ->class ID <K> 
+<K> -> childOf  ID<K’>
+<K> -> E
+<K’> -> ,ID <K’>
+<K’> -> E
+<s-body> -> AM <B><C><DT’> ID <dec><s-body>
+<s-body> -> func AM<s-fn-st><s-body>
+<s-body> -> E
+<A-body> -> AM <B><C> <DT’> ID <dec> <A-body>
+<A-body> -> func AM <A-body’><A-body>
+<A-body> -> E
+<A-body’> -> abstract <D>;
+<A-body’> -> static <C><D><E>
+<A-body’> -> const <D><E>
+<A-body’> -> <D><E>
+<B> -> static / E
+<argu> -> <exp><argus>
+<argu> -> E
+<argus> -> ,<exp><argus> / E 
+
