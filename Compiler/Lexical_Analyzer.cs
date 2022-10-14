@@ -14,13 +14,15 @@ class Lexical_Analyzer
             // ARITHEMATIC & LOGICAL OPERATORS
             {"+",TokenType.PM},         {"-",TokenType.PM},    
             {"/",TokenType.MDM},        {"%",TokenType.MDM},
-            {"*",TokenType.MDM},        {"!",TokenType.NOT},
+            {"*",TokenType.MDM},        
+            // {"!",TokenType.NOT},   language doesn't support this keyword
             //  COMPARISION OPERATORS
             {">",TokenType.COMP},       {"<",TokenType.COMP},
             {"<=",TokenType.COMP},      {">=",TokenType.COMP},
             {"==",TokenType.COMP},      {"!=",TokenType.COMP},
-            {"=",TokenType.ASI},        {"and",TokenType.AND},     
-            {"or",TokenType.OR},        {"return",TokenType.RETURN},
+            {"=",TokenType.ASI},        {"return",TokenType.RETURN},         
+            // {"and",TokenType.AND},{"or",TokenType.OR},   language doesn't support this keyword     
+            
             // BRACKETS
             {"(",TokenType.ORB},        {")",TokenType.CRB},
             {"{",TokenType.OCB},        {"}",TokenType.CCB},
@@ -43,8 +45,8 @@ class Lexical_Analyzer
             {"super",TokenType.SUP},    {"const",TokenType.CONST},
             {"child_of",TokenType.C_OF},
             // ACCESS MODIFIERS
-            {"local",TokenType.CLA},    {"global",TokenType.SELF},
-            {"protected",TokenType.SUP}
+            // {"local",TokenType.AM},    {"global",TokenType.AM},
+            // {"protected",TokenType.AM}  since we will work on single code file I've dropped access modifiers
         };
     
 
