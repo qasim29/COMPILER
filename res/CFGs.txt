@@ -132,6 +132,18 @@
 
 
 # OOP
+#we don't have static classs
+
+<CLASS-ST_OOP> -> AM <P_OOP>
+<P_OOP> -> <S_OOP> { <S-BODY_OOP> } 
+<P_OOP> -> const <S_OOP> { <S-BODY_OOP> }
+<P_OOP> -> abstract <S_OOP> { <A-BODY_OOP> } 
+<S_OOP> -> class ID <K_OOP> 
+<K_OOP> -> childOf ID <K’_OOP>
+<K_OOP> -> E
+<K’_OOP> -> , ID <K’_OOP>
+<K’_OOP> -> E
+
 
 <SST_OOP> -> <WHILE-ST_OOP>
 <SST_OOP> -> <IF-ELSE_OOP>
@@ -145,6 +157,7 @@
 <SST_OOP> -> <D-I-FC_OOP>
 <MST_OOP> -> <SST_OOP> <MST_OOP>
 <MST_OOP> -> E
+
 <D-I-FC_OOP> -> DT ID <DEC_OOP>
 <D-I-FC_OOP> -> ID <D-S-A-FC_OOP>
 <D-S-A-FC_OOP> -> ID <DEC_OOP>
@@ -205,21 +218,22 @@
 <E_OOP> -> : <RDT> { <MST_OOP> }
 <CONST-BODY_OOP> -> <SUPER_OOP> <MST_OOP>
 <SUPER_OOP> -> super ( <ARGU_OOP> ) ;
-<CLASS-ST_OOP> -> AM <P_OOP>
-<P_OOP> -> abstract <S_OOP> { <A-BODY_OOP> } 
-<P_OOP> -> const <S_OOP> { <S-BODY_OOP> }
-<P_OOP> -> <S_OOP> { <S-BODY_OOP> } 
-<S_OOP> -> class ID <K_OOP> 
-<K_OOP> -> childOf ID <K’_OOP>
-<K_OOP> -> E
-<K’_OOP> -> , ID <K’_OOP>
-<K’_OOP> -> E
+
+
+#simple class body variable declaration and initialization
 <S-BODY_OOP> -> AM <B_OOP> <C_OOP> <DT’> ID <DEC_OOP> <S-BODY_OOP>
+#simple class body constructor and function declaration 
 <S-BODY_OOP> -> func AM <S-FN-ST_OOP> <S-BODY_OOP>
+#simple class body can be empty
 <S-BODY_OOP> -> E
+
+#Abstract class body variable declaration and initialization
 <A-BODY_OOP> -> AM <B_OOP> <C_OOP> <DT’> ID <DEC_OOP> <A-BODY_OOP>
+#Abstract class body function declaration 
 <A-BODY_OOP> -> func AM <A-BODY’_OOP> <A-BODY_OOP>
+#Abstract class body can be empty 
 <A-BODY_OOP> -> E
+
 <A-BODY’_OOP> -> abstract <D_OOP>;
 <A-BODY’_OOP> -> static <C_OOP> <D_OOP> <E_OOP>
 <A-BODY’_OOP> -> const <D_OOP> <E_OOP>
