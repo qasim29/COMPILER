@@ -7,11 +7,13 @@
 
 #variable declaration (NON_CLASS)
 <DEFS> -> <DT> ID <DEC_F> <DEFS> 
-<DT> -> ID
-<DT> -> DT
 
 #can read null if no declartion in code file except main method
 <DEFS> -> E
+
+#data type
+<DT> -> ID
+<DT> -> DT
 
 #function declaration (NON_CLASS) structure
 <FUNC-ONLY> -> func ID ( <PARA> ) : <RDT> { <MST_F> }
@@ -35,8 +37,9 @@
 #<SST_F> -> <BREAK-ST>;
 #<SST_F> -> <CONTINUE-ST> ;
 <SST_F> -> LK ;
-<SST_F> -> <RETURN-ST-_F> ;
+<SST_F> -> <RETURN-ST-_F> 
 <SST_F> -> <D-I-FC-_F>
+
 <D-I-FC-_F> -> DT ID <DEC_F>
 <D-I-FC-_F> -> ID <D-S-A-FC-_F>
 <D-S-A-FC-_F> -> ID <DEC_F>
