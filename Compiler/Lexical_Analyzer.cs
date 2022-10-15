@@ -20,7 +20,7 @@ class Lexical_Analyzer
             {">",TokenType.COMP},       {"<",TokenType.COMP},
             {"<=",TokenType.COMP},      {">=",TokenType.COMP},
             {"==",TokenType.COMP},      {"!=",TokenType.COMP},
-            {"=",TokenType.ASI},        {"return",TokenType.RETURN},         
+            {"=",TokenType.ASI},        {"return",TokenType.RET},         
             // {"and",TokenType.AND},{"or",TokenType.OR},   language doesn't support this keyword     
             
             // BRACKETS
@@ -31,74 +31,79 @@ class Lexical_Analyzer
             {"if",TokenType.IF},        {"else",TokenType.ELSE},
             // LOOP             
             {"while",TokenType.WHILE},  {"break",TokenType.LK},
-            {"skip",TokenType.LK}, 
+            {"continue",TokenType.LK}, 
             // DATA TYPES
             {"int",TokenType.DT},       {"float",TokenType.DT},
             {"string",TokenType.DT},    {"char",TokenType.DT},
             // PUNCTUATORS
             {";",TokenType.SEC},        {":", TokenType.COL},
-            {",",TokenType.COM}, 
+            {",",TokenType.COM},        {".",TokenType.DOT},  //added dot in case if bugs occurs in future
             // OOP
             {"null",TokenType.NULL},    {"abstract",TokenType.ABS},  
             {"static",TokenType.STA},   {"create",TokenType.NEW},
             {"class",TokenType.CLA},    {"self",TokenType.SELF},
             {"super",TokenType.SUP},    {"const",TokenType.CONST},
-            {"child_of",TokenType.C_OF},
+            {"child_of",TokenType.C_OF}, 
+            //
+            {"func",TokenType.FUNC},    {"void",TokenType.VOID},
+
             // ACCESS MODIFIERS
-            // {"local",TokenType.AM},    {"global",TokenType.AM},
-            // {"protected",TokenType.AM}  since we will work on single code file I've dropped access modifiers
+            {"local",TokenType.AM},    {"global",TokenType.AM},
+            {"protected",TokenType.AM}  //since we will work on single code file I've dropped access modifiers
         };
     
 
     }
 
+    public Hashtable Ht { get => ht; set => ht = value; }
+
     public ArrayList GetTokens(ArrayList words)
     {
         foreach (string[] w in words)
         {
-            if (ht.ContainsKey(w[0])) { tokens.Add(new Tokens(w[1], (TokenType?)ht[w[0]], w[0])); continue; }
+            if (ht.ContainsKey(w[0])) { tokens.Add(new Token(w[1], (TokenType?)ht[w[0]], w[0])); continue; }
 
             else if (Char.IsNumber(w[0][0]))
             {
                 regex = new Regex(@"^[0-9]+$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.IC, w[0])); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Token(w[1], TokenType.IC, w[0])); continue; }
 
                 regex = new Regex(@"^[0-9]*[.][0-9]+$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.FC, w[0])); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Token(w[1], TokenType.FC, w[0])); continue; }
 
-                else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
+                else { tokens.Add(new Token(w[1], TokenType.IL, w[0])); continue; }
             }
             else if (w[0][0] == '.')
             {
-                if (w[0].Length == 1) { tokens.Add(new Tokens(w[1], TokenType.DOT, w[0])); continue; }
+                if (w[0].Length == 1) { tokens.Add(new Token(w[1], TokenType.DOT, w[0])); continue; }
 
                 regex = new Regex(@"^[0-9]*[.][0-9]+$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.FC, w[0])); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Token(w[1], TokenType.FC, w[0])); continue; }
 
-                else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
+                else { tokens.Add(new Token(w[1], TokenType.IL, w[0])); continue; }
 
             }
             else if (w[0][0] == '"')
             {
                 regex = new Regex("^[\"]([\\\\][abfnrtv0\"\'\\\\]|[^(\"\'\\\\)]|[()])*[\"]$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.SC, w[0].Trim('"'))); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Token(w[1], TokenType.SC, w[0].Trim('"'))); continue; }
 
-                else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
+                else { tokens.Add(new Token(w[1], TokenType.IL, w[0])); continue; }
             }
             else if (w[0][0] == '\'')
             {
                 regex = new Regex("^[\']([\\\\][abfnrtv0\"\'\\\\]|[^(\"\'\\\\)]|[()])[\']$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.CC, w[0].Trim('\''))); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Token(w[1], TokenType.CC, w[0].Trim('\''))); continue; }
 
-                else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
+                else { tokens.Add(new Token(w[1], TokenType.IL, w[0])); continue; }
 
             }
             else
             {
                 regex = new Regex("^([a-zA-Z_$][a-zA-Z\\d_$]*)$");
-                if (regex.IsMatch(w[0])) { tokens.Add(new Tokens(w[1], TokenType.ID, w[0])); continue; }
+                if (regex.IsMatch(w[0])) { tokens.Add(new Token(w[1], TokenType.ID, w[0])); continue; }
 
-                else { tokens.Add(new Tokens(w[1], TokenType.IL, w[0])); continue; }
+                else { tokens.Add(new Token(w[1], TokenType.IL, w[0])); continue; }
             }
         }
         return tokens;

@@ -1,6 +1,6 @@
 
 
-public class Tokens
+public class Token
 {
     /*     
         For example, a database field may contain true or false, 
@@ -11,7 +11,7 @@ public class Tokens
     private TokenType? class_Part { get; set; }
     private string word { get; set; }
 
-    public Tokens(string lineNo, TokenType? class_Part, string word)
+    public Token(string lineNo, TokenType? class_Part, string word)
     {
         this.lineNo = lineNo;
         this.class_Part = class_Part;
