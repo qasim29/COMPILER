@@ -1,17 +1,25 @@
 <START> -> <DEFS> func execute ( ) : void { <MST_F> }
+#class declaration
 <DEFS> ->  <CLASS-ST_OOP> <DEFS>
+
+#function declaration (NON_CLASS)
 <DEFS> -> <FUNC-ONLY> <DEFS>
+
+#variable declaration (NON_CLASS)
 <DEFS> -> <DT> ID <DEC_F> <DEFS> 
 <DT> -> ID
 <DT> -> DT
+
+#can read null if no declartion in code file except main method
 <DEFS> -> E
+
+#function declaration (NON_CLASS) structure
 <FUNC-ONLY> -> func ID ( <PARA> ) : <RDT> { <MST_F> }
 <PARA> -> <DT’> ID <PARAS> 
 <PARA> -> E
 <PARAS> -> , <DT’> ID <PARAS>
 <PARAS> -> E
 <RDT> -> <DT’>
-#void ka kya keyword(i.e. tokentype) banain 
 <RDT> -> void
 <DT’> -> DT <DT’’>
 <DT’> -> ID <DT’’>
@@ -157,6 +165,7 @@
 <S_OOP> ->  [ <EXP_OOP> ]
 <S_OOP> ->  E
 
+#expression 
 <EXP_OOP> ->  <G_OOP> <EXP’_OOP>
 <EXP’_OOP> ->  ROP <G_OOP> <EXP’_OOP>
 <EXP’_OOP> ->  E
@@ -175,8 +184,8 @@
 <O_OOP> ->  <O’_OOP>
 <O’_OOP> ->  . ID <O_OOP>
 <O’_OOP> ->  E
-<TS_OOP> super .
-<TS_OOP> self .
+<TS_OOP> -> super .
+<TS_OOP> -> self .
 <TS_OOP> E
 
 <FN-ST_OOP> ->   func AM <R_OOP>
@@ -253,19 +262,23 @@
 <2DF_OOP> ->  , { <ELEMENT_OOP> } <2DF_OOP>
 <2DF_OOP> ->  E
 
+# while loop start
 <WHILE-ST_OOP> ->  while ( <EXP_OOP> ) <BODY_OOP>
 
 <BODY_OOP> ->  ;
 <BODY_OOP> ->  <SST_OOP>
 <BODY_OOP> ->  { <MST_OOP> }
 
+#if statement start
 <IF-ELSE_OOP> ->  if ( <EXP_OOP> ) <BODY_OOP> <ELSE_OOP>
 <ELSE_OOP> ->  else <BODY_OOP>
 <ELSE_OOP> ->  E
 
+#return statement
 <RETURN-ST_OOP> ->  return <CASE_OOP> ;
 <CASE_OOP> ->  <EXP_OOP>
 <CASE_OOP> ->  null
 
+#obj declaration
 <OBJ-DEC_OOP> ->  create ID ( <ARGU_OOP> )
 
