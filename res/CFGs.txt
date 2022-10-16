@@ -45,11 +45,11 @@
 <D-S-A-FC-_F> -> ID <DEC_F>
 <D-S-A-FC-_F> -> <ASSIGN-FNCALL-_F>
 <ASSIGN-FNCALL-_F> -> <F-N-_F>
-<ASSIGN-FNCALL-_F> -> = <EXP_F>
+<ASSIGN-FNCALL-_F> -> = <EXP_F> ;
 <F-N-_F> -> . ID <A_F> 
 <F-N-_F> -> <ARR-CALL-_F> <RID_F>
 <F-N-_F> -> ( <ARGU_F> ) <T_F>
-<A_F> -> = <EXP_F>
+<A_F> -> = <EXP_F> ;
 <A_F> -> <F-N-_F>
 <T_F> -> . ID <F-N-_F>
 <T_F> -> ;
@@ -59,7 +59,7 @@
 <ARGU_F> -> E
 <ARGUS_F> -> , <EXP_F> <ARGUS_F>
 <ARGUS_F> -> E
-<ARR-CALL-_F> -> [ <EXP_F> ] [ <S_F> ]
+<ARR-CALL-_F> -> [ <EXP_F> ] <S_F>
 <S_F> -> [ <EXP_F> ]
 <S_F> -> E
 <DEC_F> -> [ ] <M_F>
@@ -99,6 +99,7 @@
 <ELEMENT2F> -> E
 <2DF> -> , { <ELEMENT_F> } <2DF>
 <2DF> -> E
+#<EXP_F>
 <EXP_F> -> <G_F> <EXP_S’>
 <EXP_S’> -> ROP <G_F> <EXP_S’>
 <EXP_S’> -> E
@@ -135,9 +136,9 @@
 #we don't have static classs
 
 <CLASS-ST_OOP> -> AM <P_OOP>
-<P_OOP> -> <S_OOP> { <S-BODY_OOP> } 
-<P_OOP> -> const <S_OOP> { <S-BODY_OOP> }
-<P_OOP> -> abstract <S_OOP> { <A-BODY_OOP> } 
+<P_OOP> -> <S_OOP> { <SIMPLE_CLASS_BODY_OOP> } 
+<P_OOP> -> const <S_OOP> { <SIMPLE_CLASS_BODY_OOP> }
+<P_OOP> -> abstract <S_OOP> { <ABSTRACT_CLASS_BODY_OOP> } 
 <S_OOP> -> class ID <K_OOP> 
 <K_OOP> -> childOf ID <K’_OOP>
 <K_OOP> -> E
@@ -158,6 +159,8 @@
 <MST_OOP> -> <SST_OOP> <MST_OOP>
 <MST_OOP> -> E
 
+#Declaration, Initialization, function call, 
+#Assignment, 
 <D-I-FC_OOP> -> DT ID <DEC_OOP>
 <D-I-FC_OOP> -> ID <D-S-A-FC_OOP>
 <D-S-A-FC_OOP> -> ID <DEC_OOP>
@@ -204,14 +207,16 @@
 <TS_OOP> -> self .
 <TS_OOP> -> E
 
-<FN-ST_OOP> -> func AM <R_OOP>
-<R_OOP> -> <S-FN-ST_OOP> 
-<R_OOP> -> abstract <D_OOP> ;
-<S-FN-ST_OOP> -> static <C_OOP> <D_OOP> <E_OOP>
+#constructor and function declaration structure
+#<FN-ST_OOP> -> func AM <R_OOP>
+#<R_OOP> -> <S-FN-ST_OOP> 
+#<R_OOP> -> abstract <D_OOP> : <RDT> ;
+
+<S-FN-ST_OOP> -> static <CONST_KEY-WORD_OOP> <D_OOP> <E_OOP>
 <S-FN-ST_OOP> -> const <D_OOP> <E_OOP>
 <S-FN-ST_OOP> -> <D_OOP> <D’_OOP> 
-<C_OOP> -> const
-<C_OOP> -> E
+<CONST_KEY-WORD_OOP> -> const
+<CONST_KEY-WORD_OOP> -> E
 <D_OOP> -> ID ( <PARA> )
 <D’_OOP> -> <E_OOP> 
 <D’_OOP> -> { <CONST-BODY_OOP> }
@@ -221,25 +226,25 @@
 
 
 #simple class body variable declaration and initialization
-<S-BODY_OOP> -> AM <B_OOP> <C_OOP> <DT’> ID <DEC_OOP> <S-BODY_OOP>
+<SIMPLE_CLASS_BODY_OOP> -> AM <STATIC_KEY-WORD_OOP> <CONST_KEY-WORD_OOP> <DT’> ID <DEC_OOP> <SIMPLE_CLASS_BODY_OOP>
 #simple class body constructor and function declaration 
-<S-BODY_OOP> -> func AM <S-FN-ST_OOP> <S-BODY_OOP>
+<SIMPLE_CLASS_BODY_OOP> -> func AM <S-FN-ST_OOP> <SIMPLE_CLASS_BODY_OOP>
 #simple class body can be empty
-<S-BODY_OOP> -> E
+<SIMPLE_CLASS_BODY_OOP> -> E
 
 #Abstract class body variable declaration and initialization
-<A-BODY_OOP> -> AM <B_OOP> <C_OOP> <DT’> ID <DEC_OOP> <A-BODY_OOP>
+<ABSTRACT_CLASS_BODY_OOP> -> AM <STATIC_KEY-WORD_OOP> <CONST_KEY-WORD_OOP> <DT’> ID <DEC_OOP> <ABSTRACT_CLASS_BODY_OOP>
 #Abstract class body function declaration 
-<A-BODY_OOP> -> func AM <A-BODY’_OOP> <A-BODY_OOP>
+<ABSTRACT_CLASS_BODY_OOP> -> func AM <A-BODY’_OOP> <ABSTRACT_CLASS_BODY_OOP>
 #Abstract class body can be empty 
-<A-BODY_OOP> -> E
+<ABSTRACT_CLASS_BODY_OOP> -> E
 
-<A-BODY’_OOP> -> abstract <D_OOP>;
-<A-BODY’_OOP> -> static <C_OOP> <D_OOP> <E_OOP>
+<A-BODY’_OOP> -> abstract <D_OOP> : <RDT> ;
+<A-BODY’_OOP> -> static <CONST_KEY-WORD_OOP> <D_OOP> <E_OOP>
 <A-BODY’_OOP> -> const <D_OOP> <E_OOP>
 <A-BODY’_OOP> -> <D_OOP> <E_OOP>
-<B_OOP> -> static
-<B_OOP> -> E
+<STATIC_KEY-WORD_OOP> -> static
+<STATIC_KEY-WORD_OOP> -> E
 <ARGU_OOP> -> <EXP_OOP> <ARGUS_OOP>
 <ARGU_OOP> -> E
 <ARGUS_OOP> -> , <EXP_OOP> <ARGUS_OOP> 
