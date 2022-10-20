@@ -1,30 +1,170 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
+
 
 /* 
     LANGUAGE PARSER 
 */
 
-Word_Breaker breaker = new Word_Breaker();
-ArrayList words_list = breaker.GetWords();
-Lexical_Analyzer la=new Lexical_Analyzer();
 
-await ExampleAsync(la.GetTokens(words_list));
+// static async Task ExampleAsync(ArrayList tokens)
+// {
+
+//     using StreamWriter file = new(@"E:\GITHUB\Language_Compiler\res\words.txt");
+
+//     foreach (Token item in tokens)
+//     {
+//         Console.WriteLine(item.ToString());
+//         await file.WriteLineAsync(item.ToString());
+//     }
+// }
 
 
-static async Task ExampleAsync(ArrayList tokens)
+// Word_Breaker breaker = new Word_Breaker();
+// Lexical_Analyzer la = new Lexical_Analyzer();
+
+// // ArrayList words_list = breaker.GetWords();
+// ArrayList tokens = la.GetTokens(breaker.GetWords());
+
+// await ExampleAsync(tokens);
+
+// foreach (Token t in tokens)
+// {
+
+// }
+Hashtable rules = new Hashtable();
+
+foreach (string line in System.IO.File.ReadLines(@"E:\GITHUB\Language_Compiler\res\CFGs.txt"))
 {
-
-    using StreamWriter file = new(@"E:\GITHUB\Language_Compiler\res\words.txt");
-
-    foreach (Tokens item in tokens)
+    if (line == "") { continue; }
+    if (line[0] == '#') { continue; }
+    string[] arr = line.Split("->");
+    // System.Console.WriteLine(line.Split("->")[1]);
+    if (rules.ContainsKey(arr[0]))
     {
-        Console.WriteLine(item.ToString());
-        await file.WriteLineAsync(item.ToString());
+        //    string[]? a= (string[]?) rules[arr[0]];
+        ArrayList? pro = (ArrayList?)rules[arr[0]];
+        pro?.Add(arr[1].Trim().Split(" "));
+        rules[arr[0]] = pro;
+
+        // (ArrayList?)rules[arr[0]].add("a");
+        //    .Add(rules[arr[0]]);
+        //    rules[arr[0]].Add(arr[1].Split(" "));
+        //     rules.
+        //    rules[arr[0]]=val; 
+    }
+    else
+    {
+        ArrayList val = new ArrayList();
+        val.Add(arr[1].Trim().Split(" "));
+        rules.Add(arr[0], val);
     }
 }
+string[] keys= new string[rules.Keys.Count];
+rules.Keys.CopyTo(keys,0);
+int index=0;
+foreach (ArrayList items in rules.Values)
+{
+    
+    System.Console.Write($"{keys[index]} -> ");
+    index+=1;
+    System.Console.Write("[");
+    foreach (string[] item in items)
+    {
+        System.Console.Write("[");
+        foreach (string s in item)
+        {
+            System.Console.Write(s);
+            System.Console.Write(",");
+        }
+        System.Console.Write("]");
+
+    }
+    System.Console.Write("]");
+    System.Console.WriteLine("\n");
+
+}
+
+// String.Split();
+// ATHAR JAVA CODE
+// NOTE:
+// index is global variable
+// ArrayList tokens me Token ky object save hain
+
+// public boolean checkSyntax()
+// {
+//     System.out.println("tokens.size() == " + tokens.size());
+//     if (this.helper("<START>") && index >= tokens.size())
+//     {
+
+//         return true;
+//     }
+//     else
+//     {
+
+//         return false;
+//     }
+// }
+// private boolean helper(String curNT)
+// {
 
 
+//     for (String[] pr : productionRules){
 
+//     int prev = index;
+//     int j = 0;
+//     for (; j < pr.length; j++)
+//     {
+
+//         String element = pr[j];
+//         //		program ky end ~ yeh laga dena or <STart> cfg ky end par bhi
+//         if (element.charAt(0) == '~')
+//         {
+//             ++index;
+//             return true;
+//         }
+//         if (element.charAt(0) == '<')
+//         {
+
+//             if (!helper(element))
+//             {
+//                 break;
+
+//             }
+//         }
+//         else if (element.length() == 1 && element.charAt(0) == 'E')
+//         {
+
+//             continue;
+//         }
+//         else
+//         {
+
+//             if (tokens.get(index).type.equals(element))
+//             {
+
+//                 index++;
+
+//             }
+//             else
+//             {
+//                 break;
+//             }
+//         }
+//     }
+//     if (j == pr.length)
+//     {
+//         return true;
+//     }
+//     else
+//     {
+//         index = prev;
+//     }
+
+// }
+
+// return false;
+//     }
 
 
 
@@ -76,11 +216,11 @@ static async Task ExampleAsync(ArrayList tokens)
 //         if(ch=='<') {flag=true; mline+=ch; continue;}
 //         if(ch=='>') {flag=false; mline+=ch; break;}
 //         if(flag) {mline+= ch;}
-        
+
 //         // mline+=ch;
 //     }
 //     if(mline!="") nt.Add(mline);
-    
+
 // }
 
 
@@ -107,7 +247,7 @@ static async Task ExampleAsync(ArrayList tokens)
 //             continue;
 //         }
 //         if(flag) mline+=ch ;
-        
+
 //     }
 
 // }  
