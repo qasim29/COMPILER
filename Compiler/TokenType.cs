@@ -45,5 +45,4 @@ public enum TokenType
     CONST,          // FINAL
     NULL,
     IL,             // INVALID LEXEME
-    RETURN
 }
