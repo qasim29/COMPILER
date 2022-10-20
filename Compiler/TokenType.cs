@@ -1,5 +1,6 @@
 public enum TokenType
 {
+
     ID,
     DT,             // DATA_TYPE,
     IF,
@@ -14,7 +15,7 @@ public enum TokenType
     // AND,
     // OR,
     FUNC,
-    RET,             // RETURN
+    RETURN,             // RETURN
     SEC,             // SEMI_COLON ;
     COL,             // COLON    :
     COM,             // COMMA ,
@@ -35,14 +36,16 @@ public enum TokenType
         // OOP
     */    
     AM,             // ACCESS MODIFIERS
-    C_OF,           // CHILD_OF EXTENDS
-    ABS,            // ABSRACT
-    STA,            // STATIC
-    NEW,            // CREATE -->NEW
-    CLA,            // CLASS
+    CHILDOF,           // CHILD_OF EXTENDS
+    ABSTRACT,            // ABSRACT
+    STATIC,            // STATIC
+    CREATE,            // CREATE -->NEW
+    CLASS,            // CLASS
     SELF,           // THIS- KEYWORD
-    SUP,            // SUPER
+    SUPER,            // SUPER
     CONST,          // FINAL
     NULL,
     IL,             // INVALID LEXEME
+    EXECUTE
+
 }

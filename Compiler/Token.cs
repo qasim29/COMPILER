@@ -7,11 +7,11 @@ public class Token
         or it may contain no value at all, that is, NULL. 
         You can use the bool? type in that scenario.
     */
-    private string lineNo { get; set; }
-    private TokenType? class_Part { get; set; }
-    private string word { get; set; }
+    public string lineNo { get; set; }
+    public TokenType class_Part { get; set; }
+    public string word { get; set; }
 
-    public Token(string lineNo, TokenType? class_Part, string word)
+    public Token(string lineNo, TokenType class_Part, string word)
     {
         this.lineNo = lineNo;
         this.class_Part = class_Part;
@@ -20,7 +20,7 @@ public class Token
 
     public override string ToString()
     {
-        return "[ " + class_Part.ToString() + ", " + word.ToString() + ", " + lineNo + " ]";
+        return "[ " + class_Part.ToString() + ", " + word + ", " + lineNo + " ]";
     }
 }
 

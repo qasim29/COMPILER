@@ -6,7 +6,7 @@ class Word_Breaker
                                 '+','-','*','/','%','<','>','=','!',       // operators
                                 ' ','\'','"' };
     private string word = "";
-    private ArrayList words;
+    private List<string[]> words;
     private string[] lines;
     private char ch;
     private int i;
@@ -14,18 +14,18 @@ class Word_Breaker
     // COUNSTRUCTOR
     public Word_Breaker()
     {
-        words = new ArrayList();
+        words = new List<string[]>();
 
         lines = System.IO.File.ReadAllLines(@"E:\GITHUB\Language_Compiler\res\SOURCE_CODE.txt");
     }
     public Word_Breaker(string path)
     {
-        words = new ArrayList();
+        words = new List<string[]>();
 
         lines = System.IO.File.ReadAllLines(@path);
     }
     // GETTERS
-    public ArrayList GetWords()
+    public List<string[]> GetWords()
     {
         BreakIntoWords();
 

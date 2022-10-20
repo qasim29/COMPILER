@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 
 class Lexical_Analyzer
 {
-    ArrayList tokens;
-    Hashtable ht;
+    List<Token> tokens;
+    public Dictionary<string,TokenType> ht;
     Regex? regex;
     public Lexical_Analyzer()
     {
-        tokens = new ArrayList();
-        ht = new Hashtable()
+        tokens = new List<Token>();
+        ht = new Dictionary<string,TokenType>()
         {
             // ARITHEMATIC & LOGICAL OPERATORS
             {"+",TokenType.PM},         {"-",TokenType.PM},    
@@ -20,7 +20,7 @@ class Lexical_Analyzer
             {">",TokenType.COMP},       {"<",TokenType.COMP},
             {"<=",TokenType.COMP},      {">=",TokenType.COMP},
             {"==",TokenType.COMP},      {"!=",TokenType.COMP},
-            {"=",TokenType.ASI},        {"return",TokenType.RET},         
+            {"=",TokenType.ASI},        {"return",TokenType.RETURN},         
             // {"and",TokenType.AND},{"or",TokenType.OR},   language doesn't support this keyword     
             
             // BRACKETS
@@ -39,13 +39,14 @@ class Lexical_Analyzer
             {";",TokenType.SEC},        {":", TokenType.COL},
             {",",TokenType.COM},        {".",TokenType.DOT},  //added dot in case if bugs occurs in future
             // OOP
-            {"null",TokenType.NULL},    {"abstract",TokenType.ABS},  
-            {"static",TokenType.STA},   {"create",TokenType.NEW},
-            {"class",TokenType.CLA},    {"self",TokenType.SELF},
-            {"super",TokenType.SUP},    {"const",TokenType.CONST},
-            {"child_of",TokenType.C_OF}, 
+            {"null",TokenType.NULL},    {"abstract",TokenType.ABSTRACT},  
+            {"static",TokenType.STATIC},   {"create",TokenType.CREATE},
+            {"class",TokenType.CLASS},    {"self",TokenType.SELF},
+            {"super",TokenType.SUPER},    {"const",TokenType.CONST},
+            {"child_of",TokenType.CHILDOF}, 
             //
             {"func",TokenType.FUNC},    {"void",TokenType.VOID},
+            {"execute",TokenType.EXECUTE},
 
             // ACCESS MODIFIERS
             {"local",TokenType.AM},    {"global",TokenType.AM},
@@ -55,13 +56,12 @@ class Lexical_Analyzer
 
     }
 
-    public Hashtable Ht { get => ht; set => ht = value; }
 
-    public ArrayList GetTokens(ArrayList words)
+    public List<Token> GetTokens(List<string[]> words)
     {
         foreach (string[] w in words)
         {
-            if (ht.ContainsKey(w[0])) { tokens.Add(new Token(w[1], (TokenType?)ht[w[0]], w[0])); continue; }
+            if (ht.ContainsKey(w[0])) { tokens.Add(new Token(w[1], ht[w[0]], w[0])); continue; }
 
             else if (Char.IsNumber(w[0][0]))
             {
