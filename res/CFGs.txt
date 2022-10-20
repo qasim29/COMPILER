@@ -1,4 +1,4 @@
-<START> -> <DEFS> func execute ( ) : void { <MST_F> }
+<START> -> <DEFS> func execute ( ) : void { <MST_F> } ~
 #class declaration
 <DEFS> -> <CLASS-ST_OOP> <DEFS>
 
@@ -133,7 +133,7 @@
 
 
 # OOP
-#we don't have static classs
+#we don't have static class
 
 <CLASS-ST_OOP> -> AM <P_OOP>
 <P_OOP> -> <S_OOP> { <SIMPLE_CLASS_BODY_OOP> } 
