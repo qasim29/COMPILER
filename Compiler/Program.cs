@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 
 
 /* 
     LANGUAGE PARSER 
 */
 
-
+// language parser program
 // static async Task ExampleAsync(ArrayList tokens)
 // {
 
@@ -32,26 +31,22 @@ using System.Collections;
 // {
 
 // }
-Hashtable rules = new Hashtable();
 
+
+/* 
+    // importing rules into hashtable 
+*/
+Hashtable rules = new Hashtable();
 foreach (string line in System.IO.File.ReadLines(@"E:\GITHUB\Language_Compiler\res\CFGs.txt"))
 {
     if (line == "") { continue; }
     if (line[0] == '#') { continue; }
     string[] arr = line.Split("->");
-    // System.Console.WriteLine(line.Split("->")[1]);
     if (rules.ContainsKey(arr[0]))
     {
-        //    string[]? a= (string[]?) rules[arr[0]];
-        ArrayList? pro = (ArrayList?)rules[arr[0]];
+         ArrayList? pro = (ArrayList?)rules[arr[0]];
         pro?.Add(arr[1].Trim().Split(" "));
         rules[arr[0]] = pro;
-
-        // (ArrayList?)rules[arr[0]].add("a");
-        //    .Add(rules[arr[0]]);
-        //    rules[arr[0]].Add(arr[1].Split(" "));
-        //     rules.
-        //    rules[arr[0]]=val; 
     }
     else
     {
@@ -60,6 +55,7 @@ foreach (string line in System.IO.File.ReadLines(@"E:\GITHUB\Language_Compiler\r
         rules.Add(arr[0], val);
     }
 }
+// printing rules from hash table to terminal
 string[] keys= new string[rules.Keys.Count];
 rules.Keys.CopyTo(keys,0);
 int index=0;
@@ -80,16 +76,17 @@ foreach (ArrayList items in rules.Values)
         System.Console.Write("]");
 
     }
-    System.Console.Write("]");
-    System.Console.WriteLine("\n");
-
+    System.Console.Write("]\n");
 }
 
-// String.Split();
-// ATHAR JAVA CODE
-// NOTE:
-// index is global variable
-// ArrayList tokens me Token ky object save hain
+
+
+/*
+    // ATHAR JAVA CODE
+    // NOTE:
+    // index is global variable
+    // ArrayList tokens me Token ky object save hain
+ */
 
 // public boolean checkSyntax()
 // {
@@ -172,7 +169,7 @@ foreach (ArrayList items in rules.Values)
 
 /* 
 
-    .UPPER(non-terminals) 
+    .UPPER(non-terminals) in CFGs.txt  
 
 */
 
@@ -216,20 +213,16 @@ foreach (ArrayList items in rules.Values)
 //         if(ch=='<') {flag=true; mline+=ch; continue;}
 //         if(ch=='>') {flag=false; mline+=ch; break;}
 //         if(flag) {mline+= ch;}
-
 //         // mline+=ch;
 //     }
 //     if(mline!="") nt.Add(mline);
-
 // }
-
-
-// // printing non terminals
+// // printing non terminals in hashset
 // // foreach (string item in nt)
 // // {
 // //     await file2.WriteLineAsync(item);
 // // }
-
+//  logic for validating each non terminal in CFGs.txt is in hashset?
 // foreach (string line in System.IO.File.ReadLines(@"E:\GITHUB\Language_Compiler\res\CFGs.txt"))
 // {  
 //     string mline="";
@@ -247,7 +240,5 @@ foreach (ArrayList items in rules.Values)
 //             continue;
 //         }
 //         if(flag) mline+=ch ;
-
 //     }
-
 // }  
