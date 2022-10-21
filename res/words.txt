@@ -1,186 +1,260 @@
-func	79
-main	79
-(	79
-)	79
-{	79
-Solution	80
-var	80
-=	80
-create	80
-Solution	80
-(	80
-)	80
-;	80
-int	81
-ans	81
-=	81
-var	81
-.	81
-arithmeticTriplets	81
-(	81
-{	81
-1	81
-,	81
-2	81
-,	81
-4	81
-,	81
-5	81
-}	81
-,	81
--	81
-2	81
-)	81
-;	81
-print	82
-(	82
-ans	82
-)	82
-;	82
-}	83
-class	85
-Solution	85
-{	85
-global	86
-int	86
-arithmeticTriplets	86
-(	86
-int	86
-[	86
-]	86
-arr	86
-,	86
-int	86
-diff	86
-)	86
-{	86
-Map	87
-<	87
-Integer	87
-,	87
-Integer	87
->	87
-map	87
-=	87
-new	87
-HashMap	87
-<	87
->	87
-(	87
-)	87
-;	87
-int	88
-n	88
-=	88
-arr	88
-.	88
-length	88
-;	88
-for	89
-(	89
-int	89
-i	89
-=	89
-0	89
-;	89
-i	89
-<	89
-n	89
-;	89
-i	89
-=	89
-i	89
-+	89
-1	89
-)	89
-{	89
-map	90
-.	90
-put	90
-(	90
-arr	90
-[	90
-i	90
-]	90
-,	90
-i	90
-)	90
-;	90
-}	91
-int	92
-ans	92
-=	92
-0	92
-;	92
-for	93
-(	93
-int	93
-i	93
-=	93
-0	93
-;	93
-i	93
-<	93
-n	93
-;	93
-i	93
-=	93
-i	93
-+	93
-1	93
-)	93
-{	93
-int	94
-num	94
-=	94
-arr	94
-[	94
-i	94
-]	94
-;	94
-int	95
-ind	95
-=	95
-map	95
-.	95
-get	95
-(	95
-num	95
-)	95
-;	95
-if	96
-(	96
-map	96
-.	96
-get	96
-(	96
-num	96
--	96
-diff	96
-)	96
-!=	96
-null	96
-&&	96
-map	96
-.	96
-get	96
-(	96
-num	96
-+	96
-diff	96
-)	96
-!=	96
-null	96
-)	96
-{	96
-ans	97
-+	97
-+	97
-;	97
-}	98
-}	99
-return	100
-ans	100
-;	100
-}	102
-}	103
+[ AM, local, 136 ]
+[ CLASS, class, 136 ]
+[ ID, parent, 136 ]
+[ OCB, {, 136 ]
+[ FUNC, func, 137 ]
+[ AM, local, 137 ]
+[ ID, parent, 137 ]
+[ ORB, (, 137 ]
+[ CRB, ), 137 ]
+[ OCB, {, 137 ]
+[ SUPER, super, 138 ]
+[ ORB, (, 138 ]
+[ CRB, ), 138 ]
+[ SEC, ;, 138 ]
+[ CCB, }, 139 ]
+[ FUNC, func, 140 ]
+[ AM, local, 140 ]
+[ ID, parent, 140 ]
+[ ORB, (, 140 ]
+[ CRB, ), 140 ]
+[ OCB, {, 140 ]
+[ SUPER, super, 141 ]
+[ ORB, (, 141 ]
+[ ID, A1, 141 ]
+[ COM, ,, 141 ]
+[ ID, A2, 141 ]
+[ CRB, ), 141 ]
+[ SEC, ;, 141 ]
+[ CCB, }, 142 ]
+[ FUNC, func, 143 ]
+[ AM, local, 143 ]
+[ CONST, const, 143 ]
+[ ID, id, 143 ]
+[ ORB, (, 143 ]
+[ CRB, ), 143 ]
+[ COL, :, 143 ]
+[ DT, string, 143 ]
+[ OCB, {, 143 ]
+[ CCB, }, 144 ]
+[ FUNC, func, 145 ]
+[ AM, global, 145 ]
+[ STATIC, static, 145 ]
+[ CONST, const, 145 ]
+[ ID, id, 145 ]
+[ ORB, (, 145 ]
+[ CRB, ), 145 ]
+[ COL, :, 145 ]
+[ DT, float, 145 ]
+[ OCB, {, 145 ]
+[ CCB, }, 146 ]
+[ FUNC, func, 147 ]
+[ AM, local, 147 ]
+[ ID, walk, 147 ]
+[ ORB, (, 147 ]
+[ CRB, ), 147 ]
+[ COL, :, 147 ]
+[ VOID, void, 147 ]
+[ OCB, {, 147 ]
+[ CCB, }, 148 ]
+[ CCB, }, 149 ]
+[ FUNC, func, 150 ]
+[ ID, id, 150 ]
+[ ORB, (, 150 ]
+[ DT, int, 150 ]
+[ ID, arg1, 150 ]
+[ COM, ,, 150 ]
+[ DT, char, 150 ]
+[ ID, arg2, 150 ]
+[ COM, ,, 150 ]
+[ DT, string, 150 ]
+[ ID, arg3, 150 ]
+[ CRB, ), 150 ]
+[ COL, :, 150 ]
+[ DT, int, 150 ]
+[ OCB, {, 150 ]
+[ RETURN, return, 150 ]
+[ IC, 1, 150 ]
+[ SEC, ;, 150 ]
+[ CCB, }, 150 ]
+[ DT, float, 151 ]
+[ ID, var, 151 ]
+[ ASI, =, 151 ]
+[ ID, id, 151 ]
+[ ORB, (, 151 ]
+[ FC, 1.1, 151 ]
+[ COM, ,, 151 ]
+[ IC, 1, 151 ]
+[ COM, ,, 151 ]
+[ SC, as, 151 ]
+[ CRB, ), 151 ]
+[ SEC, ;, 151 ]
+[ FUNC, func, 152 ]
+[ ID, id2, 152 ]
+[ ORB, (, 152 ]
+[ DT, int, 152 ]
+[ ID, arg1, 152 ]
+[ CRB, ), 152 ]
+[ COL, :, 152 ]
+[ DT, float, 152 ]
+[ OCB, {, 152 ]
+[ RETURN, return, 152 ]
+[ IC, 1, 152 ]
+[ SEC, ;, 152 ]
+[ CCB, }, 152 ]
+[ DT, int, 153 ]
+[ ID, a, 153 ]
+[ ASI, =, 153 ]
+[ IC, 1, 153 ]
+[ SEC, ;, 153 ]
+[ FUNC, func, 154 ]
+[ ID, call, 154 ]
+[ ORB, (, 154 ]
+[ CRB, ), 154 ]
+[ COL, :, 154 ]
+[ VOID, void, 154 ]
+[ OCB, {, 154 ]
+[ WHILE, while, 155 ]
+[ ORB, (, 155 ]
+[ ID, c, 155 ]
+[ COMP, <, 155 ]
+[ IC, 5, 155 ]
+[ PM, +, 155 ]
+[ IC, 1, 155 ]
+[ CRB, ), 155 ]
+[ OCB, {, 155 ]
+[ ID, New, 156 ]
+[ ID, cla, 156 ]
+[ ASI, =, 156 ]
+[ CREATE, create, 156 ]
+[ ID, New, 156 ]
+[ ORB, (, 156 ]
+[ IC, 12, 156 ]
+[ COM, ,, 156 ]
+[ SC, athar, 156 ]
+[ CRB, ), 156 ]
+[ SEC, ;, 156 ]
+[ CCB, }, 157 ]
+[ IF, if, 157 ]
+[ ORB, (, 157 ]
+[ IC, 4, 157 ]
+[ COMP, >=, 157 ]
+[ IC, 43, 157 ]
+[ PM, +, 157 ]
+[ IC, 54, 157 ]
+[ MDM, *, 157 ]
+[ IC, 5, 157 ]
+[ PM, +, 157 ]
+[ ID, m, 157 ]
+[ CRB, ), 157 ]
+[ OCB, {, 158 ]
+[ ID, print, 158 ]
+[ ORB, (, 158 ]
+[ SC, dsadas, 158 ]
+[ CRB, ), 158 ]
+[ SEC, ;, 158 ]
+[ CCB, }, 159 ]
+[ ELSE, else, 159 ]
+[ OCB, {, 160 ]
+[ DT, int, 160 ]
+[ ID, a, 160 ]
+[ OSB, [, 160 ]
+[ CSB, ], 160 ]
+[ ASI, =, 160 ]
+[ DT, int, 160 ]
+[ OSB, [, 160 ]
+[ IC, 3, 160 ]
+[ CSB, ], 160 ]
+[ SEC, ;, 160 ]
+[ WHILE, while, 161 ]
+[ ORB, (, 161 ]
+[ ID, a, 161 ]
+[ COMP, ==, 161 ]
+[ ID, b, 161 ]
+[ CRB, ), 161 ]
+[ OCB, {, 161 ]
+[ LK, break, 162 ]
+[ SEC, ;, 162 ]
+[ CCB, }, 163 ]
+[ CCB, }, 164 ]
+[ RETURN, return, 165 ]
+[ IC, 1, 165 ]
+[ SEC, ;, 165 ]
+[ CCB, }, 166 ]
+[ FUNC, func, 167 ]
+[ EXECUTE, execute, 167 ]
+[ ORB, (, 167 ]
+[ CRB, ), 167 ]
+[ COL, :, 167 ]
+[ VOID, void, 167 ]
+[ OCB, {, 167 ]
+[ DT, int, 169 ]
+[ ID, b, 169 ]
+[ ASI, =, 169 ]
+[ IC, 54, 169 ]
+[ PM, +, 169 ]
+[ FC, 2.3, 169 ]
+[ SEC, ;, 169 ]
+[ DT, string, 170 ]
+[ ID, abc, 170 ]
+[ ASI, =, 170 ]
+[ CREATE, create, 170 ]
+[ ID, Person, 170 ]
+[ ORB, (, 170 ]
+[ CRB, ), 170 ]
+[ SEC, ;, 170 ]
+[ DT, int, 171 ]
+[ ID, b, 171 ]
+[ ASI, =, 171 ]
+[ IC, 54, 171 ]
+[ PM, +, 171 ]
+[ FC, 2.3, 171 ]
+[ SEC, ;, 171 ]
+[ DT, string, 173 ]
+[ ID, c, 173 ]
+[ OSB, [, 173 ]
+[ CSB, ], 173 ]
+[ ASI, =, 173 ]
+[ DT, int, 173 ]
+[ OSB, [, 173 ]
+[ IC, 3, 173 ]
+[ CSB, ], 173 ]
+[ SEC, ;, 173 ]
+[ DT, int, 174 ]
+[ ID, cd, 174 ]
+[ ASI, =, 174 ]
+[ ID, c, 174 ]
+[ OSB, [, 174 ]
+[ IC, 2, 174 ]
+[ CSB, ], 174 ]
+[ DOT, ., 174 ]
+[ ID, acv, 174 ]
+[ ORB, (, 174 ]
+[ FC, .09, 174 ]
+[ CRB, ), 174 ]
+[ DOT, ., 174 ]
+[ ID, v, 174 ]
+[ SEC, ;, 174 ]
+[ ID, c, 175 ]
+[ OSB, [, 175 ]
+[ IC, 2, 175 ]
+[ CSB, ], 175 ]
+[ ASI, =, 175 ]
+[ IC, 4, 175 ]
+[ SEC, ;, 175 ]
+[ WHILE, while, 176 ]
+[ ORB, (, 176 ]
+[ IC, 4, 176 ]
+[ COMP, >, 176 ]
+[ IC, 2, 176 ]
+[ CRB, ), 176 ]
+[ OCB, {, 176 ]
+[ ID, abavacasca, 177 ]
+[ ASI, =, 177 ]
+[ IC, 2312312, 177 ]
+[ PM, +, 177 ]
+[ ID, bafa335_a, 177 ]
+[ SEC, ;, 177 ]
+[ CCB, }, 178 ]
+[ CCB, }, 179 ]
+[ IL, ~, 179 ]

@@ -1,0 +1,306 @@
+<START> -> <DEFS> func execute ORB CRB COL void OCB <MST_F> CCB ~
+#class declaration
+<DEFS> -> <CLASS-ST_OOP> <DEFS>
+
+#function declaration ORBNON_CLASSCRB
+<DEFS> -> <FUNC-ONLY> <DEFS>
+
+#variable declaration ORBNON_CLASSCRB
+<DEFS> -> <DT> ID <DEC_F> <DEFS> 
+
+#can read null if no declartion in code file except main method
+<DEFS> -> E
+
+#data type
+<DT> -> ID
+<DT> -> DT
+
+#function declaration ORBNON_CLASSCRB structure
+<FUNC-ONLY> -> func ID ORB <PARA> CRB COL <RDT> OCB <MST_F> CCB
+<PARA> -> <DT’> ID <PARAS> 
+<PARA> -> E
+<PARAS> -> COM <DT’> ID <PARAS>
+<PARAS> -> E
+<RDT> -> <DT’>
+<RDT> -> void
+<DT’> -> DT <DT’’>
+<DT’> -> ID <DT’’>
+<DT’’> -> OSB CSB <DT’’’>
+<DT’’> -> E
+<DT’’’> -> OSB CSB
+<DT’’’> -> E
+
+<MST_F> -> <SST_F> <MST_F>
+<MST_F> -> E
+<SST_F> -> <WHILE-ST-_F>
+<SST_F> -> <IF-ELSE-_F>
+#<SST_F> -> <BREAK-ST>SEC
+#<SST_F> -> <CONTINUE-ST> SEC
+<SST_F> -> LK SEC
+<SST_F> -> <RETURN-ST-_F> 
+<SST_F> -> <D-I-FC-_F>
+
+<D-I-FC-_F> -> DT ID <DEC_F>
+<D-I-FC-_F> -> ID <D-S-A-FC-_F>
+<D-S-A-FC-_F> -> ID <DEC_F>
+<D-S-A-FC-_F> -> <ASSIGN-FNCALL-_F>
+<ASSIGN-FNCALL-_F> -> <F-N-_F>
+<ASSIGN-FNCALL-_F> -> ASI <EXP_F> SEC
+<F-N-_F> -> DOT ID <A_F> 
+<F-N-_F> -> <ARR-CALL-_F> <RID_F>
+<F-N-_F> -> ORB <ARGU_F> CRB <T_F>
+<A_F> -> ASI <EXP_F> SEC
+<A_F> -> <F-N-_F>
+<T_F> -> DOT ID <F-N-_F>
+<T_F> -> SEC
+<RID_F> -> DOT ID <F-N-_F>
+<RID_F> -> ASI <EXP_F> SEC
+<ARGU_F> -> <EXP_F> <ARGUS_F>
+<ARGU_F> -> E
+<ARGUS_F> -> COM <EXP_F> <ARGUS_F>
+<ARGUS_F> -> E
+<ARR-CALL-_F> -> OSB <EXP_F> CSB <S_F>
+<S_F> -> OSB <EXP_F> CSB
+<S_F> -> E
+<DEC_F> -> OSB CSB <M_F>
+<DEC_F> -> <INIT_F> <LIST_F>
+<LIST_F> -> SEC
+<LIST_F> -> COM ID <INIT_F> <LIST_F>
+<INIT_F> -> ASI <INIT_S’>
+<INIT_F> -> E
+<INIT_S’> -> ID <INIT_S’’>
+<INIT_S’> -> <CONST_VAL> <H_S’> <G_S’> <EXP_S’>
+<INIT_S’> -> ORB <EXP_F> CRB <H_S’> <G_S’> <EXP_S’>
+<INIT_S’> -> <OBJ-DEC-_F> <O_S’> <H_S’> <G_S’> <EXP_S’>
+<INIT_S’’> -> <O_F> <H_S’> <G_S’> <EXP_S’>
+<INIT_S’’> -> <INIT_F>
+<M_F> -> OSB CSB <M_S’>
+<M_F> -> <ARR-INIT_F> <ARR-LIST_F>
+<M_S’> -> <ARR-INIT2F> <ARR-LIST_F>
+<ARR-LIST_F> -> SEC
+<ARR-LIST_F> -> COM ID OSB CSB <M_F>
+<ARR-INIT_F> -> ASI <ARR-INIT_S’>
+<ARR-INIT_F> -> E
+<ARR-INIT_S’> -> OCB <ELEMENT_F> CCB
+<ARR-INIT_S’> -> <DT> OSB <EXP_F> CSB
+<ELEMENT_F> -> <CONST_VAL> <ELEMENTS_F>
+<ELEMENT_F> -> E
+<CONST_VAL> -> IC
+<CONST_VAL> -> FC
+<CONST_VAL> -> SC
+<CONST_VAL> -> CC
+<ELEMENTS_F> -> COM <CONST_VAL> <ELEMENTS_F>
+<ELEMENTS_F> -> E
+<ARR-INIT2F> -> ASI <ARR-INIT2F’>
+<ARR-INIT2F> -> E
+<ARR-INIT2F’> -> OCB <ELEMENT2F> CCB
+<ARR-INIT2F’> -> <DT> OSB <EXP_F> CSB OSB <EXP_F> CSB
+<ELEMENT2F> -> OCB <ELEMENT_F> CCB <2DF>
+<ELEMENT2F> -> E
+<2DF> -> COM OCB <ELEMENT_F> CCB <2DF>
+<2DF> -> E
+#<EXP_F>
+<EXP_F> -> <G_F> <EXP_S’>
+<EXP_S’> -> COMP <G_F> <EXP_S’>
+<EXP_S’> -> E
+<G_F> -> <H_F> <G_S’>
+<G_S’> -> PM <H_F> <G_S’>
+<G_S’> -> E
+<H_F> -> <F_F> <H_S’>
+<H_S’> -> MDM <F_F> <H_S’>
+<H_S’> -> E
+<F_F> -> ID <O_F>
+<F_F> -> <CONST_VAL>
+<F_F> -> ORB <EXP_F> CRB
+<F_F> -> <OBJ-DEC-_F> <O_S’>
+<O_F> -> <ARR-CALL-_F> <O_S’>
+<O_F> -> ORB <ARGU_F> CRB <O_S’>
+<O_F> -> <O_S’>
+<O_S’> -> DOT ID <O_F>
+<O_S’> -> E
+
+<WHILE-ST-_F> -> while ORB <EXP_F> CRB <BODY_F>
+<BODY_F> -> SEC
+<BODY_F> -> <SST_F>
+<BODY_F> -> OCB <MST_F> CCB
+<IF-ELSE-_F> -> if ORB <EXP_F> CRB <BODY_F> <ELSE_F>
+<ELSE_F> -> else <BODY_F>
+<ELSE_F> -> E
+<RETURN-ST-_F> -> return <CASE_F> SEC
+<CASE_F> -> <EXP_F>
+<CASE_F> -> null
+<OBJ-DEC-_F> -> create ID ORB <ARGU_F> CRB
+
+
+# OOP
+#we don't have static class
+
+<CLASS-ST_OOP> -> AM <P_OOP>
+<P_OOP> -> <S_OOP> OCB <SIMPLE_CLASS_BODY_OOP> CCB 
+<P_OOP> -> const <S_OOP> OCB <SIMPLE_CLASS_BODY_OOP> CCB
+<P_OOP> -> abstract <S_OOP> OCB <ABSTRACT_CLASS_BODY_OOP> CCB 
+<S_OOP> -> class ID <K_OOP> 
+<K_OOP> -> childOf ID <K’_OOP>
+<K_OOP> -> E
+<K’_OOP> -> COM ID <K’_OOP>
+<K’_OOP> -> E
+
+
+<SST_OOP> -> <WHILE-ST_OOP>
+<SST_OOP> -> <IF-ELSE_OOP>
+#<SST_OOP> -> <BREAK-ST_OOP>
+#<SST_OOP> -> <CONTINUE-ST_OOP> 
+#LK LOOPKEYWORDS 
+<SST_OOP> -> LK SEC
+<SST_OOP> -> <RETURN-ST_OOP>
+<SST_OOP> -> super DOT ID <ASSIGN-FNCALL_OOP>
+<SST_OOP> -> self DOT ID <ASSIGN-FNCALL_OOP>
+<SST_OOP> -> <D-I-FC_OOP>
+<MST_OOP> -> <SST_OOP> <MST_OOP>
+<MST_OOP> -> E
+
+#DeclarationCOM InitializationCOM function callCOM 
+#AssignmentCOM 
+<D-I-FC_OOP> -> DT ID <DEC_OOP>
+<D-I-FC_OOP> -> ID <D-S-A-FC_OOP>
+<D-S-A-FC_OOP> -> ID <DEC_OOP>
+<D-S-A-FC_OOP> -> <ASSIGN-FNCALL_OOP>
+<ASSIGN-FNCALL_OOP> -> <F-N_OOP>
+<ASSIGN-FNCALL_OOP> -> ASI <EXP_OOP>
+<F-N_OOP> -> DOT ID <A_OOP> 
+<F-N_OOP> -> <ARR-CALL_OOP> <RID_OOP>
+<F-N_OOP> -> ORB <ARGU_OOP> CRB <T_OOP>
+<A_OOP> -> ASI <EXP_OOP>
+<A_OOP> -> <F-N_OOP>
+<T_OOP> -> DOT ID <F-N_OOP>
+<T_OOP> -> SEC
+<RID_OOP> -> DOT ID <F-N_OOP>
+<RID_OOP> -> ASI <EXP_OOP> SEC
+<ARGU_OOP> -> <EXP_OOP> <ARGUS_OOP>
+<ARGU_OOP> -> E
+<ARGUS_OOP> -> COM <EXP_OOP> <ARGUS_OOP>
+<ARGUS_OOP> -> E
+<ARR-CALL_OOP> -> OSB <EXP_OOP> CSB <S_OOP> 
+<S_OOP> -> OSB <EXP_OOP> CSB
+<S_OOP> -> E
+
+#expression 
+<EXP_OOP> -> <G_OOP> <EXP’_OOP>
+<EXP’_OOP> -> COMP <G_OOP> <EXP’_OOP>
+<EXP’_OOP> -> E
+<G_OOP> -> <H_OOP> <G’_OOP>
+<G’_OOP> -> PM <H_OOP> <G’_OOP>
+<G’_OOP> -> E
+<H_OOP> -> <F_OOP> <H’_OOP>
+<H’_OOP> -> MDM <F_OOP> <H’_OOP>
+<H’_OOP> -> E
+<F_OOP> -> <TS_OOP> ID <O_OOP>
+<F_OOP> -> <CONST_VAL>
+<F_OOP> -> ORB <EXP_OOP> CRB
+<F_OOP> -> <OBJ-DEC_OOP> <O’_OOP>
+<O_OOP> -> <ARR-CALL_OOP> <O’_OOP>
+<O_OOP> -> ORB <ARGU_OOP> CRB <O’_OOP>
+<O_OOP> -> <O’_OOP>
+<O’_OOP> -> DOT ID <O_OOP>
+<O’_OOP> -> E
+<TS_OOP> -> super DOT
+<TS_OOP> -> self DOT
+<TS_OOP> -> E
+
+#constructor and function declaration structure
+#<FN-ST_OOP> -> func AM <R_OOP>
+#<R_OOP> -> <S-FN-ST_OOP> 
+#<R_OOP> -> abstract <D_OOP> COL <RDT> SEC
+
+<S-FN-ST_OOP> -> static <CONST_KEY-WORD_OOP> <D_OOP> <E_OOP>
+<S-FN-ST_OOP> -> const <D_OOP> <E_OOP>
+<S-FN-ST_OOP> -> <D_OOP> <D’_OOP> 
+<CONST_KEY-WORD_OOP> -> const
+<CONST_KEY-WORD_OOP> -> E
+<D_OOP> -> ID ORB <PARA> CRB
+<D’_OOP> -> <E_OOP> 
+<D’_OOP> -> OCB <CONST-BODY_OOP> CCB
+<E_OOP> -> COL <RDT> OCB <MST_OOP> CCB
+<CONST-BODY_OOP> -> <SUPER_OOP> <MST_OOP>
+<SUPER_OOP> -> super ORB <ARGU_OOP> CRB SEC
+
+
+#simple class body variable declaration and initialization
+<SIMPLE_CLASS_BODY_OOP> -> AM <STATIC_KEY-WORD_OOP> <CONST_KEY-WORD_OOP> <DT’> ID <DEC_OOP> <SIMPLE_CLASS_BODY_OOP>
+#simple class body constructor and function declaration 
+<SIMPLE_CLASS_BODY_OOP> -> func AM <S-FN-ST_OOP> <SIMPLE_CLASS_BODY_OOP>
+#simple class body can be empty
+<SIMPLE_CLASS_BODY_OOP> -> E
+
+#Abstract class body variable declaration and initialization
+<ABSTRACT_CLASS_BODY_OOP> -> AM <STATIC_KEY-WORD_OOP> <CONST_KEY-WORD_OOP> <DT’> ID <DEC_OOP> <ABSTRACT_CLASS_BODY_OOP>
+#Abstract class body function declaration 
+<ABSTRACT_CLASS_BODY_OOP> -> func AM <A-BODY’_OOP> <ABSTRACT_CLASS_BODY_OOP>
+#Abstract class body can be empty 
+<ABSTRACT_CLASS_BODY_OOP> -> E
+
+<A-BODY’_OOP> -> abstract <D_OOP> COL <RDT> SEC
+<A-BODY’_OOP> -> static <CONST_KEY-WORD_OOP> <D_OOP> <E_OOP>
+<A-BODY’_OOP> -> const <D_OOP> <E_OOP>
+<A-BODY’_OOP> -> <D_OOP> <E_OOP>
+<STATIC_KEY-WORD_OOP> -> static
+<STATIC_KEY-WORD_OOP> -> E
+<ARGU_OOP> -> <EXP_OOP> <ARGUS_OOP>
+<ARGU_OOP> -> E
+<ARGUS_OOP> -> COM <EXP_OOP> <ARGUS_OOP> 
+<ARGUS_OOP> -> E 
+
+<DEC_OOP> -> OSB CSB <M_OOP>
+<DEC_OOP> -> <INIT_OOP> <LIST_OOP>
+<LIST_OOP> -> SEC
+<LIST_OOP> -> COM ID <INIT_OOP> <LIST_OOP>
+<INIT_OOP> -> ASI <INIT’_OOP>
+<INIT_OOP> -> E
+<INIT’_OOP> -> ID <INIT’’_OOP>
+<INIT’_OOP> -> <CONST_VAL> <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’_OOP> -> ORB <EXP_OOP> CRB <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’_OOP> -> <OBJ-DEC_OOP> <O’_OOP> <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’’_OOP> -> <O_OOP> <H’_OOP> <G’_OOP> <EXP’_OOP>
+<INIT’’_OOP> -> <INIT_OOP>
+<M_OOP> -> OSB CSB <M’_OOP>
+<M_OOP> -> <ARR-INIT_OOP> <ARR-LIST_OOP>
+<M’_OOP> -> <ARR-INIT2F_OOP> <ARR-LIST_OOP>
+<ARR-LIST_OOP> -> SEC
+<ARR-LIST_OOP> -> COM ID OSB CSB <M_OOP>
+<ARR-INIT_OOP> -> ASI <ARR-INIT’_OOP>
+<ARR-INIT_OOP> -> E
+<ARR-INIT’_OOP> -> OCB <ELEMENT_OOP> CCB
+<ARR-INIT’_OOP> -> <DT> OSB <EXP_OOP> CSB
+<ELEMENT_OOP> -> <CONST_VAL> <ELEMENTS_OOP>
+<ELEMENT_OOP> -> E
+<ELEMENTS_OOP> -> COM <CONST_VAL> <ELEMENTS_OOP>
+<ELEMENTS_OOP> -> E
+<ARR-INIT2F_OOP> -> ASI <ARR-INIT2F’_OOP>
+<ARR-INIT2F_OOP> -> E
+<ARR-INIT2F’_OOP> -> OCB <ELEMENT2F_OOP> CCB
+<ARR-INIT2F’_OOP> -> <DT> OSB <EXP_OOP> CSB OSB <EXP_OOP> CSB
+<ELEMENT2F_OOP> -> OCB <ELEMENT_OOP> CCB <2DF_OOP>
+<ELEMENT2F_OOP> -> E
+<2DF_OOP> -> COM OCB <ELEMENT_OOP> CCB <2DF_OOP>
+<2DF_OOP> -> E
+
+# while loop start
+<WHILE-ST_OOP> -> while ORB <EXP_OOP> CRB <BODY_OOP>
+
+<BODY_OOP> -> SEC
+<BODY_OOP> -> <SST_OOP>
+<BODY_OOP> -> OCB <MST_OOP> CCB
+
+#if statement start
+<IF-ELSE_OOP> -> if ORB <EXP_OOP> CRB <BODY_OOP> <ELSE_OOP>
+<ELSE_OOP> -> else <BODY_OOP>
+<ELSE_OOP> -> E
+
+#return statement
+<RETURN-ST_OOP> -> return <CASE_OOP> SEC
+<CASE_OOP> -> <EXP_OOP>
+<CASE_OOP> -> null
+
+#obj declaration
+<OBJ-DEC_OOP> -> create ID ORB <ARGU_OOP> CRB
+

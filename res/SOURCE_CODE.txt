@@ -110,5 +110,70 @@ while(((a&&c!==56.76
 cahr ch="abc+=56\\"abc\"+=65\"+=b
 str='c'++'\\'+='ch'\\r'c
 a+77.88bc.69bc.b69b.55
-$
+
 98.bs
+$
+$
+class A_B_C::a<<<b--6
+if_else(a!!!b&&c!==d
+while(((a&&c!==56.76
+cahr ch="abc+=56\\"abc\"+=65\"+=b
+str='c'++'\\'+='ch'\\r'c
+a+77.88bc.69bc.b69b.55
+77.88bc.69bc.b69b.55
+98.b6
+98.32
+98.3a
+77.88bc
+.69bc
+.
+b69b
+.55
+as98._bs
+$
+
+
+local class parent{
+    func local parent(){
+        super();
+    }
+    func local parent(){          
+        super(A1,A2);
+    }
+    func local const id():string{                                         
+    }
+    func global static const id(): float{
+    }
+    func local walk():void{
+    }
+}
+func id(int arg1,char arg2,string arg3): int{return 1;}
+float var = id(1.1,1,"as");
+func id2(int arg1): float{return 1;}
+int a = 1;
+func call(): void{
+    while(c < 5+1){
+        New cla = create New(12,"athar");
+        }if(4 >= 43+54 * 5 + m)
+        {print("dsadas");
+        }else
+        {int a[] = int[3];
+        while(a == b){
+            break;
+        }
+    }
+    return 1;
+}
+func execute(): void {
+    
+    int b = 54 + 2.3;
+   string abc = create Person();
+    int b = 54 + 2.3;
+
+    string c[] = int[3];
+    int cd = c[2].acv(.09).v;
+    c[2] = 4;
+    while(4 >2){
+        abavacasca = 2312312+ bafa335_a;
+    }
+}~
