@@ -5,7 +5,7 @@ public class Syntax_Analyzer
     List<Token> tokens;
     Dictionary<string,List<string[]>> rules;
     int index =0;
-    Lexical_Analyzer la = new Lexical_Analyzer();
+    SE_Semantic_Analyzer se= new SE_Semantic_Analyzer();
     public Syntax_Analyzer(List<Token> tokens)
     {
         this.rules = new Dictionary<string,List<string[]>>();
@@ -39,7 +39,7 @@ public class Syntax_Analyzer
         foreach (List<string[]> items in rules.Values)
         {
 
-            System.Console.Write($"{keys[index]} -> ");
+            System.Console. Write($"{keys[index]} -> ");
             index += 1;
             System.Console.Write("[");
             foreach (string[] item in items)
@@ -127,6 +127,8 @@ public class Syntax_Analyzer
                         // if (invalidToken == tokens.get(index)) invalidToken = null;
 
                         System.Console.WriteLine("Matched Terminal =" + element);
+                        
+
                         // System.Console.WriteLine("Matched Terminal value =" + tokens.get(index).value);
                         // parsed.add(tokens.get(index).value);
                         
