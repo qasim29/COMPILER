@@ -66,6 +66,23 @@ class SE_Semantic_Analyzer
 
         return null;
     }
+    string? compatibility(string left,string right,string op){
+        if(left =="char" || right=="char") return null;
+        else if(left==right){
+        
+            if(left=="string" && right=="string" && (op=="-" || op=="*" || op=="/" || op=="%")){
+                System.Console.WriteLine("incompatible type");
+                return null;
+            }
+            return left;
+        }
+        else if((left=="float" || left=="int") && (right=="float" || right=="int")){
+            return "float";
+        }
+        System.Console.WriteLine("incompatible type");
+        return null;
+    }
+
     void createScope(int scope, List<int> scopeStack) { scope += 1; scopeStack.Add(scope); }
     void destroyScope(int scope, List<int> scopeStack) { scopeStack.RemoveAt(scopeStack.Count - 1); }
 
