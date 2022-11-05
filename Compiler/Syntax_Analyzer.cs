@@ -3,12 +3,14 @@ using System.Collections.Generic;
 public class Syntax_Analyzer
 {
     List<Token> tokens;
-    Dictionary<string,List<string[]>> rules;
-    int index =0;
-    SE_Semantic_Analyzer se= new SE_Semantic_Analyzer();
+    Dictionary<string, List<string[]>> rules;
+    int index = 0;
+    SE_Semantic_Analyzer se = new SE_Semantic_Analyzer();
+    public List<int> scopeStack = new List<int>();
+    public string curr_class_name;
     public Syntax_Analyzer(List<Token> tokens)
     {
-        this.rules = new Dictionary<string,List<string[]>>();
+        this.rules = new Dictionary<string, List<string[]>>();
         this.tokens = tokens;
         this.getRules();
         // this.printRules();
@@ -20,7 +22,7 @@ public class Syntax_Analyzer
             if (line == "") { continue; }
             if (line[0] == '#') { continue; }
             string[] arr = line.Split("->");
-            if (rules.ContainsKey(arr[0].Trim())) rules[arr[0].Trim()].Add(arr[1].Trim().Split(" "));   
+            if (rules.ContainsKey(arr[0].Trim())) rules[arr[0].Trim()].Add(arr[1].Trim().Split(" "));
             else
             {
                 List<string[]> val = new List<string[]>();
@@ -29,7 +31,7 @@ public class Syntax_Analyzer
             }
         }
     }
-   
+
     public void printRules()
     {
         // printing rules from hash table to terminal
@@ -39,7 +41,7 @@ public class Syntax_Analyzer
         foreach (List<string[]> items in rules.Values)
         {
 
-            System.Console. Write($"{keys[index]} -> ");
+            System.Console.Write($"{keys[index]} -> ");
             index += 1;
             System.Console.Write("[");
             foreach (string[] item in items)
@@ -73,21 +75,21 @@ public class Syntax_Analyzer
     }
     private bool helper(String curNT)
     {
-        System.Console.WriteLine(rules[curNT]);
-
+        // System.Console.WriteLine(rules[curNT]);
         List<String[]> productionRules = rules[curNT];
-        System.Console.WriteLine("------------");
+        // System.Console.WriteLine("------------");
 
-        foreach (String[] pr in productionRules)        
+        foreach (String[] pr in productionRules)
         {
-            System.Console.WriteLine("% " + curNT + " -> " );
+            System.Console.WriteLine("------------");
+            System.Console.WriteLine("% " + curNT + " -> " + String.Join(" ", pr));
             int prev = index;
             int j = 0;
             for (; j < pr.Length; j++)
             {
 
                 String element = pr[j];
-                
+
                 System.Console.WriteLine("\nElement :" + element + "' { of :" + curNT + "}");
                 if (element[0] == '~')
                 {
@@ -102,7 +104,6 @@ public class Syntax_Analyzer
                     {
                         System.Console.WriteLine("@backing off");
                         //                        errorLine = tokens.get(index).line;
-
                         index = prev;
                         break;
 
@@ -116,22 +117,22 @@ public class Syntax_Analyzer
                 else
                 {
                     System.Console.WriteLine("HERE IN TERMINAL");
-                    System.Console.WriteLine("tokens.get(index).type =" + tokens[index].class_Part.ToString() + "'");
-                    System.Console.WriteLine("tokens.get(index).type =" + tokens[index].word + "'");
+                    System.Console.WriteLine("token.class_part = " + tokens[index].class_Part.ToString());
+                    System.Console.WriteLine("token.word = " + tokens[index].word);
                     // string a = la.ht.Contains();
-                    
-                    if (string.Equals(element,tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
+
+                    if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
 
                         index++;
                         // if (invalidToken == tokens.get(index)) invalidToken = null;
 
                         System.Console.WriteLine("Matched Terminal =" + element);
-                        
+
 
                         // System.Console.WriteLine("Matched Terminal value =" + tokens.get(index).value);
                         // parsed.add(tokens.get(index).value);
-                        
+
                         // System.Console.WriteLine("NEXT Terminal value =" + tokens.get(index).value);
 
                         // System.Console.WriteLine("%% PArsed = " + parsed);
@@ -140,7 +141,7 @@ public class Syntax_Analyzer
                     else
                     {
 
-                       
+
                         break;
                     }
                 }
