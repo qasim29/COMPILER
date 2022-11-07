@@ -73,11 +73,9 @@ public class Syntax_Analyzer
     private bool helper(String curNT)
     {
         List<String[]> productionRules = rules[curNT];
-
+        
         foreach (String[] pr in productionRules)
-        {
-            // System.Console.WriteLine("------------");
-            // System.Console.WriteLine("% " + curNT + " -> " + String.Join(" ", pr));
+        {   // System.Console.WriteLine("------------"); // System.Console.WriteLine("% " + curNT + " -> " + String.Join(" ", pr));
             int prev = index;
             int j = 0;
             for (; j < pr.Length; j++)
@@ -89,22 +87,22 @@ public class Syntax_Analyzer
 
                 else if (element[0] == '<')
                 {   // System.Console.WriteLine("into => " + element);
-                    if (!helper(element)) index = prev; break;// System.Console.WriteLine("@ backing off");
+                    if (!helper(element)) { index = prev; break; }// System.Console.WriteLine("@ backing off");
                 }
 
                 else if (element.Length == 1 && element[0] == 'E') { continue; }
 
                 else
-                {
-                    // System.Console.WriteLine("HERE IN TERMINAL");
-                    // System.Console.WriteLine("token.class_part = " + tokens[index].class_Part.ToString());
-                    // System.Console.WriteLine("token.word = " + tokens[index].word);
-                    // // string a = la.ht.Contains();
-                    if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
+                {   // System.Console.WriteLine("HERE IN TERMINAL"); // System.Console.WriteLine("token.class_part = " + tokens[index].class_Part.ToString()); // System.Console.WriteLine("token.word = " + tokens[index].word);// // string a = la.ht.Contains();
+                    if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase)) 
                     {
+                        if(tokens[index].class_Part.ToString()=="class"){
+
+                        } 
                         checkScope();
-                        index++;
+                        index++; 
                     }
+                    
                     else { break; }
                 }
             }
