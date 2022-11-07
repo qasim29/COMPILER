@@ -6,6 +6,7 @@ public class Syntax_Analyzer
     Dictionary<string, List<string[]>> rules;
     List<Token> tokens;
     int index = 0;
+
     public Syntax_Analyzer(List<Token> tokens)
     {
         this.rules = new Dictionary<string, List<string[]>>();
@@ -87,14 +88,8 @@ public class Syntax_Analyzer
                 if (element[0] == '~') { ++index; return true; }
 
                 else if (element[0] == '<')
-                {
-                    // System.Console.WriteLine("into => " + element);
-                    if (!helper(element))
-                    {
-                        // System.Console.WriteLine("@ backing off");
-                        index = prev;
-                        break;
-                    }
+                {   // System.Console.WriteLine("into => " + element);
+                    if (!helper(element)) index = prev; break;// System.Console.WriteLine("@ backing off");
                 }
 
                 else if (element.Length == 1 && element[0] == 'E') { continue; }
@@ -107,55 +102,58 @@ public class Syntax_Analyzer
                     // // string a = la.ht.Contains();
                     if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
-                        System.Console.WriteLine("Matched Terminal = " + element);
-                        if (tokens[index].class_Part.ToString() == "ORB" && (tokens[index - 1].class_Part.ToString() == "ID" || tokens[index - 1].class_Part.ToString() == "EXECUTE"))
-                        {
-                            se.createScope();
-                            System.Console.WriteLine("Scope Count "+se.scope);
-                            System.Console.WriteLine("--scope stack--");
-                            System.Console.Write("[ ");
-                            
-                            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
-                            
-                            System.Console.Write(" ]");
-                            System.Console.WriteLine();
-                        }
-                        else if (tokens[index].class_Part.ToString() == "OCB" && tokens[index - 1].class_Part.ToString() == "CRB")
-                        {
-                            se.createScope();
-                            System.Console.WriteLine("Scope Count "+se.scope);
-                            System.Console.WriteLine("--scope stack--");
-                            System.Console.Write("[ ");
-                            
-                            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
-                            
-                            System.Console.Write(" ]");
-                            System.Console.WriteLine();
-                        }
-                        else if (tokens[index].class_Part.ToString() == "CCB")
-                        {
-                            se.destroyScope();
-                            System.Console.WriteLine("Scope Count "+se.scope);
-                            System.Console.WriteLine("--scope stack--");
-                            System.Console.Write("[ ");
-                            
-                            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
-                            
-                            System.Console.Write(" ]");
-                            System.Console.WriteLine();
-                        }    
+                        checkScope();
                         index++;
                     }
                     else { break; }
                 }
             }
             if (j == pr.Length)
-            {
-                // System.Console.WriteLine("Successfully parsed from here"); 
+            {  // System.Console.WriteLine("Successfully parsed from here"); 
                 return true;
             }
             // else { index = prev; }
         }
         return false;
+    }
+    public void checkScope()
+    {
+        System.Console.WriteLine("Matched Terminal = " + tokens[index].class_Part.ToString());
+        if (tokens[index].class_Part.ToString() == "ORB" && (tokens[index - 1].class_Part.ToString() == "ID" || tokens[index - 1].class_Part.ToString() == "EXECUTE"))
+        {
+            se.createScope();
+            System.Console.WriteLine("Scope Count " + se.scope);
+            System.Console.WriteLine("--scope stack--");
+            System.Console.Write("[ ");
+
+            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+
+            System.Console.Write(" ]");
+            System.Console.WriteLine();
+        }
+        else if (tokens[index].class_Part.ToString() == "OCB" && tokens[index - 1].class_Part.ToString() == "CRB")
+        {
+            se.createScope();
+            System.Console.WriteLine("Scope Count " + se.scope);
+            System.Console.WriteLine("--scope stack--");
+            System.Console.Write("[ ");
+
+            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+
+            System.Console.Write(" ]");
+            System.Console.WriteLine();
+        }
+        else if (tokens[index].class_Part.ToString() == "CCB")
+        {
+            se.destroyScope();
+            System.Console.WriteLine("Scope Count " + se.scope);
+            System.Console.WriteLine("--scope stack--");
+            System.Console.Write("[ ");
+
+            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+
+            System.Console.Write(" ]");
+            System.Console.WriteLine();
+        }
     }
 }
