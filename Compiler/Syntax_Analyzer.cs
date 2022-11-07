@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 public class Syntax_Analyzer
 {
-    List<Token> tokens;
-    Dictionary<string, List<string[]>> rules;
-    int index = 0;
     SE_Semantic_Analyzer se = new SE_Semantic_Analyzer();
-    public List<int> scopeStack = new List<int>();
-    public string curr_class_name;
+    Dictionary<string, List<string[]>> rules;
+    List<Token> tokens;
+    int index = 0;
     public Syntax_Analyzer(List<Token> tokens)
     {
         this.rules = new Dictionary<string, List<string[]>>();
@@ -40,7 +38,6 @@ public class Syntax_Analyzer
         int index = 0;
         foreach (List<string[]> items in rules.Values)
         {
-
             System.Console.Write($"{keys[index]} -> ");
             index += 1;
             System.Console.Write("[");
@@ -53,7 +50,6 @@ public class Syntax_Analyzer
                     System.Console.Write(",");
                 }
                 System.Console.Write("]");
-
             }
             System.Console.Write("]\n");
         }
@@ -75,90 +71,91 @@ public class Syntax_Analyzer
     }
     private bool helper(String curNT)
     {
-        // System.Console.WriteLine(rules[curNT]);
         List<String[]> productionRules = rules[curNT];
-        // System.Console.WriteLine("------------");
 
         foreach (String[] pr in productionRules)
         {
-            System.Console.WriteLine("------------");
-            System.Console.WriteLine("% " + curNT + " -> " + String.Join(" ", pr));
+            // System.Console.WriteLine("------------");
+            // System.Console.WriteLine("% " + curNT + " -> " + String.Join(" ", pr));
             int prev = index;
             int j = 0;
             for (; j < pr.Length; j++)
             {
-
                 String element = pr[j];
+                // System.Console.WriteLine("\nElement :" + element + "' { of :" + curNT + "}");
 
-                System.Console.WriteLine("\nElement :" + element + "' { of :" + curNT + "}");
-                if (element[0] == '~')
-                {
-                    ++index;
-                    return true;
-                }
-                if (element[0] == '<')
-                {
-                    System.Console.WriteLine("into => " + element);
+                if (element[0] == '~') { ++index; return true; }
 
+                else if (element[0] == '<')
+                {
+                    // System.Console.WriteLine("into => " + element);
                     if (!helper(element))
                     {
-                        System.Console.WriteLine("@backing off");
-                        //                        errorLine = tokens.get(index).line;
+                        // System.Console.WriteLine("@ backing off");
                         index = prev;
                         break;
-
                     }
                 }
-                else if (element.Length == 1 && element[0] == 'E')
-                {
 
-                    continue;
-                }
+                else if (element.Length == 1 && element[0] == 'E') { continue; }
+
                 else
                 {
-                    System.Console.WriteLine("HERE IN TERMINAL");
-                    System.Console.WriteLine("token.class_part = " + tokens[index].class_Part.ToString());
-                    System.Console.WriteLine("token.word = " + tokens[index].word);
-                    // string a = la.ht.Contains();
-
+                    // System.Console.WriteLine("HERE IN TERMINAL");
+                    // System.Console.WriteLine("token.class_part = " + tokens[index].class_Part.ToString());
+                    // System.Console.WriteLine("token.word = " + tokens[index].word);
+                    // // string a = la.ht.Contains();
                     if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
-
+                        System.Console.WriteLine("Matched Terminal = " + element);
+                        if (tokens[index].class_Part.ToString() == "ORB" && (tokens[index - 1].class_Part.ToString() == "ID" || tokens[index - 1].class_Part.ToString() == "EXECUTE"))
+                        {
+                            se.createScope();
+                            System.Console.WriteLine("Scope Count "+se.scope);
+                            System.Console.WriteLine("--scope stack--");
+                            System.Console.Write("[ ");
+                            
+                            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+                            
+                            System.Console.Write(" ]");
+                            System.Console.WriteLine();
+                        }
+                        else if (tokens[index].class_Part.ToString() == "OCB" && tokens[index - 1].class_Part.ToString() == "CRB")
+                        {
+                            se.createScope();
+                            System.Console.WriteLine("Scope Count "+se.scope);
+                            System.Console.WriteLine("--scope stack--");
+                            System.Console.Write("[ ");
+                            
+                            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+                            
+                            System.Console.Write(" ]");
+                            System.Console.WriteLine();
+                        }
+                        else if (tokens[index].class_Part.ToString() == "CCB")
+                        {
+                            se.destroyScope();
+                            System.Console.WriteLine("Scope Count "+se.scope);
+                            System.Console.WriteLine("--scope stack--");
+                            System.Console.Write("[ ");
+                            
+                            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+                            
+                            System.Console.Write(" ]");
+                            System.Console.WriteLine();
+                        }    
                         index++;
-                        // if (invalidToken == tokens.get(index)) invalidToken = null;
-
-                        System.Console.WriteLine("Matched Terminal =" + element);
-
-
-                        // System.Console.WriteLine("Matched Terminal value =" + tokens.get(index).value);
-                        // parsed.add(tokens.get(index).value);
-
-                        // System.Console.WriteLine("NEXT Terminal value =" + tokens.get(index).value);
-
-                        // System.Console.WriteLine("%% PArsed = " + parsed);
-
                     }
-                    else
-                    {
-
-
-                        break;
-                    }
+                    else { break; }
                 }
             }
             if (j == pr.Length)
             {
-                System.Console.WriteLine("Successfully parsed from here");
+                // System.Console.WriteLine("Successfully parsed from here"); 
                 return true;
             }
-            else
-            {
-                index = prev;
-            }
-
+            // else { index = prev; }
         }
-
         return false;
     }
-
 }
