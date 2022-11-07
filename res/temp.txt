@@ -1,4 +1,4 @@
-<START> -> <DEFS> func execute ORB CRB COL void OCB <MST_F> CCB ~
+<START> -> <DEFS> mfunc execute ORB CRB COL void OCB <MST_F> CCB ~
 #class declaration
 <DEFS> -> <CLASS-ST_OOP> <DEFS>
 
