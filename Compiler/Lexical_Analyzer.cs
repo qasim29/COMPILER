@@ -46,7 +46,7 @@ class Lexical_Analyzer
             {"child_of",TokenType.CHILDOF}, 
             //
             {"func",TokenType.FUNC},    {"void",TokenType.VOID},
-            {"execute",TokenType.EXECUTE},
+            {"execute",TokenType.EXECUTE}, {"mfunc",TokenType.MFUNC},
 
             // ACCESS MODIFIERS
             {"local",TokenType.AM},    {"global",TokenType.AM},
