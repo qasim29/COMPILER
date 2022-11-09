@@ -5,11 +5,17 @@ public class Syntax_Analyzer
     SE_Semantic_Analyzer se = new SE_Semantic_Analyzer();
     Dictionary<string, List<string[]>> rules;
     List<Token> tokens;
+    List<Token> ptokens;
+    HashSet<string> btokens;
+
     int index = 0;
+    bool expmode = false;
 
     public Syntax_Analyzer(List<Token> tokens)
     {
         this.rules = new Dictionary<string, List<string[]>>();
+        this.ptokens = new List<Token>();
+        this.btokens = new HashSet<string>() { "SC", };
         this.tokens = tokens;
         this.getRules();
         // this.printRules();
@@ -73,36 +79,36 @@ public class Syntax_Analyzer
     private bool helper(String curNT)
     {
         List<String[]> productionRules = rules[curNT];
-        
+
         foreach (String[] pr in productionRules)
         {   // System.Console.WriteLine("------------"); // System.Console.WriteLine("% " + curNT + " -> " + String.Join(" ", pr));
             int prev = index;
             int j = 0;
             for (; j < pr.Length; j++)
             {
-                String element = pr[j];
-                // System.Console.WriteLine("\nElement :" + element + "' { of :" + curNT + "}");
+
+                String element = pr[j];// System.Console.WriteLine("\nElement :" + element + "' { of :" + curNT + "}");
 
                 if (element[0] == '~') { ++index; return true; }
-
                 else if (element[0] == '<')
                 {   // System.Console.WriteLine("into => " + element);
                     if (!helper(element)) { index = prev; break; }// System.Console.WriteLine("@ backing off");
                 }
-
                 else if (element.Length == 1 && element[0] == 'E') { continue; }
-
                 else
                 {   // System.Console.WriteLine("HERE IN TERMINAL"); // System.Console.WriteLine("token.class_part = " + tokens[index].class_Part.ToString()); // System.Console.WriteLine("token.word = " + tokens[index].word);// // string a = la.ht.Contains();
-                    if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase)) 
+                    if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
-                        if(tokens[index].class_Part.ToString()=="class"){
-
-                        } 
+                        // if (updateExpMode()){}
+                        // if (tokens[index].class_Part.ToString() == "AM" &&   =="<CLASS-ST_OOP>"){}
                         checkScope();
-                        index++; 
+                        ptokens.Add(tokens[index]);
+                        if (tokens[index].class_Part == TokenType.SC || tokens[index].class_Part == TokenType.OCB)
+                        {
+                            if (!secheck()) { return false; }
+                        }
+                        index++;
                     }
-                    
                     else { break; }
                 }
             }
@@ -114,44 +120,98 @@ public class Syntax_Analyzer
         }
         return false;
     }
+
+
+
+    private bool secheck()
+    {
+        if (ptokens[1].class_Part == TokenType.CLASS || ptokens[2].class_Part == TokenType.CLASS)
+        {
+            return classSE();
+        }
+        return true;
+    }
+
+    private bool classSE()
+    {
+        string name = "";
+        string type = "";
+        string tm = "";
+        string ext = "";
+        int i = 0;
+        for (; i < ptokens.Count; i++)
+        {
+            if (ptokens[i].class_Part == TokenType.CLASS)
+            {
+                i++;
+                type = "CLASS";
+                name = ptokens[i].word;
+            }
+
+            else if (ptokens[i].class_Part == TokenType.CONST || ptokens[i].class_Part == TokenType.ABSTRACT) tm = ptokens[i].class_Part.ToString();
+
+            else if (ptokens[i].class_Part == TokenType.CHILDOF)
+            {
+                i++;
+                for (; i < ptokens.Count; i++)
+                {
+                    if (ptokens[i].class_Part == TokenType.OCB) continue;
+
+                    else if (ptokens[i].class_Part == TokenType.COM) ext += ",";
+
+                    else ext += ptokens[i].word.ToString();
+                }
+            }
+        }
+
+        if (se.lookUpMainTable(name) != null) { System.Console.WriteLine("Re-Decleared class:" + name + " at lineNo: " + tokens[index - 1].lineNo); return false; }
+
+        else if (se.lookUpMainTable(ext) == null && ext != "") { System.Console.WriteLine("Parent class : " + ext + " isn't Decleared"); return false; }
+
+        else if (se.lookUpMainTable(ext) != null)
+        {
+            if (se.lookUpMainTable(ext)?.tm == "CONST") { System.Console.WriteLine("Parent class : " + ext + " is Decleared as FINAL class"); return false; }
+        }
+        ptokens.Clear();
+        se.curr_class_name = name;
+        return se.insertMainTable(name, type, tm, ext);
+    }
+
+    // private bool updateExpMode()
+    // {
+    //     if (tokens[index].class_Part.ToString() == "ORB" || tokens[index].class_Part.ToString() == "ASI" || tokens[index].class_Part.ToString() == "OSB") { expmode = true; }
+    //     else if (tokens[index].class_Part.ToString() == "CRB" || tokens[index].class_Part.ToString() == "SC" || tokens[index].class_Part.ToString() == "CSB") { expmode = false; getType(expression); }
+    //     return expmode;
+    // }
+
     public void checkScope()
     {
         System.Console.WriteLine("Matched Terminal = " + tokens[index].class_Part.ToString());
-        if (tokens[index].class_Part.ToString() == "ORB" && (tokens[index - 1].class_Part.ToString() == "ID" || tokens[index - 1].class_Part.ToString() == "EXECUTE"))
-        {
-            se.createScope();
-            System.Console.WriteLine("Scope Count " + se.scope);
-            System.Console.WriteLine("--scope stack--");
-            System.Console.Write("[ ");
 
-            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+        if (tokens[index].class_Part == TokenType.CLASS) { se.scopeStack.Add(0); printScopeStack(); }
 
-            System.Console.Write(" ]");
-            System.Console.WriteLine();
-        }
-        else if (tokens[index].class_Part.ToString() == "OCB" && tokens[index - 1].class_Part.ToString() == "CRB")
-        {
-            se.createScope();
-            System.Console.WriteLine("Scope Count " + se.scope);
-            System.Console.WriteLine("--scope stack--");
-            System.Console.Write("[ ");
+        else if (tokens[index].class_Part.ToString() == "ORB" && (tokens[index - 1].class_Part.ToString() == "ID" || tokens[index - 1].class_Part.ToString() == "EXECUTE")) { se.createScope(); printScopeStack(); }
 
-            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+        else if (tokens[index].class_Part.ToString() == "OCB" && tokens[index - 1].class_Part.ToString() == "CRB") { se.createScope(); printScopeStack(); }
 
-            System.Console.Write(" ]");
-            System.Console.WriteLine();
-        }
-        else if (tokens[index].class_Part.ToString() == "CCB")
-        {
-            se.destroyScope();
-            System.Console.WriteLine("Scope Count " + se.scope);
-            System.Console.WriteLine("--scope stack--");
-            System.Console.Write("[ ");
+        else if (tokens[index].class_Part.ToString() == "CCB") { se.destroyScope(); printScopeStack(); }
 
-            foreach (int val in se.scopeStack) System.Console.Write(val + ",");
 
-            System.Console.Write(" ]");
-            System.Console.WriteLine();
-        }
+    }
+    private void printScopeStack()
+    {
+        System.Console.WriteLine("Scope Count " + se.scope);
+        System.Console.WriteLine("--scope stack--");
+        System.Console.Write("[ ");
+
+        foreach (int val in se.scopeStack) System.Console.Write(val + ",");
+
+        System.Console.Write(" ]");
+        System.Console.WriteLine();
+    }
+    string? getType(List<Token> expression)
+    {
+
+        return null;
     }
 }
