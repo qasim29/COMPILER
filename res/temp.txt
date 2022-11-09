@@ -6,7 +6,7 @@
 <DEFS> -> <FUNC-ONLY> <DEFS>
 
 #variable declaration ORBNON_CLASSCRB
-<DEFS> -> <DT> ID <DEC_F> <DEFS> 
+<DEFS> -> <G_VAR> <DEFS>
 
 #can read null if no declartion in code file except main method
 <DEFS> -> E
@@ -15,7 +15,10 @@
 <DT> -> ID
 <DT> -> DT
 
-#function declaration ORBNON_CLASSCRB structure
+#variable declaration NON_CLASS structure
+<G_VAR> -> <DT> ID <DEC_F> 
+
+#function declaration NON_CLASS structure
 <FUNC-ONLY> -> func ID ORB <PARA> CRB COL <RDT> OCB <MST_F> CCB
 <PARA> -> <DT’> ID <PARAS> 
 <PARA> -> E
