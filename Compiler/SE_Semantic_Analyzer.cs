@@ -82,10 +82,21 @@ class SE_Semantic_Analyzer
     {
         for (int i = scopeStack.Count - 1; i >= 0; i--)
         {
-            if (function_table.ContainsKey(name + scopeStack[i].ToString())) return function_table[(name + scopeStack[i].ToString())].type;
+            if (scopeStack[i] != 0)
+            {
+                if (function_table.ContainsKey(name + scopeStack[i].ToString()))
+                {
+                    return function_table[(name + scopeStack[i].ToString())].type;
+                }
+            }
         }
-
-        if (curr_class_name != null) if (main_table[curr_class_name].cdt.ContainsKey(name)) return main_table[curr_class_name].cdt[name].type;
+        if (curr_class_name != null) 
+        { 
+            if (main_table[curr_class_name].cdt.ContainsKey(name)) 
+            {
+                return main_table[curr_class_name].cdt[name].type;
+            } 
+        }
 
         if (global_table.ContainsKey(name)) return global_table[name].type;
 
