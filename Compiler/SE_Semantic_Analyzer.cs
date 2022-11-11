@@ -5,12 +5,13 @@ class SE_Semantic_Analyzer
     public Dictionary<string, SE_Global_Data_Table> global_table;
     public Dictionary<string, SE_Main_Data_Table> main_table;
     public List<int> scopeStack = new List<int>();
-    public string? curr_class_name;
+    public string? curr_class_name="";
     public int scope;
     public SE_Semantic_Analyzer()
     {
-        main_table = new Dictionary<string, SE_Main_Data_Table>();
-        function_table = new Dictionary<string, SE_Func_Data_Table>();
+        this.global_table = new Dictionary<string, SE_Global_Data_Table>();
+        this.main_table = new Dictionary<string, SE_Main_Data_Table>();
+        this.function_table = new Dictionary<string, SE_Func_Data_Table>();
     }
     public bool insertGlobalData(string name, string type, bool sta, bool final)
     {
