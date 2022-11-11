@@ -167,7 +167,8 @@ func call(): void{
 $
 
 
-global class a{}
-global class b childOf a{}
+global const class b{}
+global const class c childOf b{}
+global class cd childOf c{}
 
 mfunc execute(): void {}~
