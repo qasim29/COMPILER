@@ -166,9 +166,23 @@ func call(): void{
 }
 $
 
+#int b = 54 + 2.3;
+$
+mfunc       execute(      ): void {}~ #mfunc
+func          ID(        ): void{} #function
+global    ID(  ){         } #constructor
+if(a<b         ){         } #if
+while(a<b      ){         } #while
 
-global const class b{}
-global const class c childOf b{}
-global class cd childOf c{}
+$
 
+
+global const class b { 
+    func global b(){ 
+        super();
+    }
+}
+global class c childOf b { }
 mfunc execute(): void {}~
+
+#global const class c childOf b { }
