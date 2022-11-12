@@ -170,19 +170,32 @@ $
 $
 mfunc       execute(      ): void {}~ #mfunc
 func          ID(        ): void{} #function
-global    ID(  ){         } #constructor
+func global   ID(  ){         } #constructor
 if(a<b         ){         } #if
 while(a<b      ){         } #while
 
 $
 
 
-global const class b { 
-    func global b(){ 
-        super();
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+global const class a{ 
 }
+
+global const class b childOf a{ 
+}
+
 global class c childOf b { }
+
 mfunc execute(): void {}~
 
-#global const class c childOf b { }
