@@ -10,4 +10,10 @@ class SE_Func_Data_Table
     public string name { get; set; }
     public string type { get; set; }
     public int scope { get; set; }
+    
+    public override string? ToString()
+    {
+        return "{ "+name+", "+type+", "+scope.ToString()+" }";
+    }
+
 }
