@@ -1,7 +1,7 @@
 using System.Collections;
 class SE_Main_Data_Table
 {
-    public SE_Main_Data_Table(string name, string type, string tm, string extends)
+    public SE_Main_Data_Table(string name, string type, string? tm, string? extends)
     {
         this.name = name;
         this.type = type;
@@ -13,8 +13,8 @@ class SE_Main_Data_Table
 
     public string name { get; set; }
     public string type { get; set; }
-    public string tm { get; set; }
-    public string extends { get; set; }
+    public string? tm { get; set; }
+    public string? extends { get; set; }
     public Dictionary<string, SE_Class_Data_Table> cdt { get; set; }
 
     // public List<SE_Class_Data_Table> cd { get; set; }
