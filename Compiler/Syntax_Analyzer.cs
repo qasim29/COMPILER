@@ -124,14 +124,16 @@ public class Syntax_Analyzer
 
         else if (ptokens[0].class_Part == TokenType.FUNC || ptokens[0].class_Part == TokenType.EXECUTE) { return FuncSE(); }
 
-        else if (ptokens[0].class_Part == TokenType.RETURN) { return ReturnSE(); } //to be implemented
+        // else if (ptokens[0].class_Part == TokenType.RETURN) { return ReturnSE(); } //to be implemented
 
-        else if (ptokens[0].class_Part == TokenType.IF || ptokens[0].class_Part == TokenType.WHILE) { return If_WhileSE(); } //to be implemented
+        // else if (ptokens[0].class_Part == TokenType.IF || ptokens[0].class_Part == TokenType.WHILE) { return If_WhileSE(); } //to be implemented
 
         else if (ptokens[0].class_Part == TokenType.LK) { return true; }
 
-        else { return SimpleStatementSE(); } //to be implemented
-
+        // else { return SimpleStatementSE(); } //to be implemented
+        
+        return true;
+        
         void printPTokens()
         {
             System.Console.WriteLine("\n\t^^^^-Parsed Tokens List-^^^^");
@@ -162,9 +164,7 @@ public class Syntax_Analyzer
 
         for (int i = 0; i < ptokens.Count; i++)
         {
-            if (ptokens[i].class_Part == TokenType.ASI) { 
-                // valueType = getExpType(i + 1); 
-            }
+            if (ptokens[i].class_Part == TokenType.ASI) {} //valueType = getExpType(i + 1); }
 
             else if (ptokens[i].class_Part == TokenType.AM) { am = ptokens[i].word; }
 
@@ -211,7 +211,30 @@ public class Syntax_Analyzer
         }
         return true;
     }
-// IN PROCESS
+
+    // private string getExpType(int i)
+    // {
+    //     String temp = "";
+    //     for (; i < ptokens.Count - 1; i++)
+    //     {
+    //         temp += ptokens[i].word;    
+    //         // if (ROP.Contains(ptokens[i].word)) { expROP.Add(ptokens[i].word); }
+    //     }
+
+    //     string? type = se.lookUpFuncTable(bits[0]);
+    //     if (type == null) { Console.WriteLine("Error at " + ptokens[index].lineNo + ": Variable not declare "); Environment.Exit(0); }
+    //     if (bits.Length == 1) { return type; }
+    //     for (int j = 1; j < bits.Length; j++)
+    //     {
+    //         SE_Main_Data_Table? mt = se.lookUpMainTable(type);
+    //         if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + type + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
+    //         if (!mt.cdt.ContainsKey(bits[j])) { System.Console.WriteLine("\nNo refference found for: " + bits[j] + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
+    //         type = mt.cdt[bits[j]].type;
+    //     }
+    //     return type;
+
+    // }
+
     // private string getExpType(int i)
     // {
     //     string[] ROP = { "==", "<=", ">=", "<", ">", "!=" };
@@ -291,7 +314,7 @@ public class Syntax_Analyzer
     //         for (int j = 1; j < bits.Length; j++)
     //         {
     //             SE_Main_Data_Table? mt = se.lookUpMainTable(type);
-    //             if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + type + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
+    //                 if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + type + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
     //             if (!mt.cdt.ContainsKey(bits[j])) { System.Console.WriteLine("\nNo refference found for: " + bits[j] + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
     //             type = mt.cdt[bits[j]].type;
     //         }
