@@ -1,0 +1,74 @@
+
+
+int [] arr = {{},{}};  # scope error 
+
+
+global int a = b + 2 * 3;
+
+OP_PRIORITY = [(,/,*,%,+,-]
+
+GET_TYPES = ["A.FN().C","FN().C"]
+
+
+TEMP="ID.ID.ID/A.FN().CID/b+2 "
+IF: EXP = [(,ID,.,ID,.,ID,/,b,+,2,*,(,3,+,2.2,),),*,3]
+
+	IF		(ID || .)
+	THEN TEMP+=ID
+	
+	GETYPES.APPEND(TEMP)
+
+GETINDEX('(')
+[IC,FC,FC,SC]
+
+GETINDEX('/') #GIVES LEFTS MOST HENCE PRIORITY NOT AN ISSUE
+
+
+
+
+ASSUMPTIONS
+1/COMP FUNCTION WORKING CORRECTLY
+2/LINEAR TRAVERSING DOSENT AFFECT THE OUTPUT 
+
+
+
+TEMP=ID
+EXP=[ID.ID.ID,/,A.FN().C,*,ID,/,b,+,2]"
+
+STR= ID
+
+GETTYPE(STRING STR){
+	ARR=STR.SPLIT('.')
+	CDT=NULL
+	MDT=NULL
+	GDT=NULL	
+	FOR I IN ARR:
+			if(Ptoken[index].CPart==self)
+					CDT=looKUpCDT(token[index+2].word)
+		  
+			else if(token[index].CPart==self)
+					
+
+}
+
+
+
+
+
+
+
+global class waniza{
+    func global waniza(){
+        super();
+    }
+#CODE OUTPUT: classID = waniza:, Value = {waniza, (->), global, static: False, final: False, abstract: False}
+
+    func global waniza(int a){
+        super();
+    }
+#CODE OUTPUT: classID = waniza:int, Value = {waniza, (int->), global, static: False, final: False, abstract: False}
+}
+
+execute ( ): void {}~
+
+
