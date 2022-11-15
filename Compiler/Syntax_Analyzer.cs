@@ -14,7 +14,6 @@ public class Syntax_Analyzer
         this.rules = new Dictionary<string, List<string[]>>();
         this.ptokens = new List<Token>();
         this.tokens = tokens;
-        // tokens.Add(new Token("0",TokenType.NULL,"~"));
         this.getRules();
         // this.printRules();
     }
@@ -85,32 +84,17 @@ public class Syntax_Analyzer
                     if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         checkScope();
-                        if (tokens[index].class_Part != TokenType.CCB) ptokens.Add(tokens[index]);
 
                         if (tokens[index].class_Part == TokenType.OCB && tokens[index - 1].class_Part == TokenType.ASI) bracktCheck = false;
 
-                        if (ptokens.Count > 1)
+                        if (tokens[index].class_Part != TokenType.CCB || bracktCheck == false) ptokens.Add(tokens[index]);
+
+                        if (tokens[index].class_Part == TokenType.SEC || (tokens[index].class_Part == TokenType.CCB && bracktCheck))
                         {
-                            if (tokens[index].class_Part == TokenType.CCB &&
-                                ptokens[1].class_Part != TokenType.CLASS &&
-                                ptokens[0].class_Part != TokenType.FUNC &&
-                                ptokens[0].class_Part != TokenType.WHILE &&
-                                ptokens[0].class_Part != TokenType.IF &&
-                                ptokens[0].class_Part == TokenType.EXECUTE) { ptokens.Add(tokens[index]); }
+                            if (!secheck()) return false;
 
-                            if (tokens[index].class_Part == TokenType.SEC ||
-                                (tokens[index].class_Part == TokenType.OCB &&
-                                (ptokens[0].class_Part == TokenType.EXECUTE ||
-                                 ptokens[1].class_Part == TokenType.CLASS ||
-                                 ptokens[0].class_Part == TokenType.FUNC ||
-                                 ptokens[0].class_Part == TokenType.WHILE ||
-                                 ptokens[0].class_Part == TokenType.IF)))
-                            {
-                                if (!secheck()) return false;
-
-                                ptokens.Clear();
-                                bracktCheck = true;
-                            }
+                            ptokens.Clear();
+                            bracktCheck = true;
                         }
                         index++;
                     }
@@ -127,9 +111,9 @@ public class Syntax_Analyzer
 
         if (ptokens[1].class_Part == TokenType.CLASS || ptokens[2].class_Part == TokenType.CLASS) { return classSE(); }
 
-        else if (ptokens[0].class_Part == TokenType.AM
-                || ptokens[0].class_Part == TokenType.ID
-                || ptokens[0].class_Part == TokenType.DT) { return VariableSE(); }
+        else if (ptokens[0].class_Part == TokenType.AM ||
+                 ptokens[0].class_Part == TokenType.ID ||
+                 ptokens[0].class_Part == TokenType.DT) { return VariableSE(); }
 
         else if (ptokens[0].class_Part == TokenType.FUNC || ptokens[0].class_Part == TokenType.EXECUTE) { return FuncSE(); }
 
@@ -285,7 +269,6 @@ public class Syntax_Analyzer
         //     if (!mt.cdt.ContainsKey(bits[j])) { System.Console.WriteLine("\nNo refference found for: " + bits[j] + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
         //     type = mt.cdt[bits[j]].type;
         // }
-        System.Console.WriteLine("sbfaasjlasjlkasjlkadjlkasjlkasdjkl");
         return type;
 
     }
@@ -394,10 +377,6 @@ public class Syntax_Analyzer
 
         for (int i = 0; i < ptokens.Count; i++)
         {
-            // if((ptokens[i].class_Part == TokenType.ID || ptokens[i].class_Part == TokenType.EXECUTE) && ptokens[i+1].class_Part == TokenType.ORB ){
-            //     name = ptokens[i].word;
-            // }
-            // uppar alternate check hai
             if (ptokens[i].class_Part == TokenType.ORB)
             {
                 name = ptokens[i - 1].word;
@@ -508,18 +487,17 @@ public class Syntax_Analyzer
 
         if (se.lookUpMainTable(name) != null) { System.Console.WriteLine("\nRe-Decleared class:" + name + " at lineNo: " + tokens[index - 1].lineNo); return false; }
 
-        else if (se.lookUpMainTable(ext) == null && ext != null) { System.Console.WriteLine("\nParent class : " + ext + " isn't Decleared"); return false; }
+        else if (se.lookUpMainTable(ext) == null && ext != null) { System.Console.WriteLine("\nParent class : " + ext + " isn't Decleared" + " at lineNo: " + tokens[index - 1].lineNo); return false; }
 
         else if (se.lookUpMainTable(ext) != null)
         {
-            if (se.lookUpMainTable(ext)?.tm == "CONST") { System.Console.WriteLine("\nParent class : " + ext + " is Decleared as FINAL class"); return false; }
+            if (se.lookUpMainTable(ext)?.tm == "CONST") { System.Console.WriteLine("\nParent class : " + ext + " is Decleared as FINAL class" + " at lineNo: " + tokens[index - 1].lineNo); return false; }
         }
         se.curr_class_name = name;
         return se.insertMainTable(name, type, tm, ext);
     }
     public void checkScope()
     {
-        // System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")");
 
         if (tokens[index].class_Part == TokenType.CLASS) { se.scopeStack.Add(0); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
 
@@ -527,31 +505,7 @@ public class Syntax_Analyzer
 
         else if (tokens[index].class_Part == TokenType.ORB && (ptokens[0].class_Part == TokenType.FUNC || ptokens[0].class_Part == TokenType.EXECUTE)) { se.createScope(); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
 
-        // else if (tokens[index].class_Part == TokenType.CCB && (tokens[index + 1].class_Part != TokenType.SEC && tokens[index + 1].class_Part != TokenType.COM))
-        else if (tokens[index].class_Part == TokenType.CCB && bracktCheck)
-        {
-            // if (tokens[index + 1].class_Part == TokenType.CCB)
-            // {
-            //     if (tokens[index + 2].class_Part == TokenType.SEC){}
-            //     else
-            //     {
-            //         System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); 
-            //         se.destroyScope(); 
-            //         printScopeStack();
-            //     }
-            // }
-            // else
-            // {
-            //     System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); 
-            //     se.destroyScope(); 
-            //     printScopeStack();
-            // }
-            // System.Console.WriteLine("Matched Terminal = (" + tokens[index-1].class_Part.ToString() + ", " + tokens[index].word + ")");
-            System.Console.WriteLine("OK ki report");
-            se.destroyScope();
-            printScopeStack();
-
-        }
+        else if (tokens[index].class_Part == TokenType.CCB && bracktCheck) { System.Console.WriteLine("Matched Terminal = (" + tokens[index - 1].class_Part.ToString() + ", " + tokens[index].word + ")"); se.destroyScope(); printScopeStack(); }
 
     }
 
