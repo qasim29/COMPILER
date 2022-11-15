@@ -8,12 +8,13 @@ public class Syntax_Analyzer
     List<Token> tokens;
     List<Token> ptokens;
     int index = 0;
-    // bool expmode = false;
+    bool bracktCheck = true;
     public Syntax_Analyzer(List<Token> tokens)
     {
         this.rules = new Dictionary<string, List<string[]>>();
         this.ptokens = new List<Token>();
         this.tokens = tokens;
+        // tokens.Add(new Token("0",TokenType.NULL,"~"));
         this.getRules();
         // this.printRules();
     }
@@ -83,15 +84,33 @@ public class Syntax_Analyzer
                 {
                     if (string.Equals(element, tokens[index].class_Part.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
-                        // if (updateExpMode()){}
                         checkScope();
                         if (tokens[index].class_Part != TokenType.CCB) ptokens.Add(tokens[index]);
 
-                        if (tokens[index].class_Part == TokenType.SEC || tokens[index].class_Part == TokenType.OCB)
-                        {
-                            if (!secheck()) return false;
+                        if (tokens[index].class_Part == TokenType.OCB && tokens[index - 1].class_Part == TokenType.ASI) bracktCheck = false;
 
-                            ptokens.Clear();
+                        if (ptokens.Count > 1)
+                        {
+                            if (tokens[index].class_Part == TokenType.CCB &&
+                                ptokens[1].class_Part != TokenType.CLASS &&
+                                ptokens[0].class_Part != TokenType.FUNC &&
+                                ptokens[0].class_Part != TokenType.WHILE &&
+                                ptokens[0].class_Part != TokenType.IF &&
+                                ptokens[0].class_Part == TokenType.EXECUTE) { ptokens.Add(tokens[index]); }
+
+                            if (tokens[index].class_Part == TokenType.SEC ||
+                                (tokens[index].class_Part == TokenType.OCB &&
+                                (ptokens[0].class_Part == TokenType.EXECUTE ||
+                                 ptokens[1].class_Part == TokenType.CLASS ||
+                                 ptokens[0].class_Part == TokenType.FUNC ||
+                                 ptokens[0].class_Part == TokenType.WHILE ||
+                                 ptokens[0].class_Part == TokenType.IF)))
+                            {
+                                if (!secheck()) return false;
+
+                                ptokens.Clear();
+                                bracktCheck = true;
+                            }
                         }
                         index++;
                     }
@@ -102,17 +121,7 @@ public class Syntax_Analyzer
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-    private bool secheck()
+    bool secheck()
     {
         printPTokens();
 
@@ -131,12 +140,12 @@ public class Syntax_Analyzer
         else if (ptokens[0].class_Part == TokenType.LK) { return true; }
 
         // else { return SimpleStatementSE(); } //to be implemented
-        
+
         return true;
-        
+
         void printPTokens()
         {
-            System.Console.WriteLine("\n\t^^^^-Parsed Tokens List-^^^^");
+            System.Console.WriteLine("\n\t---------Parsed Tokens List--------");
             ptokens.ForEach(Console.Write); System.Console.WriteLine("");
         }
     }
@@ -159,12 +168,11 @@ public class Syntax_Analyzer
     private bool VariableSE()
     {
         string name = "", type = "", am = "", valueType = "";
-
         bool sta = false, final = false;
-
-        for (int i = 0; i < ptokens.Count; i++)
+        int i;
+        for (i = 0; i < ptokens.Count; i++)
         {
-            if (ptokens[i].class_Part == TokenType.ASI) {} //valueType = getExpType(i + 1); }
+            if (ptokens[i].class_Part == TokenType.ASI) { valueType = getExpType(i + 1, ptokens.Count); break; }
 
             else if (ptokens[i].class_Part == TokenType.AM) { am = ptokens[i].word; }
 
@@ -188,52 +196,99 @@ public class Syntax_Analyzer
                 name = ptokens[i + 1].word;
                 i++;
             }
-            else if (ptokens[i].class_Part == TokenType.SEC)
+        }
+        if (!type.Contains(valueType))
+        {
+            SE_Main_Data_Table? mt = null;
+            string? btype = valueType; // child
+
+            while (type != btype)
             {
-                // comentted until expmethod is not writtten
-                // if (!type.Contains(valueType))
-                // {
-                //     System.Console.WriteLine("\nType Mismatch"+ " on lineNo: " + ptokens[i].lineNo);                    
-                // }
-                if (se.scopeStack.Count == 0)
-                {
-                    if (!se.insertGlobalData(name, type, sta, final)) { System.Console.WriteLine("\nariable RE-deleared on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
-                }
-                else if (se.curr_class_name != null && ptokens[0].class_Part == TokenType.AM)
-                {
-                    if (!se.insertClassData(name, type, am, sta, final, false)) { System.Console.WriteLine("\nariable RE-deleared on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
-                }
+                mt = se.lookUpMainTable(btype);
+
+                if (mt == null) { System.Console.WriteLine("\nType Mismatch" + " on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
                 else
                 {
-                    if (!se.insertFuncTable(name, type)) { System.Console.WriteLine("\nariable RE-deleared on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
+                    btype = mt.extends;
                 }
             }
+        }
+
+        if (se.scopeStack.Count == 0)
+        {
+            if (!se.insertGlobalData(name, type, sta, final)) { System.Console.WriteLine("\nariable RE-deleared on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
+        }
+        else if (se.curr_class_name != null && ptokens[0].class_Part == TokenType.AM)
+        {
+            if (!se.insertClassData(name, type, am, sta, final, false)) { System.Console.WriteLine("\nariable RE-deleared on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
+        }
+        else
+        {
+            if (!se.insertFuncTable(name, type)) { System.Console.WriteLine("\nariable RE-deleared on lineNo: " + ptokens[i].lineNo); Environment.Exit(0); }
         }
         return true;
     }
 
-    // private string getExpType(int i)
-    // {
-    //     String temp = "";
-    //     for (; i < ptokens.Count - 1; i++)
-    //     {
-    //         temp += ptokens[i].word;    
-    //         // if (ROP.Contains(ptokens[i].word)) { expROP.Add(ptokens[i].word); }
-    //     }
+    private string getExpType(int i, int j)
+    {
+        string type = "", name = "";
+        if (ptokens[i].class_Part == TokenType.CREATE)
+        {
+            name = ptokens[i + 1].word;
+            i = i + 3;
+            // modify this when exp is done
+            for (; i < j - 2; i++)
+            {
+                type += ptokens[i].word;
+            }
+            SE_Main_Data_Table? mt = se.lookUpMainTable(name);
+            if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + name + " on lineNo: " + ptokens[i - 1].lineNo); Environment.Exit(0); }
 
-    //     string? type = se.lookUpFuncTable(bits[0]);
-    //     if (type == null) { Console.WriteLine("Error at " + ptokens[index].lineNo + ": Variable not declare "); Environment.Exit(0); }
-    //     if (bits.Length == 1) { return type; }
-    //     for (int j = 1; j < bits.Length; j++)
-    //     {
-    //         SE_Main_Data_Table? mt = se.lookUpMainTable(type);
-    //         if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + type + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
-    //         if (!mt.cdt.ContainsKey(bits[j])) { System.Console.WriteLine("\nNo refference found for: " + bits[j] + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
-    //         type = mt.cdt[bits[j]].type;
-    //     }
-    //     return type;
+            else if (!mt.cdt.ContainsKey(name + ":" + type)) { System.Console.WriteLine("\nNo constructor found for: " + name + " on lineNo: " + ptokens[i - 1].lineNo); Environment.Exit(0); }
 
-    // }
+            return name;
+        }
+        // if (ptokens[i].class_Part == TokenType.OCB)
+        // {
+        //     name = ptokens[i + 1].word;
+        //     i = i + 3;
+        //     // modify this when exp is done
+        //     for (; i < j - 2; i++)
+        //     {
+        //         type += ptokens[i].word;
+        //     }
+        //     SE_Main_Data_Table? mt = se.lookUpMainTable(name);
+        //     if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + name + " on lineNo: " + ptokens[i - 1].lineNo); Environment.Exit(0); }
+
+        //     else if (!mt.cdt.ContainsKey(name + ":" + type)) { System.Console.WriteLine("\nNo constructor found for: " + name + " on lineNo: " + ptokens[i - 1].lineNo); Environment.Exit(0); }
+
+        //     return name;
+        // }
+
+
+
+
+        // String temp = "";
+        // for (; i < ptokens.Count - 1; i++)
+        // {
+        //     temp += ptokens[i].word;
+        //     // if (ROP.Contains(ptokens[i].word)) { expROP.Add(ptokens[i].word); }
+        // }
+
+        // string? type = se.lookUpFuncTable(bits[0]);
+        // if (type == null) { Console.WriteLine("Error at " + ptokens[index].lineNo + ": Variable not declare "); Environment.Exit(0); }
+        // if (bits.Length == 1) { return type; }
+        // for (int j = 1; j < bits.Length; j++)
+        // {
+        //     SE_Main_Data_Table? mt = se.lookUpMainTable(type);
+        //     if (mt == null) { System.Console.WriteLine("\nNo refference found for: " + type + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
+        //     if (!mt.cdt.ContainsKey(bits[j])) { System.Console.WriteLine("\nNo refference found for: " + bits[j] + "  on lineNo: " + ptokens[index].lineNo); Environment.Exit(0); }
+        //     type = mt.cdt[bits[j]].type;
+        // }
+        System.Console.WriteLine("sbfaasjlasjlkasjlkadjlkasjlkasdjkl");
+        return type;
+
+    }
 
     // private string getExpType(int i)
     // {
@@ -462,24 +517,46 @@ public class Syntax_Analyzer
         se.curr_class_name = name;
         return se.insertMainTable(name, type, tm, ext);
     }
-    // private bool updateExpMode()
-    // {
-    //     if (tokens[index].class_Part.ToString() == "ORB" || tokens[index].class_Part.ToString() == "ASI" || tokens[index].class_Part.ToString() == "OSB") { expmode = true; }
-    //     else if (tokens[index].class_Part.ToString() == "CRB" || tokens[index].class_Part.ToString() == "SC" || tokens[index].class_Part.ToString() == "CSB") { expmode = false; getType(expression); }
-    //     return expmode;
-    // }
     public void checkScope()
     {
         // System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")");
 
         if (tokens[index].class_Part == TokenType.CLASS) { se.scopeStack.Add(0); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
 
-        else if (tokens[index].class_Part == TokenType.ORB && (tokens[index - 1].class_Part == TokenType.ID || tokens[index - 1].class_Part == TokenType.EXECUTE)) { se.createScope(); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
-
         else if (tokens[index].class_Part == TokenType.OCB && tokens[index - 1].class_Part == TokenType.CRB && ptokens[0].class_Part != TokenType.FUNC) { se.createScope(); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
 
-        else if (tokens[index].class_Part == TokenType.CCB) { se.destroyScope(); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
+        else if (tokens[index].class_Part == TokenType.ORB && (ptokens[0].class_Part == TokenType.FUNC || ptokens[0].class_Part == TokenType.EXECUTE)) { se.createScope(); System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); printScopeStack(); }
+
+        // else if (tokens[index].class_Part == TokenType.CCB && (tokens[index + 1].class_Part != TokenType.SEC && tokens[index + 1].class_Part != TokenType.COM))
+        else if (tokens[index].class_Part == TokenType.CCB && bracktCheck)
+        {
+            // if (tokens[index + 1].class_Part == TokenType.CCB)
+            // {
+            //     if (tokens[index + 2].class_Part == TokenType.SEC){}
+            //     else
+            //     {
+            //         System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); 
+            //         se.destroyScope(); 
+            //         printScopeStack();
+            //     }
+            // }
+            // else
+            // {
+            //     System.Console.WriteLine("Matched Terminal = (" + tokens[index].class_Part.ToString() + ", " + tokens[index].word + ")"); 
+            //     se.destroyScope(); 
+            //     printScopeStack();
+            // }
+            // System.Console.WriteLine("Matched Terminal = (" + tokens[index-1].class_Part.ToString() + ", " + tokens[index].word + ")");
+            System.Console.WriteLine("OK ki report");
+            se.destroyScope();
+            printScopeStack();
+
+        }
+
     }
+
+
+
     private void printScopeStack()
     {
         System.Console.WriteLine("*********************");
