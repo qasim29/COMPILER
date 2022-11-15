@@ -1,4 +1,4 @@
-<START> -> <DEFS> func execute ORB CRB COL void OCB <MST_F> CCB ~
+<START> -> <DEFS> execute ORB CRB COL void OCB <MST_F> CCB ~
 #class declaration
 <DEFS> -> <CLASS-ST_OOP> <DEFS>
 
@@ -6,7 +6,7 @@
 <DEFS> -> <FUNC-ONLY> <DEFS>
 
 #variable declaration ORBNON_CLASSCRB
-<DEFS> -> <DT> ID <DEC_F> <DEFS> 
+<DEFS> -> <G_VAR> <DEFS>
 
 #can read null if no declartion in code file except main method
 <DEFS> -> E
@@ -15,11 +15,14 @@
 <DT> -> ID
 <DT> -> DT
 
-#function declaration ORBNON_CLASSCRB structure
+#variable declaration NON_CLASS structure
+<G_VAR> -> <DT> ID <DEC_F> 
+
+#function declaration NON_CLASS structure
 <FUNC-ONLY> -> func ID ORB <PARA> CRB COL <RDT> OCB <MST_F> CCB
-<PARA> -> <DT’> ID <PARAS> 
+<PARA> -> <DT> ID <DT’’> <PARAS> 
 <PARA> -> E
-<PARAS> -> COM <DT’> ID <PARAS>
+<PARAS> -> COM <DT> ID <DT’’> <PARAS>
 <PARAS> -> E
 <RDT> -> <DT’>
 <RDT> -> void
@@ -83,13 +86,13 @@
 <ARR-INIT_F> -> E
 <ARR-INIT_S’> -> OCB <ELEMENT_F> CCB
 <ARR-INIT_S’> -> <DT> OSB <EXP_F> CSB
-<ELEMENT_F> -> <CONST_VAL> <ELEMENTS_F>
+<ELEMENT_F> -> <EXP_F> <ELEMENTS_F>
 <ELEMENT_F> -> E
 <CONST_VAL> -> IC
 <CONST_VAL> -> FC
 <CONST_VAL> -> SC
 <CONST_VAL> -> CC
-<ELEMENTS_F> -> COM <CONST_VAL> <ELEMENTS_F>
+<ELEMENTS_F> -> COM <EXP_F> <ELEMENTS_F>
 <ELEMENTS_F> -> E
 <ARR-INIT2F> -> ASI <ARR-INIT2F’>
 <ARR-INIT2F> -> E
@@ -271,9 +274,9 @@
 <ARR-INIT_OOP> -> E
 <ARR-INIT’_OOP> -> OCB <ELEMENT_OOP> CCB
 <ARR-INIT’_OOP> -> <DT> OSB <EXP_OOP> CSB
-<ELEMENT_OOP> -> <CONST_VAL> <ELEMENTS_OOP>
+<ELEMENT_OOP> -> <EXP_OOP> <ELEMENTS_OOP>
 <ELEMENT_OOP> -> E
-<ELEMENTS_OOP> -> COM <CONST_VAL> <ELEMENTS_OOP>
+<ELEMENTS_OOP> -> COM <EXP_OOP> <ELEMENTS_OOP>
 <ELEMENTS_OOP> -> E
 <ARR-INIT2F_OOP> -> ASI <ARR-INIT2F’_OOP>
 <ARR-INIT2F_OOP> -> E

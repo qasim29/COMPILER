@@ -43,10 +43,10 @@ class Lexical_Analyzer
             {"static",TokenType.STATIC},   {"create",TokenType.CREATE},
             {"class",TokenType.CLASS},    {"self",TokenType.SELF},
             {"super",TokenType.SUPER},    {"const",TokenType.CONST},
-            {"child_of",TokenType.CHILDOF}, 
+            {"childOf",TokenType.CHILDOF}, 
             //
             {"func",TokenType.FUNC},    {"void",TokenType.VOID},
-            {"execute",TokenType.EXECUTE},
+            {"execute",TokenType.EXECUTE}, {"mfunc",TokenType.MFUNC},
 
             // ACCESS MODIFIERS
             {"local",TokenType.AM},    {"global",TokenType.AM},

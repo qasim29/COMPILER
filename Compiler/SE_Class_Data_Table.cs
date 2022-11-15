@@ -16,4 +16,9 @@ class SE_Class_Data_Table
     public bool final { get; set; }
     public bool abstrac { get; set; }
 
+    public override string? ToString()
+    {
+        return "{"+name+", ("+type+"), "+am+", "+"static: "+sta.ToString()+", "+"final: "+final.ToString()+", "+"abstract: "+abstrac.ToString()+"}";
+    }
+
 }

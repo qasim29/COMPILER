@@ -1,4 +1,12 @@
-<START> -> <DEFS> func execute ( ) : void { <MST_F> } ~
+<START> -> <CLASS-ST_OOP> <DEFS> func execute ( ) : void { <MST_F> } ~
+
+<START> -> func <FUNC_CASE> 
+
+<START> -> <DT> ID <DEC_F> <DEFS> func execute ( ) : void { <MST_F> } ~
+
+<FUNC_CASE> -> ID ( <PARA> ) : <RDT> { <MST_F> } <DEFS> func execute ( ) : void { <MST_F> } ~
+
+<FUNC_CASE> -> execute ( ) : void { <MST_F> } ~
 #class declaration
 <DEFS> -> <CLASS-ST_OOP> <DEFS>
 
