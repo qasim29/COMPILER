@@ -57,18 +57,5 @@ GETTYPE(STRING STR){
 
 
 
-global class waniza{
-    func global waniza(){
-        super();
-    }
-#CODE OUTPUT: classID = waniza:, Value = {waniza, (->), global, static: False, final: False, abstract: False}
-
-    func global waniza(int a){
-        super();
-    }
-#CODE OUTPUT: classID = waniza:int, Value = {waniza, (int->), global, static: False, final: False, abstract: False}
-}
-
-execute ( ): void {}~
 
 
