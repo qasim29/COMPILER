@@ -133,6 +133,139 @@ as98._bs
 $
 
 
+#int b = 54 + 2.3;
+
+
+$
+
+tokens = [ a    +   b   .   fn  (   )   /   c   <=      K   .   fn  (   )   /   c  ] 
+
+temp="int+"
+
+List<string> expROP = { "<=" }
+
+string[] ropOutput      =  [ "a + b.fn() / c" , "K.fn() / c" ]
+
+1::List<string[]> expOperators = { { "(" , "+" , ")"  , "/"}  , {"/"} }
+
+List<string[]> ids = [ {"(a" , "b.fn())" , "c"}  , { "K.fn()" , "c" }  ]
+
+2::List<string[]> idsOutput = [ {"int" , "int" , "int"}  , { "float" , "float" }  ]
+
+List<string> SUB_EXP_Type ={ "int" }
+
+
+#   COMIBINE 1 & 2
+
+output == " int + int / int ";
+
+#   convert to postfix
+
+output == " int int int / + ";  ---> int
+
+
+logic for get getType
+
+string temp = a.b.cah;  --> [a  , b , cah]  
+                        --> [self, a  , b , cah]
+                        --> [super, a  , b , cah]
+arr = temp.split('.');
+
+
+
+
+if (exp.getR().equals("")) {
+                String t = se.lookupFT(exp.getN(), se.stack);
+                if (t != null) {
+                    exp.setT(t);
+                } else {
+                    MDT m = se.lookupMT(exp.getN());
+                    if (m != null) {
+                        if (m.getTM() == null || !m.getTM().equals("static")) {
+                            System.out.println("Error at : " + ts.get(i).getLineNo() + " class should be static");
+                            exit(0);
+                        }
+                        exp.setR(m.getN());
+                    } else {
+                        System.out.println("Error at " + ts.get(i).getLineNo() + ": Variable not declare ");
+                        exit(0);
+                    }
+                }
+
+            } else if (exp.getR().equals("self")) {
+                CDT c = se.lookupDT(exp.getN(), se.CCT);
+                if (c != null) {
+
+                    exp.setT(c.getT());
+
+                } else {
+                    System.out.println("Error at " + ts.get(i).getLineNo() + ": Variable not declare ");
+                    exit(0);
+                }
+            } else if (exp.getR().equals("super")) {
+                MDT m = se.lookupMT(se.CCT);
+                if (m.getExt() == null || m.getExt().equals("")) {
+                    System.out.println("Current Class does not have parent class");
+                    exit(0);
+                } else {
+                    CDT c = se.lookupDT(exp.getN(), m.getExt());
+                    if (c != null) {
+
+                        exp.setT(c.getT());
+
+                    } else {
+                        System.out.println("Error at " + ts.get(i).getLineNo() + ": Variable not declare ");
+                        exit(0);
+                    }
+                }
+            } else if (exp.getR().equals("int") || exp.getR().equals("float") || exp.getR().equals("char")
+                    || exp.getR().equals("String") || exp.getR().equals("bool")) {
+                System.out.println("Error at " + ts.get(i).getLineNo() + "Primitive data Type cant be instantiated");
+                exit(0);
+            } else if (exp.getR().equals("devoid")) {
+                System.out.println("Error at " + ts.get(i).getLineNo() + "Return type is devoid");
+                exit(0);
+            } else {
+                CDT c = se.lookupDT(exp.getN(), exp.getR());
+                if (c == null) {
+                    while (true) {
+                        MDT m = se.lookupMT(exp.getR());
+                        if (m == null) {
+                            System.out.println("Error at " + ts.get(i).getLineNo() + " :Undeclared");
+                            exit(0);
+                        } else if (m.getExt() == null || m.getExt().equals("")) {
+                            System.out.println("Error at " + ts.get(i).getLineNo() + " :Undeclared");
+                            exit(0);
+                        } else {
+                            c = se.lookupDT(exp.getN(), m.getExt());
+                            if (c == null) {
+                                exp.setR(m.getExt());
+                            } else if (c.getAM().equals("restricted") && !c.getN().equals(se.CCT)) {
+                                System.out.println("Error at : " + ts.get(i).getLineNo() + "private attribute or function cant be accessed outside the class");
+                                exit(0);
+                            } else {
+                                exp.setT(c.getT());
+                                break;
+                            }
+
+                        }
+                    }
+                } else if (c.getAM().equals("restricted") && !c.getN().equals(se.CCT)) {
+                    System.out.println("Error at : " + ts.get(i).getLineNo() + "private attribute or function cant be accessed outside the class");
+                    exit(0);
+                } else {
+                    exp.setT(c.getT());
+                }
+
+            }
+
+
+$
+
+
+
+
+$
 local class parent{
     func local parent(){
         super();
@@ -164,16 +297,137 @@ func call(): void{
     }
     return 1;
 }
-func execute(): void {
-    
-    int b = 54 + 2.3;
-   string abc = create Person();
-    int b = 54 + 2.3;
+$
 
-    string c[] = int[3];
-    int cd = c[2].acv(.09).v;
-    c[2] = 4;
-    while(4 >2){
-        abavacasca = 2312312+ bafa335_a;
+$
+if(a<b         ){         } #if
+while(a<b      ){         } #while
+
+#FUNCTIONS
+#global TCase
+execute()  : void {         }~          #mfunc
+func ID (DT ID)  : void {         }           #function
+
+#class TCases 
+func global ID (ID ID)  : void {         }           #class-method
+
+funcglobal ID (DT ID[][] , ID ID[])         {         }           #constructor
+
+
+CALL(int arr[]):arr[]
+{
+
+}
+
+$
+
+
+
+
+
+
+
+
+$
+
+#----------------------------- TEST CASES---------------------
+
+global class abu {
+    func global abu(){
+        super();
     }
+}
+global class parent childOf abu {
+    func global parent(){
+        super();
+    }
+}
+global class child childOf parent{
+    func global child(){
+        super();
+    }
+}
+global class person{
+
+    global abu dad = create abu();
+    
+    func global person(){
+        super();
+        abu dad = create abu();
+
+    }
+}
+
+#parent p = create child(int a);    #No constructor found for: child on lineNo: 450
+
+#parent p = create person();        #Type Mismatch on lineNo: 452
+
+#abu p = create dragon();           #No refference found for: dragon on lineNo: 454
+$
+
+
+
+
+$
+# VARIABLE_DECLARATION
+
+#GLOBAL_DECLARATION
+int arr = int [2];
+int a = SC;
+string const s= SC;
+int a=b=c;
+int a = arr[0];
+int a[] = {2,3,4}
+int a[][] = {{2,3},{4}}
+int a[][] = int [2][3]
+int a[] = {2,3,4} , b[] = int [2];
+int a[] , b[];
+int x=4 , z=5;
+int y = d = g = 0 ;
+
+#CLASS_DECLARATION
+global int arr []= int [2];
+global int a = SC;
+global const  string s= SC;
+global const  string s= SC;
+global static const string s = SC;
+
+Array declaration syntax
+
+int arr[] = {exp,exp,exp,exp};           -> int[]
+int a[][] = {{exp,exp},{},{}};           -> int[][]
+int arr[] = int [exp];                   -> int[]
+int arr[][] = int [exp] [exp];           -> int[][]
+
+getExpType(int start, int end)
+
+$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int a[][] = {{5,5},{5}};
+
+execute ( ): void {
 }~
