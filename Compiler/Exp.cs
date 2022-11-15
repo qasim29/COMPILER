@@ -13,11 +13,11 @@ public class Exp {
     }
 
     public String getN() {
-        return N;
+        return name;
     }
 
     public void setN(String N) {
-        this.N = N;
+        this.name = N;
     }
 
     public String getOp() {
@@ -29,11 +29,11 @@ public class Exp {
     }
 
     public String getT() {
-        return T;
+        return type;
     }
 
     public void setT(String T) {
-        this.T = T;
+        this.type = T;
     }
     
     
